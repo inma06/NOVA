@@ -27,7 +27,9 @@ import org.json.JSONObject;
  * response["userID"]; // String
  * response["userPW"]; // String ( Hash -> ARGON2 )
  * response["userName"]; // String
- * response["userEmail"]; // String
+ * response["userNickName"]; // String
+ * response["userPhoneNum"]; // String
+ * response["userGrade"]; // String
  * response["isUserID"]; // boolean
  * response["isUserPW"]; // boolean
  * */
@@ -95,10 +97,22 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse:아이디 패스워드 일치" );
                 String userID = jsonResponse.getString("userID");
                 String userPW = jsonResponse.getString("userPW");
+                String userName = jsonResponse.getString("userName");
+                String userNickName = jsonResponse.getString("userNickName");
+                String userPhoneNum = jsonResponse.getString("userPhoneNum");
+                String userGrade = jsonResponse.getString("userGrade");
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("userID", userID);
                 intent.putExtra("userPW", userPW);
+                intent.putExtra("userName", userName);
+                intent.putExtra("userNickName", userNickName);
+                intent.putExtra("userPhoneNum", userPhoneNum);
+                intent.putExtra("userGrade", userGrade);
+
+                Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);
+                Log.e(TAG, "onResponse:인텐트 실행완료" );
               }
             } catch (Exception e){
               e.printStackTrace();
