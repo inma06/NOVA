@@ -63,7 +63,19 @@ public class RegisterActivity extends AppCompatActivity {
     certBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Toast.makeText(RegisterActivity.this, "발송성공", Toast.LENGTH_SHORT).show();
+        GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
+        try {
+          sender.sendMail( getPackageName()+"에서 보낸 회원정보 찾기 메일입니다",
+              "아이디 \n" +
+                  "비밀번호:\n" +
+                  "감사합니다",
+              "pakbongho@gmail.com",
+              "inma06@naver.com");
+          Toast.makeText(RegisterActivity.this, "발송성공", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+          e.printStackTrace();
+          Toast.makeText(RegisterActivity.this, "발송실패", Toast.LENGTH_SHORT).show();
+        }
       }
     });
 
