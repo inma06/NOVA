@@ -1,9 +1,9 @@
 package com.teamnova.nova.Register;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,13 +22,19 @@ import com.teamnova.nova.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
-  private static String userEmail = "inma06@naver.com";
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class Register_2Activity extends AppCompatActivity {
+
+  private boolean isPassID = false;
+  private boolean isPassPW = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_register);
+    setContentView(R.layout.activity_register_3);
 
     final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID는 이메일
     final EditText userPWEt= (EditText) findViewById(R.id.etPW);
@@ -40,6 +46,28 @@ public class RegisterActivity extends AppCompatActivity {
 
     final Button registerBtn = (Button) findViewById(R.id.btnRegister);
     final Button certBtn = (Button) findViewById(R.id.btnCert);
+
+
+
+    userIDEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View v, boolean hasFocus) {
+        String mailFormat = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+        if (hasFocus == false) {
+          String inputText = userIDEt.getText().toString();
+          Pattern pattern = Pattern.compile(mailFormat);
+          Matcher matcher = pattern.matcher(inputText);
+          if (!matcher.matches()) {
+            Log.d("TEST", "이메일이 맞지 않습니다.");
+            isPassID = false;
+          }else {
+            Log.d("TEST", "올바른 이메일 입니다.");
+
+          }
+        }
+      }
+    });
+
 
     //마지막 EditText 에서 키보드 완료버튼 클릭시 동작하는 부분
     userGradeEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -64,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
     certBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Toast.makeText(RegisterActivity.this, "인증메일클릭", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Register_2Activity.this, "인증메일클릭", Toast.LENGTH_SHORT).show();
       }
     });
 
@@ -91,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
         String userPhoneNum = userPhoneNumEt.getText().toString();
         String userGrade = userGradeEt.getText().toString();
 
+
         // responseListener 전달 받아서 실행
         // 예외처리 다이얼로그 띄우기 성공시 "확인" -> 로그인 액티비티로 전환
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -100,11 +129,11 @@ public class RegisterActivity extends AppCompatActivity {
               JSONObject jsonResponse = new JSONObject(response);
               boolean success = jsonResponse.getBoolean("success");
               if(success) {
-                Toast.makeText(RegisterActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                RegisterActivity.this.startActivity(intent);
+                Toast.makeText(Register_2Activity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Register_2Activity.this, LoginActivity.class);
+                Register_2Activity.this.startActivity(intent);
               }else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register_2Activity.this);
                 builder.setMessage("회원 등록에 실패했습니다.")
                     .setNegativeButton("다시 시도", null)
                     .create()
@@ -118,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
         //회원가입 버튼 클릭시 -> 입력값 받아서 서버로 (responseListener) 로 전달
         RegisterRequest registerRequest = new RegisterRequest(userID, userPW, userName, userNickName,
             userPhoneNum, userGrade, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(Register_2Activity.this);
         queue.add(registerRequest);
       }
     });

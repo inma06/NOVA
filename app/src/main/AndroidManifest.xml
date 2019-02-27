@@ -11,10 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Register.RegisterActivity"
+        <activity android:name=".Register.Register_1Activity"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".Register.Register_2Activity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".Register.Register_3Activity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".Login.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
