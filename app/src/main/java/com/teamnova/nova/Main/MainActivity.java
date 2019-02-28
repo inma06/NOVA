@@ -1,16 +1,18 @@
-package com.teamnova.nova;
+package com.teamnova.nova.Main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.teamnova.nova.R;
+
 public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.main_activity);
     TextView userIDTv = (TextView) findViewById(R.id.id_Tv);
     TextView userPWTv = (TextView) findViewById(R.id.pw_Tv);
     TextView userNameTv = (TextView) findViewById(R.id.name_Tv);

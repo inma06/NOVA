@@ -34,7 +34,7 @@ public class Register_3Activity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_register_3);
+    setContentView(R.layout.register_activity_3);
 
     final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID는 이메일
     final EditText userPWEt= (EditText) findViewById(R.id.etPW);

@@ -3,7 +3,6 @@ package com.teamnova.nova.Login;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,17 +10,21 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.nova.MainActivity;
+import com.nhn.android.naverlogin.OAuthLogin;
+import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
+import com.teamnova.nova.Main.MainActivity;
 import com.teamnova.nova.R;
 import com.teamnova.nova.Register.Register_1Activity;
 
@@ -46,6 +49,8 @@ import java.util.regex.Pattern;
  * */
 public class LoginActivity extends AppCompatActivity {
 
+  public Context mContext;
+
   private static String TAG = "로그인액티비티";
 
   //최상위 레이아웃 ( 배경 터치 할때 키보드 내리기 위함 )
@@ -57,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
   private Button loginBtn;
   private Button registerBtn;
+  private ImageButton naverLoginBtn; //네아로를 위한 버튼
+  private OAuthLogin mOAuthLoginModule; // 네아로 클래스 선언
 
   //아이디 패스워드 유효성 검사를 위한 변수
   private boolean isLoginID;
@@ -65,11 +72,58 @@ public class LoginActivity extends AppCompatActivity {
   //이메일 형식이 아니면 출력될 메시지
   private TextView emailMsgTv;
 
+
+  private OAuthLoginHandler mOAuthLoginHandler;
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_login);
+    setContentView(R.layout.login_main_activity);
 
+    userIDEt = (EditText) findViewById(R.id.etID);
+    userPWEt = (EditText) findViewById(R.id.etPW);
+
+    loginBtn = (Button) findViewById(R.id.btnLogin);
+    //로그인 버튼 비활성화 회색으로 변경 ( 기본값 )
+    loginBtn.setEnabled(false);
+    loginBtn.setBackgroundColor(Color.parseColor("#808080"));
+
+    registerBtn = (Button) findViewById(R.id.btnRegister);
+    naverLoginBtn = (ImageButton) findViewById(R.id.naverLoginBtn);
+
+    emailMsgTv = (TextView) findViewById(R.id.tvEmailMsg);
+    isLoginID = false;
+    isLoginPW = false;
+
+    //////////////////////////////////////////////////////////
+
+    /* 네아로를 위한 인스턴스 초기화
+     *
+     * OAuthLogin.init() 메서드가 여러 번 실행돼도 기존에
+     * 저장된 접근 토큰(access token)과 갱신 토큰(refresh token)은 삭제되지 않습니다.
+     *
+     * 기존에 저장된 접근 토큰과 갱신 토큰을 삭제하려면
+     * OAuthLogin.logout() 메서드나 OAuthLogin.logoutAndDeleteToken() 메서드를 호출합니다.
+     * */
+    mOAuthLoginModule = OAuthLogin.getInstance();
+    mOAuthLoginModule.init(
+        LoginActivity.this
+        /*
+         * 체험하기
+         * Client ID = "jyvqXeaVOVmV"
+         * Client Secret = "527300A0_COq1_XV33cf"
+         * App Name
+         * */
+        ,"jyvqXeaVOVmV"
+        ,"527300A0_COq1_XV33cf"
+        ,"빡공"
+    );
+    // 네아로 인스턴스 초기화 끝
+
+
+
+    //화면(레이아웃) 터치시 키보드 내리게 하는 부분
     imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     constraintLayout = (ConstraintLayout) findViewById(R.id.rootLayout);
     constraintLayout.setOnClickListener(new View.OnClickListener() {
@@ -79,19 +133,8 @@ public class LoginActivity extends AppCompatActivity {
           imm.hideSoftInputFromWindow(userPWEt.getWindowToken(), 0);
       }
     });
+    ///////////////////////////////////////////////
 
-    userIDEt = (EditText) findViewById(R.id.etID);
-    userPWEt = (EditText) findViewById(R.id.etPW);
-    loginBtn = (Button) findViewById(R.id.btnLogin);
-    registerBtn = (Button) findViewById(R.id.btnRegister);
-
-    emailMsgTv = (TextView) findViewById(R.id.tvEmailMsg);
-    isLoginID = false;
-    isLoginPW = false;
-
-    //로그인 버튼 비활성화 회색으로 변경 ( 기본값 )
-    loginBtn.setEnabled(false);
-    loginBtn.setBackgroundColor(Color.parseColor("#808080"));
 
     /*
     * 아이디와 비밀번호를 정규식에 맞게 검사하고
@@ -359,6 +402,37 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(userID, userPW, responseListener);
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         queue.add(loginRequest);
+      }
+    });
+
+    naverLoginBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Log.d(TAG, "onClick: 네이버 로그인 버튼 클릭!");
+
+        /*mOAuthLoginHandler = new OAuthLoginHandler() {
+          @Override
+          public void run(boolean success) {
+            if (success) {
+              String accessToken = mOAuthLoginModule.getAccessToken(mContext);
+              String refreshToken = mOAuthLoginModule.getRefreshToken(mContext);
+              long expiresAt = mOAuthLoginModule.getExpiresAt(mContext);
+              String tokenType = mOAuthLoginModule.getTokenType(mContext);
+              userIDEt.setText(accessToken);
+              userPWEt.setText(refreshToken);
+//          mOauthExpires.setText(String.valueOf(expiresAt));
+              Log.d(TAG, "expiresAt" + String.valueOf(expiresAt));
+              Log.d(TAG, "tokenType" + tokenType);
+              Log.d(TAG, "getState" + mOAuthLoginModule.getState(mContext).toString());
+            } else {
+              String errorCode = mOAuthLoginModule.getLastErrorCode(mContext).getCode();
+              String errorDesc = mOAuthLoginModule.getLastErrorDesc(mContext);
+              Toast.makeText(mContext, "errorCode:" + errorCode
+                  + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
+            }
+          }
+        };
+        mOAuthLoginModule.startOauthLoginActivity(LoginActivity.this, mOAuthLoginHandler);*/
       }
     });
 
