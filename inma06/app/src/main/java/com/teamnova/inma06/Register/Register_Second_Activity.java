@@ -25,9 +25,15 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/* 이메일을 인증하는 액티비티 입니다.*/
+/* 아이디가 존재하는지 여부를 서버에 요청합니다.
+*  서버는 DB에 아이디가 존재하는지를 Register.php 로 판단하여
+*  결과값을 리턴합니다. */
 
 public class Register_Second_Activity extends AppCompatActivity {
 
+
+  /* 서버에서 받아온 결과값이 담깁니다.*/
   private boolean isPassID = false;
   private boolean isPassPW = false;
 
@@ -36,16 +42,24 @@ public class Register_Second_Activity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.register_activity_second);
 
-    final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID는 이메일
-    final EditText userPWEt= (EditText) findViewById(R.id.etPW);
-    final EditText userConPWEt = (EditText) findViewById(R.id.etConPW); //비밀번호 확인
-    final EditText userNameEt = (EditText) findViewById(R.id.etName); //실명
-    final EditText userNickNameEt = (EditText) findViewById(R.id.etNickName); //닉네임
-    final EditText userPhoneNumEt = (EditText) findViewById(R.id.etPhoneNum); // 전화번호
-    final EditText userGradeEt = (EditText) findViewById(R.id.etGrade); // 팀노바 기수(4기 박봉호)
 
-    final Button registerBtn = (Button) findViewById(R.id.btnRegister);
-    final Button certBtn = (Button) findViewById(R.id.btnCert);
+    // 유효성 검사 후 출력 될 메시지
+    final TextView passIdTv = findViewById(R.id.isPassID_Tv);
+    final TextView passPwTv = findViewById(R.id.isPassPW_Tv);
+    final TextView passPwConTv = findViewById(R.id.isPassConPW_Tv);
+    // 유효성 검사 후 출력 될 메시지
+
+
+    final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID(Email)
+    final EditText userPWEt= (EditText) findViewById(R.id.etPW); // Password
+    final EditText userConPWEt = (EditText) findViewById(R.id.etConPW); //Password confirm
+
+    final TextView backBtn = (TextView) findViewById(R.id.backBtn); //뒤로가기 버튼
+    final Button certBtn = (Button) findViewById(R.id.btnCert); //인증메일 발송 버튼
+    final Button reCertBtn = (Button) findViewById(R.id.btnReCert); //인증메일 발송 버튼
+    final Button registerBtn = (Button) findViewById(R.id.btnRegister); // 회원가입 버튼
+
+
 
 
 
@@ -67,26 +81,6 @@ public class Register_Second_Activity extends AppCompatActivity {
         }
       }
     });
-
-
-    //마지막 EditText 에서 키보드 완료버튼 클릭시 동작하는 부분
-    userGradeEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-      @Override
-      public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        switch (actionId) {
-          case EditorInfo.IME_ACTION_SEARCH:
-            // 검색 동작
-            Log.e("회원가입액티비티", "userGradeEt 검색버튼 클릭");
-            break;
-          default:
-            // 기본 엔터키 동작
-            Log.e("회원가입액티비티", "userGradeEt 완료버튼 클릭");
-            return false;
-        }
-        return true;
-      }
-    });
-
 
     //인증메일 발송버튼
     certBtn.setOnClickListener(new View.OnClickListener() {
@@ -114,10 +108,6 @@ public class Register_Second_Activity extends AppCompatActivity {
         //서버로 전달될때 사용함.
         String userID = userIDEt.getText().toString();
         String userPW = userPWEt.getText().toString();
-        String userName = userNameEt.getText().toString();
-        String userNickName = userNickNameEt.getText().toString();
-        String userPhoneNum = userPhoneNumEt.getText().toString();
-        String userGrade = userGradeEt.getText().toString();
 
 
         // responseListener 전달 받아서 실행
@@ -144,11 +134,11 @@ public class Register_Second_Activity extends AppCompatActivity {
             }
           }
         };
-        //회원가입 버튼 클릭시 -> 입력값 받아서 서버로 (responseListener) 로 전달
-        RegisterRequest registerRequest = new RegisterRequest(userID, userPW, userName, userNickName,
-            userPhoneNum, userGrade, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Register_Second_Activity.this);
-        queue.add(registerRequest);
+//        //회원가입 버튼 클릭시 -> 입력값 받아서 서버로 (responseListener) 로 전달
+//        RegisterRequest registerRequest = new RegisterRequest(userID, userPW, userName, userNickName,
+//            userPhoneNum, userGrade, responseListener);
+//        RequestQueue queue = Volley.newRequestQueue(Register_Second_Activity.this);
+//        queue.add(registerRequest);
       }
     });
 

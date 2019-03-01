@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register.Register_1Activity">
+    tools:context="com.teamnova.inma06.Register.Register_First_Activity">
 
     <EditText
         android:id="@+id/etID"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/isPassPW_Tv" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nextBtn"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/isAlreadyID_Tv"
+        android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,7 +81,7 @@
         android:layout_marginBottom="20dp"
         android:text="이미 가입하셨나요?"
         android:textColor="#2b2b4e"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/nextBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

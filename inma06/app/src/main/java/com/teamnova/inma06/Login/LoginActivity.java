@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.Main.MainActivity;
 import com.teamnova.inma06.Register.Register_First_Activity;
 import com.teamnova.nova.R;
 
@@ -42,6 +41,17 @@ import java.util.regex.Pattern;
  * response["isUserID"]; // boolean
  * response["isUserPW"]; // boolean
  * */
+
+
+
+
+
+
+/*로그인 액티비티 입니다.
+
+* 회원가입 버튼을 누르면
+* 이메일과 패스워드를 입력받는 회원가입 액티비티가 나옵니다.
+* */
 public class LoginActivity extends AppCompatActivity {
 
   public Context mContext;
@@ -273,7 +283,9 @@ public class LoginActivity extends AppCompatActivity {
                 String userPhoneNum = jsonResponse.getString("userPhoneNum");
                 String userGrade = jsonResponse.getString("userGrade");
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                /*로그인을 하면 인텐트에 원정보를 담아서 HomeActivity 로 보낸다.*/
+
+/*              Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("userID", userID);
                 intent.putExtra("userPW", userPW);
                 intent.putExtra("userName", userName);
@@ -283,7 +295,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);
-                Log.e(TAG, "onResponse:인텐트 실행완료" );
+                Log.e(TAG, "onResponse:인텐트 실행완료" );*/
               }
             } catch (Exception e){
               e.printStackTrace();
