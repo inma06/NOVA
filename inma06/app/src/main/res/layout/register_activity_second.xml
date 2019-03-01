@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register.Register_1Activity">
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="뒤로가기"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etID"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:hint="계정(이메일)"
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@id/etPW"
+        android:textSize="12sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <EditText
+        android:id="@+id/etPW"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:nextFocusDown="@id/etConPW"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etID" />
+
+    <EditText
+        android:id="@+id/etConPW"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:nextFocusDown="@id/etName"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPW" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="이름(실명)"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@id/etNickName"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneNum"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etConPW" />
+
+    <EditText
+        android:id="@+id/etPhoneNum"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:hint="연락처(11자리숫자만 )"
+        android:inputType="phone"
+        android:nextFocusDown="@id/etGrade"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/terms_Tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+    <EditText
+        android:id="@+id/etNickName"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="닉네임(8글자)"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@id/etPhoneNum"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/etGrade"
+        app:layout_constraintStart_toEndOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etConPW"
+        app:layout_constraintVertical_bias="0.48000002" />
+
+    <EditText
+        android:id="@+id/etGrade"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:hint="기수(숫자만)"
+        android:inputType="number"
+        android:nextFocusDown="@id/btnRegister"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/terms_Tv"
+        app:layout_constraintStart_toEndOf="@+id/etPhoneNum"
+        app:layout_constraintTop_toBottomOf="@+id/etNickName" />
+
+    <TextView
+        android:id="@+id/terms_Tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="개인정보 약관동의"
+        android:textAlignment="viewStart"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        app:layout_constraintTop_toBottomOf="@+id/etPhoneNum"
+        tools:layout_editor_absoluteX="31dp" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:text="회원가입"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnCert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="인증메일발송"
+        android:visibility="gone"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="15dp"
+        android:text="회원가입/로그인"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/backBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
