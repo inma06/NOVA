@@ -17,7 +17,7 @@ import java.util.Map;
 public class LoginRequest extends StringRequest {
 
   //TODO: 서버연동해야함
-  final static private String URL = "https://192.168.229.129/Login.php";
+  final static private String URL = "http://192.168.229.129/Login.php";
   private Map<String, String>  parameters;
 
   public LoginRequest(String userID, String userPW, Response.Listener<String> listener) {

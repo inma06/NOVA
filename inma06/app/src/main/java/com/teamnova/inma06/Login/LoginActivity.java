@@ -289,7 +289,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userID = jsonResponse.getString("userID");
                 String userPW = jsonResponse.getString("userPW");
 
-
+                // TODO:
                 userName = jsonResponse.getString("userName");
                 userNickName = jsonResponse.getString("userNickName");
                 userPhoneNum = jsonResponse.getString("userPhoneNum");
@@ -320,7 +320,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e){
               e.printStackTrace();
             }
-            Log.e("response -> ", response.toString());
+            Log.e("response -> 리스폰 결과값 출력 ", response.toString());
           }
         };
         LoginRequest loginRequest = new LoginRequest(userID, userPW, responseListener);
