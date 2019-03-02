@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 *  다음버튼을 누르면 이메일을 인증하는 액티비티가 나옵니다.
 *  */
 
-public class Register_First_Activity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
   /* 이메일 패스워드 유효성 검사 #주의 : 이메일 중복검사 아님 */
   /* 가입시 아이디와 패스워드를 올바르게 입력했는지 */
   private boolean isPassID = false;
@@ -38,13 +38,13 @@ public class Register_First_Activity extends AppCompatActivity {
     final EditText userPWEt= (EditText) findViewById(R.id.etPW);
     final EditText userConPWEt = (EditText) findViewById(R.id.etConPW); //비밀번호 확인
     final TextView alreadyIDTv = (TextView) findViewById(R.id.backBtn);
-    final Button nextBtn = findViewById(R.id.nextBtn);
+    final Button nextBtn = (Button) findViewById(R.id.nextBtn);
 
     //이미 가입하셨나요? 클릭시 로그인화면으로 가기
     alreadyIDTv.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(Register_First_Activity.this, LoginActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
       }
     });
@@ -53,9 +53,12 @@ public class Register_First_Activity extends AppCompatActivity {
     nextBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(Register_First_Activity.this, Register_Second_Activity.class);
+        Log.d("회원가입 첫화면", "onClick: 성공1 ");
+        Intent intent = new Intent(RegisterActivity.this, Register_Second_Activity.class);
+        Log.d("회원가입 첫화면", "onClick: 성공2 ");
         startActivity(intent);
-        Toast.makeText(Register_First_Activity.this, "이메일을 인증 하세요!", Toast.LENGTH_SHORT).show();
+        Log.d("회원가입 첫화면", "onClick: 성공3 ");
+        Toast.makeText(RegisterActivity.this, "이메일을 인증 하세요!", Toast.LENGTH_SHORT).show();
       }
     });
 

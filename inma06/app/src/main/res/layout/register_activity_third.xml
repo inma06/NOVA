@@ -6,191 +6,24 @@
     android:layout_height="match_parent"
     tools:context="com.teamnova.inma06.Register.Register_Third_Activity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/profileIV"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="96dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119">
+        tools:src="@tools:sample/avatars[0]" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etID"
-                android:layout_width="339dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="10dp"
-                android:ems="10"
-                android:hint="계정(이메일)"
-                android:inputType="textEmailAddress"
-                android:nextFocusDown="@id/etPW"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/etPW"
-            android:layout_width="341dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:hint="비밀번호"
-            android:inputType="textPassword"
-            android:nextFocusDown="@id/etConPW"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etID" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-
-        <EditText
-            android:id="@+id/etConPW"
-            android:layout_width="339dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:hint="비밀번호 확인"
-            android:inputType="textPassword"
-            android:nextFocusDown="@id/etName"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.523"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPW" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etName"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:hint="이름(실명)"
-                android:inputType="textPersonName"
-                android:nextFocusDown="@id/etNickName"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/etPhoneNum"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etConPW" />
-
-            <EditText
-                android:id="@+id/etNickName"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:hint="닉네임(8글자)"
-                android:inputType="textPersonName"
-                android:nextFocusDown="@id/etPhoneNum"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/etGrade"
-                app:layout_constraintStart_toEndOf="@+id/etName"
-                app:layout_constraintTop_toBottomOf="@+id/etConPW"
-                app:layout_constraintVertical_bias="0.48000002" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etPhoneNum"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="연락처(11자리숫자만 )"
-                android:inputType="phone"
-                android:nextFocusDown="@id/etGrade"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/terms_Tv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etName" />
-
-            <EditText
-                android:id="@+id/etGrade"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="기수(숫자만)"
-                android:inputType="number"
-                android:nextFocusDown="@id/btnRegister"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/terms_Tv"
-                app:layout_constraintStart_toEndOf="@+id/etPhoneNum"
-                app:layout_constraintTop_toBottomOf="@+id/etNickName" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/terms_Tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="개인정보 약관동의"
-            android:textAlignment="viewStart"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnRegister"
-            app:layout_constraintTop_toBottomOf="@+id/etPhoneNum"
-            tools:layout_editor_absoluteX="31dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"
-                android:text="회원가입"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.545"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/btnCert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인증메일발송" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+    <Button
+        android:id="@+id/btnProfileSuccess"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/disableButton"
+        android:text="프로필 등록"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

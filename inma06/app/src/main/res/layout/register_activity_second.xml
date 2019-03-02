@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/design_default_color_primary"
         android:text="인증메일발송"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,11 +36,11 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCert" />
 
     <Button
-        android:id="@+id/registerBtn"
+        android:id="@+id/btnSuccessCertBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/disableButton"
-        android:text="회원 가입 완료"
+        android:text="인증 완료"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -50,7 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="ID값을 받아와서 출력한다"
+        android:text="DB에 저장된 이메일을 불러옵니다. \n 이메일 인증 칼럼은 false"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

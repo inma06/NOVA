@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Login.LoginActivity;
 import com.teamnova.nova.R;
 
@@ -42,13 +38,11 @@ public class Register_Second_Activity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.register_activity_second);
 
-
     // 유효성 검사 후 출력 될 메시지
     final TextView passIdTv = findViewById(R.id.isPassID_Tv);
     final TextView passPwTv = findViewById(R.id.isPassPW_Tv);
     final TextView passPwConTv = findViewById(R.id.isPassConPW_Tv);
     // 유효성 검사 후 출력 될 메시지
-
 
     final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID(Email)
     final EditText userPWEt= (EditText) findViewById(R.id.etPW); // Password
@@ -57,30 +51,8 @@ public class Register_Second_Activity extends AppCompatActivity {
     final TextView backBtn = (TextView) findViewById(R.id.backBtn); //뒤로가기 버튼
     final Button certBtn = (Button) findViewById(R.id.btnCert); //인증메일 발송 버튼
     final Button reCertBtn = (Button) findViewById(R.id.btnReCert); //인증메일 발송 버튼
-    final Button registerBtn = (Button) findViewById(R.id.btnRegister); // 회원가입 버튼
+    final Button successCertBtn = (Button) findViewById(R.id.btnSuccessCertBtn); // 회원가입 버튼
 
-
-
-
-
-    userIDEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-      @Override
-      public void onFocusChange(View v, boolean hasFocus) {
-        String mailFormat = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-        if (hasFocus == false) {
-          String inputText = userIDEt.getText().toString();
-          Pattern pattern = Pattern.compile(mailFormat);
-          Matcher matcher = pattern.matcher(inputText);
-          if (!matcher.matches()) {
-            Log.d("TEST", "이메일이 맞지 않습니다.");
-            isPassID = false;
-          }else {
-            Log.d("TEST", "올바른 이메일 입니다.");
-
-          }
-        }
-      }
-    });
 
     //인증메일 발송버튼
     certBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +62,8 @@ public class Register_Second_Activity extends AppCompatActivity {
       }
     });
 
-    //회원가입 버튼
-    registerBtn.setOnClickListener(new View.OnClickListener() {
+    //인증 완료 버튼
+    successCertBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         /*
@@ -106,8 +78,8 @@ public class Register_Second_Activity extends AppCompatActivity {
         * * */
         //회원가입 클릭하면 유저가 입력한 EditText 받아오는 것.
         //서버로 전달될때 사용함.
-        String userID = userIDEt.getText().toString();
-        String userPW = userPWEt.getText().toString();
+//        String userID = userIDEt.getText().toString();
+//        String userPW = userPWEt.getText().toString();
 
 
         // responseListener 전달 받아서 실행

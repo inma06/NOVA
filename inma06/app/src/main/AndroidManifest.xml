@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.teamnova.inma06.Home"></activity>
         <activity
-            android:name="com.teamnova.inma06.Register.Register_First_Activity"
+            android:name="com.teamnova.inma06.Register.RegisterActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.teamnova.inma06.Register.Register_Second_Activity"

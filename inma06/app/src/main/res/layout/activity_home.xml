@@ -10,7 +10,7 @@
         android:id="@+id/welcomeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="환영합니다. 박봉 님!"
+        android:text="환영합니다. 박봉호 님!"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

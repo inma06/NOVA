@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.Register.Register_First_Activity;
+import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONObject;
@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
     //로그인 버튼 비활성화 ( 기본값 )
     loginBtn.setEnabled(false);
 
-    registerBtn = (Button) findViewById(R.id.btnRegister);
+    registerBtn = (Button) findViewById(R.id.btnSuccessCertBtn);
 
     emailMsgTv = (TextView) findViewById(R.id.tvEmailMsg);
     isLoginID = false;
@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity {
     registerBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent registerIntent = new Intent(LoginActivity.this, Register_First_Activity.class);
+        Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         LoginActivity.this.startActivity(registerIntent);
       }
     });
@@ -249,6 +249,10 @@ public class LoginActivity extends AppCompatActivity {
               JSONObject jsonResponse = new JSONObject(response);
               boolean isUserID = jsonResponse.getBoolean("isUserID");
               boolean isUserPW = jsonResponse.getBoolean("isUserPW");
+              String userName = jsonResponse.getString("userName");
+              String userNickName = jsonResponse.getString("userNickName");
+              String userPhoneNum = jsonResponse.getString("userPhoneNum");
+              String userGrade = jsonResponse.getString("userGrade");
 
               /*
               * 패스워드가 불일치 할 때
@@ -276,14 +280,30 @@ public class LoginActivity extends AppCompatActivity {
                 // 아이디 패스워드 일치 -> 아이디와 패스워드정보를 인텐트로 넘긴다.
                 // TODO: 2일 26일 026 계정정보 [이름 나이 기수 성별 등...] 패스워드는 개발자를 위한것.
                 Log.e(TAG, "onResponse:아이디 패스워드 일치" );
+
+                // 아이디와 패스워드가 일치할 때 userID 변수를 선언한다.
+                // userID에 jsonResponse 메서드로 받아오면서 객체화 시킨다.
+                // 단한번만 사용되고 없어지는 객체! (인스턴스)
+
+                // TODO: 싱글턴 패턴 공부해야함.
                 String userID = jsonResponse.getString("userID");
                 String userPW = jsonResponse.getString("userPW");
-                String userName = jsonResponse.getString("userName");
-                String userNickName = jsonResponse.getString("userNickName");
-                String userPhoneNum = jsonResponse.getString("userPhoneNum");
-                String userGrade = jsonResponse.getString("userGrade");
 
-                /*로그인을 하면 인텐트에 원정보를 담아서 HomeActivity 로 보낸다.*/
+
+                userName = jsonResponse.getString("userName");
+                userNickName = jsonResponse.getString("userNickName");
+                userPhoneNum = jsonResponse.getString("userPhoneNum");
+                userGrade = jsonResponse.getString("userGrade");
+
+                /*로그인을 하면 Login.php -> Json 을 반환한다.
+                  회원정보를 인텐트로 담아서 HomeActivity 로 보낸다.*/
+
+                Log.d(TAG, "onResponse: " + userID);
+                Log.d(TAG, "onResponse: " + userPW);
+                Log.d(TAG, "onResponse: " + userName );
+                Log.d(TAG, "onResponse: " + userNickName);
+                Log.d(TAG, "onResponse: " + userPhoneNum);
+                Log.d(TAG, "onResponse: " + userGrade);
 
 /*              Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("userID", userID);
