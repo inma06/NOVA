@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.teamnova.inma06.CertEmail.CertActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -161,8 +162,8 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_main_activity);
 
-    userIDEt = (EditText) findViewById(R.id.etID);
-    userPWEt = (EditText) findViewById(R.id.etPW);
+    userIDEt = (EditText) findViewById(R.id.etRegisterID);
+    userPWEt = (EditText) findViewById(R.id.etRegisterPW);
 
     loginBtn = (Button) findViewById(R.id.btnLogin);
     //로그인 버튼 비활성화 ( 기본값 )
@@ -247,75 +248,40 @@ public class LoginActivity extends AppCompatActivity {
           public void onResponse(String response) {
             try{
               JSONObject jsonResponse = new JSONObject(response);
-              boolean isUserID = jsonResponse.getBoolean("isUserID");
-              boolean isUserPW = jsonResponse.getBoolean("isUserPW");
-              String userName = jsonResponse.getString("userName");
-              String userNickName = jsonResponse.getString("userNickName");
-              String userPhoneNum = jsonResponse.getString("userPhoneNum");
-              String userGrade = jsonResponse.getString("userGrade");
+              boolean success = jsonResponse.getBoolean("success");
 
-              /*
-              * 패스워드가 불일치 할 때
-              * response ->: {"isUserID":true,"isUserPW":false}
-              * 계정이 존재하지 않을 때
-              * response ->: {"isUserID":false,"isUserPW":false}
-              * */
-              if(isUserID && isUserPW == false){
+              if(success == false){
                 // 패스워드 불일치
-                Log.e(TAG, "onResponse:패스워드 불일치" );
+                Log.e(TAG, "onResponse:패스워드 불일치1" );
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                 builder.setMessage("비밀번호를 확인하세요.")
                     .setNegativeButton("다시 시도", null)
                     .create()
                     .show();
-              } else if(isUserID == false) {
-                // 계정이 존재하지 않을 때
-                Log.e(TAG, "onResponse:계정 불일치" );
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setMessage("존재하지 않는 계정입니다.")
-                    .setNegativeButton("다시 시도", null)
-                    .create()
-                    .show();
-              } else if(isUserID && isUserPW) {
+              } else {
                 // 아이디 패스워드 일치 -> 아이디와 패스워드정보를 인텐트로 넘긴다.
-                // TODO: 2일 26일 026 계정정보 [이름 나이 기수 성별 등...] 패스워드는 개발자를 위한것.
                 Log.e(TAG, "onResponse:아이디 패스워드 일치" );
-
                 // 아이디와 패스워드가 일치할 때 userID 변수를 선언한다.
                 // userID에 jsonResponse 메서드로 받아오면서 객체화 시킨다.
                 // 단한번만 사용되고 없어지는 객체! (인스턴스)
-
                 // TODO: 싱글턴 패턴 공부해야함.
-                String userID = jsonResponse.getString("userID");
-                String userPW = jsonResponse.getString("userPW");
+                String userEmail = jsonResponse.getString("userID");
+                String userPassword = jsonResponse.getString("userPW");
 
-                // TODO:
-                userName = jsonResponse.getString("userName");
-                userNickName = jsonResponse.getString("userNickName");
-                userPhoneNum = jsonResponse.getString("userPhoneNum");
-                userGrade = jsonResponse.getString("userGrade");
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
                   회원정보를 인텐트로 담아서 HomeActivity 로 보낸다.*/
 
-                Log.d(TAG, "onResponse: " + userID);
-                Log.d(TAG, "onResponse: " + userPW);
-                Log.d(TAG, "onResponse: " + userName );
-                Log.d(TAG, "onResponse: " + userNickName);
-                Log.d(TAG, "onResponse: " + userPhoneNum);
-                Log.d(TAG, "onResponse: " + userGrade);
+                Log.d(TAG, "onResponse: 이메일 -> " + userEmail);
+                Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
 
-/*              Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("userPW", userPW);
-                intent.putExtra("userName", userName);
-                intent.putExtra("userNickName", userNickName);
-                intent.putExtra("userPhoneNum", userPhoneNum);
-                intent.putExtra("userGrade", userGrade);
+              Intent intent = new Intent(LoginActivity.this, CertActivity.class);
+                intent.putExtra("userID", userEmail);
+                intent.putExtra("userPW", userPassword);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);
-                Log.e(TAG, "onResponse:인텐트 실행완료" );*/
+                Log.e(TAG, "onResponse:인텐트 실행완료" );
               }
             } catch (Exception e){
               e.printStackTrace();

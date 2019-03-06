@@ -1,6 +1,7 @@
 package com.teamnova.inma06.Register;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Login.LoginActivity;
 import com.teamnova.nova.R;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /* 회원가입 액티비티 입니다.
@@ -24,24 +28,21 @@ import java.util.regex.Pattern;
 *  */
 
 public class RegisterActivity extends AppCompatActivity {
-  /* 이메일 패스워드 유효성 검사 #주의 : 이메일 중복검사 아님 */
-  /* 가입시 아이디와 패스워드를 올바르게 입력했는지 */
-  private boolean isPassID = false;
-  private boolean isPassPW = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.register_activity_first);
+    setContentView(R.layout.register_activity);
 
-    final EditText userIDEt = (EditText) findViewById(R.id.etID); //ID는 이메일
-    final EditText userPWEt= (EditText) findViewById(R.id.etPW);
-    final EditText userConPWEt = (EditText) findViewById(R.id.etConPW); //비밀번호 확인
-    final TextView alreadyIDTv = (TextView) findViewById(R.id.backBtn);
-    final Button nextBtn = (Button) findViewById(R.id.nextBtn);
+    final EditText userIDEt = (EditText) findViewById(R.id.etRegisterID); //ID는 이메일
+    final EditText userPWEt= (EditText) findViewById(R.id.etRegisterPW); // 패스워드
+    final TextView backBtn = (TextView) findViewById(R.id.backBtn); // 뒤로가기(로그인화면) 버튼
+    final Button registerBtn = (Button) findViewById(R.id.registerBtn); // 회원가입 버튼
 
-    //이미 가입하셨나요? 클릭시 로그인화면으로 가기
-    alreadyIDTv.setOnClickListener(new View.OnClickListener() {
+
+    backBtn.setOnClickListener(new View.OnClickListener() {
+      //"이미 가입하셨나요?" 뒤로(로그인화면) 가기 버튼
+
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -49,20 +50,51 @@ public class RegisterActivity extends AppCompatActivity {
       }
     });
 
-    /* 다음 버튼을 누르면 이메일 인증하기 액티비티가 나옵니다. */
-    nextBtn.setOnClickListener(new View.OnClickListener() {
+    /* 가입하기 버튼을 눌러 DB에 ID와 PW를 등록합니다. */
+    registerBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Log.d("회원가입 첫화면", "onClick: 성공1 ");
-        Intent intent = new Intent(RegisterActivity.this, Register_Second_Activity.class);
-        Log.d("회원가입 첫화면", "onClick: 성공2 ");
-        startActivity(intent);
-        Log.d("회원가입 첫화면", "onClick: 성공3 ");
-        Toast.makeText(RegisterActivity.this, "이메일을 인증 하세요!", Toast.LENGTH_SHORT).show();
+        /* 회원가입을 합니다. */
+        String userID = userIDEt.getText().toString(); //아이디
+        String userPW = userPWEt.getText().toString(); //패스워드
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
+            try
+            {
+              JSONObject jsonResponse = new JSONObject(response);
+              boolean success = jsonResponse.getBoolean("success");
+              if(success) {
+                Toast.makeText(RegisterActivity.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                RegisterActivity.this.startActivity(intent);
+              }
+              else
+              {
+                Log.d("가입실패","실패입니다." );
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setMessage("회원 등록에 실패했습니다.")
+                    .setNegativeButton("다시 시도", null)
+                    .create()
+                    .show();
+              }
+            }
+            catch (JSONException e)
+            {
+              e.printStackTrace();
+            }
+          }
+        };
+        RegisterRequest registerRequest = new RegisterRequest(userID, userPW, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+        Log.d("가입시도","시도입니다." );
+        queue.add(registerRequest);
+        Log.d("가입시도","시도입니다.2" );
       }
     });
 
-    userIDEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+/*    userIDEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
       @Override
       public void onFocusChange(View v, boolean hasFocus) {
         String mailFormat = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
@@ -72,12 +104,13 @@ public class RegisterActivity extends AppCompatActivity {
           Matcher matcher = pattern.matcher(inputText);
           if (!matcher.matches()) {
             Log.d("TEST", "이메일이 맞지 않습니다.");
-            isPassID = false;
           }else {
             Log.d("TEST", "올바른 이메일 입니다.");
           }
         }
       }
-    });
+    });*/
+
+
   }
 }

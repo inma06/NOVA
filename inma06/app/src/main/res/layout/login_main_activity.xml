@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etID"
+        android:id="@+id/etRegisterID"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etPW"
+        android:id="@+id/etRegisterPW"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
@@ -70,7 +70,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etID" />
+        app:layout_constraintTop_toBottomOf="@+id/etRegisterID" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -84,6 +84,6 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPW" />
+        app:layout_constraintTop_toBottomOf="@+id/etRegisterPW" />
 
 </android.support.constraint.ConstraintLayout>

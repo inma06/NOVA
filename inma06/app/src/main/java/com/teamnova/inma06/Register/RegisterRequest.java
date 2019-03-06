@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 /*
-*
 * Volley 라이브러리를 이용하여 서버로 요청(Request)를 보내고
 * 리턴값을 Json 형태로 받아옵니다.
 *
@@ -22,7 +21,7 @@ public class RegisterRequest extends StringRequest {
 * */
 
 
-  final static private String URL = "https://bongbong.ga/Register.php";
+  final static private String URL = "http://49.247.130.125/Register.php";
   private Map<String, String>  parameters;
 
 
@@ -32,17 +31,11 @@ public class RegisterRequest extends StringRequest {
      NickName, PhoneNum, Grade,
      Listener)
    */
-  public RegisterRequest(String userID, String userPW, String userName,
-                         String userNickName, String userPhoneNum, String userGrade,
-                         Response.Listener<String> listener) {
+  public RegisterRequest(String userID, String userPW, Response.Listener<String> listener) {
     super(Method.POST, URL, listener, null);
     parameters = new HashMap<>();
     parameters.put("userID", userID);
     parameters.put("userPW", userPW);
-    parameters.put("userName", userName);
-    parameters.put("userNickName", userNickName);
-    parameters.put("userPhoneNum", userPhoneNum);
-    parameters.put("userGrade", userGrade);
   }
 
   @Override
