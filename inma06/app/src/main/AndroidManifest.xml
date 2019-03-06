@@ -16,20 +16,10 @@
             android:name="com.teamnova.inma06.Register.RegisterActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="com.teamnova.inma06.Register.Register_Second_Activity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name="com.teamnova.inma06.Register.Register_Third_Activity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name="com.teamnova.inma06.Main.MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
