@@ -41,9 +41,16 @@ public class CertActivity extends AppCompatActivity {
       public void onClick(View v) {
         final String userEmail = userIdTv.getText().toString(); //메일을 발송할 userEmail입니다.
 
-        Toast.makeText(CertActivity.this, userEmail+"로 메일을 발송했다!", Toast.LENGTH_SHORT).show();
-
-
+        GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
+        try {
+          sender.sendMail( getPackageName()+"에서 보낸 회원정보 찾기 메일입니다",
+              "인증번호는 -> 3423 입니다.",
+              "pakbongho@gmail.com",
+              userEmail);
+          Toast.makeText(CertActivity.this, "이메일이 정상적으로 발송되었습니다.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         //TODO: 이메일 인증부분
         /* 이메일 발송 -> 랜덤한 코드 4자리 발송 */
         /* 이메일 확인후 랜덤 코드 입력하면 인증 성공 */
