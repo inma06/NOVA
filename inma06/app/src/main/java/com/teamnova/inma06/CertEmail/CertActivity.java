@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamnova.nova.R;
 
@@ -35,16 +36,34 @@ public class CertActivity extends AppCompatActivity {
     userIdTv.setText(userID);
     //인텐트로 아이디를 받아와서 텍스트뷰에 뿌려줍니다.
 
-    certBtn.setOnClickListener(new View.OnClickListener() {
+    sendMailBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         final String userEmail = userIdTv.getText().toString(); //메일을 발송할 userEmail입니다.
 
+        Toast.makeText(CertActivity.this, userEmail+"로 메일을 발송했다!", Toast.LENGTH_SHORT).show();
 
 
         //TODO: 이메일 인증부분
         /* 이메일 발송 -> 랜덤한 코드 4자리 발송 */
         /* 이메일 확인후 랜덤 코드 입력하면 인증 성공 */
+      }
+    });
+
+    certBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /*인증 번호와 발송된 인증번호를 비교하여 맞으면 인증처리합니다
+        *
+        * 인증처리는 (DataBase) BONG_DB -> USER -> isCertMail -> N에서 Y로 UPDATE 합니다.
+        *
+        * Retrofit2 사용해 봅시다.
+        *
+        * */
+
+        Toast.makeText(CertActivity.this, "인증버튼을 눌렀다.", Toast.LENGTH_SHORT).show();
+
+
 
       }
     });
