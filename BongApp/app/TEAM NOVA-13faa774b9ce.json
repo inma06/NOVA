@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "team-nova",
+  "private_key_id": "13faa774b9ce689ec0a3c0c0067a5f4c55e13155",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCPY9KlthikU7/C\nD/qe+MUtfdURNpw2gtnsGqQO70zx2CDOPu6mIE2moMMvGR8ddtdDDn1UKft8MaXU\n4BArwadeTxrE26aFZt0zOijUTYrrdU45Bzomd5Zg9uP9tQu3IqdDLlViMsW/sNeu\noW/qj6Frmb8Cj1K9VN1Gr/CtwS8we0PibcZSvPnY6cKrA+QSwcFSDcbQ+7MbC87W\npq43VoRWX8xjc62emtO2Kyrc3hJPdh9CDpQgVsDX9bmQwFeyQ5XDiTtY4qC2MH9t\n47+AsjrkY+qwTq1iOn8TQRcwsDTG7BPe/zszxTBcoogvecfsrxw0RcHX0qsbTUFa\nGkt0O/gfAgMBAAECggEANQO0waTiVntKZi8vO7CBgnDIIp2cwwC9HrC44Ha0baQ5\neNfGt3AxFX7Ru2uf1+505yuHxeLhwsi+ZcbT48GtJk67+HW3ixH9ja+eoePrjWOp\nIKed5dQIKuCNaeOSqcqrqciLNAvOljGFhODWNpSVG2nUN9eSwUKLr1NkenF3B4a1\nrafo9Kmsni9JHnkaiB2/mhnbTKA6YXFaFcOta/fsHJOGn737Vj1Ke94FBdHG81wy\n/fYHjYrBxYo7kc9vt+1KQu6cN33q9fqrIbeQ5KYuC7S82enN7cGUMBkv+1jN/0P1\nOTs1qmTYnFTGptf0VP9jazjOauLirHfd+kHVmiyEfQKBgQDKg7mqJfsv+pNEkZzv\nLTm91fiyWcIYI1xng6ka9V2zEBu8PxA10mgH3HgxZPzXpuam8eG4gA+wWdDQD9AG\nXoUFGXS+bbHe9/AYXlDM2L4ngffxeTbYk0fbsAAt1dVWDsY6//zrmc+GnTkrZKCF\nocQj7uTb/9uKXmQg7sAB0Q6Q/QKBgQC1Qpq/Q4NXCXCJsRmmqg6Nxi6Jr8/aWgNT\n9PqHzbFqwqi3L4Xs7oCUh4Mtvx9/X37HTVv/6rIQv5spdFAyUH7ZhQYiMbz2du9k\njCrTomaQPA555yptfZ3pRk0LeY9HFOO9pzcFlJ5pDMK1DYI3OeJpsqLYJNA55+D9\n9FEMxBTWSwKBgQCSy1L8y9U9HQQ88tPv5zdwrLY+CaQQvSkQ+7XLjcoiru170bad\nXOv9rskM/OfuJdQRdUmp5GH68c/T0XJ3+3GulZozIu6I8e3+q/cj1YRYvPQN/FBO\nQswWqYgnsVWXsNPuFnquCOsN58917dYRp4W2ikcoVVk8/ljUKlvRtUk6vQKBgHb0\nqR4Qrqd2OHcE1TK9tCNzBqOx0BUaschto+VwJplL+vGNrLTbqWLQtFRXc9Jh14/w\nwwnm+slnFetUvDTpAva6CFZ0kfCmCWHRY2HU2L6by1xRS1Tj9bhcPL/lHRSnLvcO\nQFvXN0b16uprXSPlRyPa6mgzcLwv40aHCpH4NTyVAoGBAIkUp5aim65FwNx2SIPR\nUzZnPZyGB8yeIM9J3k8rsBEDQl06FG1Q6uk1HdvX+61L3LdTuNG/hfAJQ/T5EmVB\n5MS9XlsSsNPuGd0yXhCUurYITT27/QNFcLCuj1RovsflaPlkW2pPuNDYwwAhbEjj\n20sab8YtL8KdZeNwkEv3GjiT\n-----END PRIVATE KEY-----\n",
+  "client_email": "teamnova-bongapp@team-nova.iam.gserviceaccount.com",
+  "client_id": "106507887146435546578",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/teamnova-bongapp%40team-nova.iam.gserviceaccount.com"
+}
