@@ -1,9 +1,11 @@
 package com.teamnova.inma06.Login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
   public Context mContext;
 
-  private static String TAG = "로그인액티비티";
+  private static String TAG = LoginActivity.class.getSimpleName();
 
   //최상위 레이아웃 ( 배경 터치 할때 키보드 내리기 위함 )
   private ConstraintLayout constraintLayout;
@@ -194,6 +196,8 @@ public class LoginActivity extends AppCompatActivity {
     * -> loginBtn 이 활성화 되고 색상이 변경된다.
     * */
 
+
+    //아이디 이벤트 리스너
     userIDEt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -210,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
       }
     });
 
-    //Password EditText
+    //비밀번호 이벤트 리스너 Password EditText
     userPWEt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -270,18 +274,29 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
-                  회원정보를 인텐트로 담아서 HomeActivity 로 보낸다.*/
+                  TODO:회원정보를 인텐트로 담아서 CertActivity( 메일인증 ) 로 보낸다.*/
 
                 Log.d(TAG, "onResponse: 이메일 -> " + userEmail);
                 Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
 
-              Intent intent = new Intent(LoginActivity.this, CertActivity.class);
+            /*    Intent intent = new Intent(LoginActivity.this, CertActivity.class);
+                intent.putExtra("userID", userEmail);
+                intent.putExtra("userPW", userPassword);
+
+                Log.e(TAG, "onResponse:인텐트 실행" );
+                LoginActivity.this.startActivity(intent);
+                Log.e(TAG, "onResponse:인텐트 실행완료" );*/
+
+                /* ----------  로그인시 메인 액티비티로 -----------------*/
+
+                Intent intent = new Intent(LoginActivity.this, CertActivity.class);
                 intent.putExtra("userID", userEmail);
                 intent.putExtra("userPW", userPassword);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);
                 Log.e(TAG, "onResponse:인텐트 실행완료" );
+
               }
             } catch (Exception e){
               e.printStackTrace();

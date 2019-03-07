@@ -13,12 +13,14 @@ import com.teamnova.nova.R;
 
 public class CertActivity extends AppCompatActivity {
 
-  TextView userIdTv; //유저 아이디 텍스트 뷰
+  private static TextView userIdTv; //유저 아이디 텍스트 뷰
 
-  Button sendMailBtn; //인증메일 발송버튼
-  Button certBtn; // 인증하기 버튼
+  private static Button sendMailBtn; //인증메일 발송버튼
+  private static Button certBtn; // 인증하기 버튼
 
-  EditText certNumberEt;
+  private static String userID;
+
+  private EditText certNumberEt;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,30 +34,57 @@ public class CertActivity extends AppCompatActivity {
     certBtn = findViewById(R.id.certBtn);
 
     Intent intent = getIntent();
-    String userID = intent.getStringExtra("userID");
+    userID = intent.getStringExtra("userID");
     userIdTv.setText(userID);
     //인텐트로 아이디를 받아와서 텍스트뷰에 뿌려줍니다.
 
     sendMailBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        final String userEmail = userIdTv.getText().toString(); //메일을 발송할 userEmail입니다.
+        /*final String userEmail = userIdTv.getText().toString(); //메일을 발송할 userEmail입니다.
 
         GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
         try {
           sender.sendMail( getPackageName()+"에서 보낸 회원정보 찾기 메일입니다",
               "인증번호는 -> 3423 입니다.",
               "pakbongho@gmail.com",
-              userEmail);
+              "inma06@naver.com");
           Toast.makeText(CertActivity.this, "이메일이 정상적으로 발송되었습니다.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
           e.printStackTrace();
+        }*/
+        if(userID.isEmpty()==false){
+          GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
+          try {
+            sender.sendMail( getPackageName()+"에서 보낸 회원정보 찾기 메일입니다",
+                "아이디 : " + "\n" +
+                    "비밀번호: " + "\n" +
+                    "감사합니다",
+                "pakbongho@gmail.com",
+                userID);
+            Toast.makeText(CertActivity.this, "이메일이 정상적으로 발송되었습니다.", Toast.LENGTH_SHORT).show();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        } else {
+          Toast.makeText(CertActivity.this, "이메일을 확인 하세요", Toast.LENGTH_SHORT).show();
         }
+
+
+
+
+
+
+
+
         //TODO: 이메일 인증부분
         /* 이메일 발송 -> 랜덤한 코드 4자리 발송 */
         /* 이메일 확인후 랜덤 코드 입력하면 인증 성공 */
       }
     });
+
+
+
 
     certBtn.setOnClickListener(new View.OnClickListener() {
       @Override
