@@ -15,12 +15,12 @@
         android:id="@+id/btnSuccessCertBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:backgroundTint="#2b2b4e"
         android:text="회원가입"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -28,7 +28,6 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="이메일(id@exam.com)"
@@ -36,26 +35,27 @@
         android:maxLength="50"
         android:scrollHorizontally="false"
         android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvEmailMsg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etRegisterPW"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
         android:maxLength="50"
         android:scrollHorizontally="false"
         android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailMsg" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvEmailMsg"
@@ -63,27 +63,41 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:text="유효하지 않은 이메일 형식입니다."
         android:textAlignment="center"
         android:textColor="#fa7931"
         android:textSize="12dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/etRegisterPW"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterID" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#d6d7d7"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/disableButton"
         android:text="로그인"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSuccessCertBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/etRegisterID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterPW" />
+        app:srcCompat="@drawable/loading" />
 
 </android.support.constraint.ConstraintLayout>

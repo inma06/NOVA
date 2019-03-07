@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.CertEmail.CertActivity;
+import com.teamnova.inma06.Loading.LoadingActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -100,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
       emailMsgTv.setVisibility(View.INVISIBLE);
       Log.d("TEST", "올바른 이메일 입니다.");
       isLoginID = true;
+      loginBtn.setBackgroundTintList(ColorStateList.valueOf(
+          getResources().getColor(R.color.enableButton)));
     }
         /*
         아이디와 패스워드가 바르게 입력되었을 때
@@ -135,6 +138,8 @@ public class LoginActivity extends AppCompatActivity {
     //"이메일 형식이 아닙니다" 안내메시지가 출력되지 않습니다.
     // -> INVISIBLE 패스워드 검사 부분 이기 때문.
       emailMsgTv.setVisibility(View.INVISIBLE);
+
+
       isLoginPW = false;
       loginBtn.setEnabled(false);
     //버튼 클릭 비활성화 -> 색상 변경
@@ -142,10 +147,13 @@ public class LoginActivity extends AppCompatActivity {
           getResources().getColor(R.color.disableButton)));
     } else {
     //입력값이 존재할때
+      loginBtn.setEnabled(true);
       emailMsgTv.setVisibility(View.INVISIBLE);
       isLoginPW = true;
-    }
+      loginBtn.setBackgroundTintList(ColorStateList.valueOf(
+          getResources().getColor(R.color.enableButton)));
 
+    }
     if (isLoginID && isLoginPW) {
       loginBtn.setEnabled(true);
       //입력값이 없을때
