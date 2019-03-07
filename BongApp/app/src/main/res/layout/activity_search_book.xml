@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Timer.SearchBook_backup">
+
+    <Spinner
+        android:id="@+id/searchBook_spinner"
+        android:layout_width="93dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchBook_etKeyword"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBook_spinner"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/searchBook_btnSearch"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBook_etKeyword" />
+
+    <Button
+        android:id="@+id/searchBook_btnResultInSearch"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:enabled="false"
+        android:text="결과내 검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBook_btnSearch" />
+
+    <TextView
+        android:id="@+id/searchBook_tvResult"
+        android:layout_width="275dp"
+        android:layout_height="336dp"
+        android:text=""
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="175dp" />
+
+</android.support.constraint.ConstraintLayout>
