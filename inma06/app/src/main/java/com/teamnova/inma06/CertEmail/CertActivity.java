@@ -3,6 +3,7 @@ package com.teamnova.inma06.CertEmail;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,14 +14,15 @@ import com.teamnova.nova.R;
 
 public class CertActivity extends AppCompatActivity {
 
-  private static TextView userIdTv; //유저 아이디 텍스트 뷰
+  TextView userIdTv; //유저 아이디 텍스트 뷰
 
-  private static Button sendMailBtn; //인증메일 발송버튼
-  private static Button certBtn; // 인증하기 버튼
+  Button sendMailBtn; //인증메일 발송버튼
+  Button certBtn; // 인증하기 버튼
 
-  private static String userID;
+  String userID;
+  String certCode;
 
-  private EditText certNumberEt;
+  EditText certNumberEt;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,14 @@ public class CertActivity extends AppCompatActivity {
 
     Intent intent = getIntent();
     userID = intent.getStringExtra("userID");
+    certCode = intent.getStringExtra("certCode");
+
+    /* 인증문자 5자리 대소문자 숫자포함 */
+    certCode = certCode.substring(10,15);
+
+
+
+    Log.e("하잇", certCode );
     userIdTv.setText(userID);
     //인텐트로 아이디를 받아와서 텍스트뷰에 뿌려줍니다.
 

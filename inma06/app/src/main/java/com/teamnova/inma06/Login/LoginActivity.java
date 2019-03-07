@@ -238,6 +238,7 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: 싱글턴 패턴 공부해야함.
                 String userEmail = jsonResponse.getString("userID");
                 String userPassword = jsonResponse.getString("userPW");
+                String certCode = jsonResponse.getString("certCode");
 
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
@@ -259,6 +260,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, CertActivity.class);
                 intent.putExtra("userID", userEmail);
                 intent.putExtra("userPW", userPassword);
+                intent.putExtra("certCode", certCode);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);
