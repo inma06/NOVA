@@ -1,11 +1,9 @@
 package com.teamnova.inma06.Login;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +19,6 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.CertEmail.CertActivity;
-import com.teamnova.inma06.Loading.LoadingActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -30,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.teamnova.inma06.Register.CertMail;
 
 /*
  * 로그인 시도 하면, LoginRequest 에서
@@ -257,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 /* ----------  로그인시 메인 액티비티로 -----------------*/
 
-                Intent intent = new Intent(LoginActivity.this, CertActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CertMail.class);
                 intent.putExtra("userID", userEmail);
                 intent.putExtra("userPW", userPassword);
                 intent.putExtra("certCode", certCode);
