@@ -12,17 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name="com.teamnova.inma06.Loading.LoadingActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.teamnova.inma06.CertEmail.CertActivity" />
         <activity
             android:name="com.teamnova.inma06.Register.RegisterActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">

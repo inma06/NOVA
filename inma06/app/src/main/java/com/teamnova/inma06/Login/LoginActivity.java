@@ -69,12 +69,10 @@ public class LoginActivity extends AppCompatActivity {
   private EditText userIDEt;
   private EditText userPWEt;
 
+  private String userID; //회원가입시 기입한 아이디
+
   private Button loginBtn;
   private Button registerBtn;
-
-  //아이디 패스워드 유효성 검사를 위한 변수
-  private boolean isLoginID;
-  private boolean isLoginPW;
 
   //이메일 형식이 아니면 출력될 메시지
   private TextView emailMsgTv;
@@ -87,81 +85,40 @@ public class LoginActivity extends AppCompatActivity {
     String inputText = userIDEt.getText().toString();
     Pattern pattern = Pattern.compile(mailFormat);
     Matcher matcher = pattern.matcher(inputText);
-    Log.d("버튼활성화유무", "isLoginID->" + isLoginID + " isLoginPW->" + isLoginPW);
+
+
     if (!matcher.matches()) {
       Log.d("TEST", "이메일이 맞지 않습니다.");
       emailMsgTv.setVisibility(View.VISIBLE);
-      isLoginID = false;
-      loginBtn.setEnabled(false);
 
-      //버튼 클릭 비활성화 -> 색상 변경
+      loginBtn.setClickable(false);
       loginBtn.setBackgroundTintList(ColorStateList.valueOf(
           getResources().getColor(R.color.disableButton)));
     } else {
       emailMsgTv.setVisibility(View.INVISIBLE);
-      Log.d("TEST", "올바른 이메일 입니다.");
-      isLoginID = true;
-      loginBtn.setBackgroundTintList(ColorStateList.valueOf(
-          getResources().getColor(R.color.enableButton)));
-    }
-        /*
-        아이디와 패스워드가 바르게 입력되었을 때
-        버튼을 활성화 하고 색상을 변경합니다.
-        */
-    if (isLoginID && isLoginPW) {
+
       loginBtn.setClickable(true);
-      Log.d("TEST", "버튼활성화 OK");
-      //버튼 클릭 활성화 -> 색상 변경
       loginBtn.setBackgroundTintList(ColorStateList.valueOf(
           getResources().getColor(R.color.enableButton)));
+
+      Log.d("TEST", "올바른 이메일 입니다.");
     }
   }
-
-
 
   private void certPasswordEditText() {
 
     /* 패스워드 유효성 검사 */
-  /*  이메일 형식이 아니거나, 공백이면?
-      패스워드가 입력되지 않으면?
-
-  <!-- 조건이 맞지 않을 때 -->
-  "이메일 형식이 아닙니다" 메시지 출력
-  "버튼 클릭 비활성화" 버튼 색상 흐리게 ( setBackgroundTintList )
-
-  /*
-  <!-- 조건이 맞을 때 -->
-
-*/
     if (userPWEt.getText().toString().isEmpty()) {
     //입력값이 없을때
-    //"이메일 형식이 아닙니다" 안내메시지가 출력되지 않습니다.
-    // -> INVISIBLE 패스워드 검사 부분 이기 때문.
       emailMsgTv.setVisibility(View.INVISIBLE);
-
-
-      isLoginPW = false;
-      loginBtn.setEnabled(false);
-    //버튼 클릭 비활성화 -> 색상 변경
+      loginBtn.setClickable(false);
       loginBtn.setBackgroundTintList(ColorStateList.valueOf(
           getResources().getColor(R.color.disableButton)));
     } else {
     //입력값이 존재할때
-      loginBtn.setEnabled(true);
       emailMsgTv.setVisibility(View.INVISIBLE);
-      isLoginPW = true;
-      loginBtn.setBackgroundTintList(ColorStateList.valueOf(
-          getResources().getColor(R.color.enableButton)));
 
-    }
-    if (isLoginID && isLoginPW) {
-      loginBtn.setEnabled(true);
-      //입력값이 없을때
-      //"이메일 형식이 아닙니다" 안내메시지가 보이지 않습니다.
-      // -> 패스워드 검사부분 이기 때문.
-      emailMsgTv.setVisibility(View.INVISIBLE);
-      Log.d("TEST", "버튼활성화 OK");
-      //버튼 클릭 활성화 -> 색상 변경
+      loginBtn.setClickable(true);
       loginBtn.setBackgroundTintList(ColorStateList.valueOf(
           getResources().getColor(R.color.enableButton)));
     }
@@ -177,13 +134,12 @@ public class LoginActivity extends AppCompatActivity {
 
     loginBtn = (Button) findViewById(R.id.btnLogin);
     //로그인 버튼 비활성화 ( 기본값 )
-    loginBtn.setEnabled(false);
+    loginBtn.setClickable(false);
+    loginBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.disableButton)));
 
     registerBtn = (Button) findViewById(R.id.btnSuccessCertBtn);
 
     emailMsgTv = (TextView) findViewById(R.id.tvEmailMsg);
-    isLoginID = false;
-    isLoginPW = false;
 
     //화면(레이아웃) 터치시 키보드 내리게 하는 부분
     imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -204,12 +160,15 @@ public class LoginActivity extends AppCompatActivity {
     * -> loginBtn 이 활성화 되고 색상이 변경된다.
     * */
 
+    Intent intent = getIntent();
+    userID = intent.getStringExtra("userID"); // 회원가입 액티비티에서 인텐트로 넘어온 userID
+    userIDEt.setText(userID);
 
     //아이디 이벤트 리스너
     userIDEt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        certEmailEditText();
+
       }
 
       @Override
@@ -226,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
     userPWEt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        certPasswordEditText();
+
       }
 
       @Override

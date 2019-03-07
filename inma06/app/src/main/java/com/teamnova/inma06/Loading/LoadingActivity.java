@@ -12,17 +12,24 @@ import com.teamnova.inma06.Login.LoginActivity;
 import com.teamnova.nova.R;
 
 public class LoadingActivity extends Activity {
-
+  ImageView imageView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    Intent intent = new Intent(this, LoginActivity.class);
-    intent.putExtra("state","launch");
-    startActivity(intent);
-    finish();
-
+    setContentView(R.layout.activity_loading);
+    imageView = findViewById(R.id.logoIV);
+    startLoading();
   }
-
+  private void startLoading() {
+    Handler handler = new Handler();
+    handler.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+      }
+    }, 5000);
+  }
 }

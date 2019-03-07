@@ -254,9 +254,12 @@ public class RegisterActivity extends AppCompatActivity {
             {
               JSONObject jsonResponse = new JSONObject(response);
               boolean success = jsonResponse.getBoolean("success");
+              Log.e(TAG, "success->" + success);
+
               if(success) {
                 Toast.makeText(RegisterActivity.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.putExtra("userID",userIDEt.getText().toString());
                 RegisterActivity.this.startActivity(intent);
               }
               else
@@ -282,26 +285,9 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d("가입시도","시도입니다." );
         queue.add(registerRequest);
         Log.d("가입시도","시도입니다.2" );
+
       }
     });
-
-/*    userIDEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-      @Override
-      public void onFocusChange(View v, boolean hasFocus) {
-        String mailFormat = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-        if (hasFocus == false) {
-          String inputText = userIDEt.getText().toString();
-          Pattern pattern = Pattern.compile(mailFormat);
-          Matcher matcher = pattern.matcher(inputText);
-          if (!matcher.matches()) {
-            Log.d("TEST", "이메일이 맞지 않습니다.");
-          }else {
-            Log.d("TEST", "올바른 이메일 입니다.");
-          }
-        }
-      }
-    });*/
-
 
   }
 }
