@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamnova.nova">
-
-    <!--인터넷 연결 권한-->
+    <!-- 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,29 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-        <!-- 메일 인증 액티비티-->
-        <activity android:name="com.teamnova.inma06.Register.CertMail"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
-
-        <!--스플래쉬(로딩) 액티비티-->
-        <activity android:name="com.teamnova.inma06.Loading.LoadingActivity"
+        <activity android:name="com.teamnova.inma06.HomeActivity"></activity>
+        <!-- 메일 인증 액티비티 -->
+        <activity
+            android:name="com.teamnova.inma06.Register.CertMail"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 스플래쉬(로딩) 액티비티 -->
+        <activity
+            android:name="com.teamnova.inma06.Loading.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--회원가입 액티비티-->
+        </activity> <!-- 회원가입 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.RegisterActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <!--로그인 액티비티-->
+            android:windowSoftInputMode="adjustResize" /> <!-- 로그인 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
     </application>
 
 </manifest>

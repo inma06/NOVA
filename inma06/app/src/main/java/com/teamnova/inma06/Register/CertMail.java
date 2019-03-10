@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,17 +17,35 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.teamnova.inma06.Login.LoginActivity;
 import com.teamnova.nova.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CertMail extends AppCompatActivity {
 
+  private static String TAG = "CertMail.java";
+
   private static Button btnSendEmail;
   private static String userID;
+  private static String userPW;
+
   private static String certCode;
   private static Boolean reSend;
   private static TextView userID_TV;
-  private static Button btnCertMail;
+  private static Button certBtn;
   private static EditText certNumber_ET;
+
+  private static Button nextBtn;
+
+
+  private static boolean isCert = false;
+
+
 
   private static InputMethodManager imm;
   private static ConstraintLayout forgetLayout;
@@ -40,22 +62,25 @@ public class CertMail extends AppCompatActivity {
         .permitDiskWrites()
         .permitNetwork().build());
     reSend = true;
-    btnSendEmail = (Button) findViewById(R.id.sendMail_Btn);
+    btnSendEmail = findViewById(R.id.sendMail_Btn);
 
     certNumber_ET = findViewById(R.id.certNumber_ET);
 
-    btnCertMail = findViewById(R.id.certBtn);
+    nextBtn = findViewById(R.id.nextBtn);
 
+    certBtn = findViewById(R.id.certBtn);
+
+    certBtn.setBackgroundColor(
+        getResources().getColor(R.color.disableButton));
+
+
+    //인텐트로 넘어온 userID와 userPW를 변수에 담습니다.
     Intent intent = getIntent();
     userID = intent.getStringExtra("userID");
+    userPW = intent.getStringExtra("userPW");
     certCode = intent.getStringExtra("certCode");
 
-    /* 인증문자 5자리 대소문자 숫자포함 */
-    certCode = certCode.substring(10,15);
-
-
     userID_TV = findViewById(R.id.userID_TV);
-
     userID_TV.setText(userID);
 
 
@@ -67,7 +92,7 @@ public class CertMail extends AppCompatActivity {
       }
     });
 
-    //이메일 발송 버튼 눌렀을 때
+    //인증 메일 보내기 버튼
     btnSendEmail.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -91,17 +116,103 @@ public class CertMail extends AppCompatActivity {
     });
 
 
-    btnCertMail.setOnClickListener(new View.OnClickListener() {
+    certNumber_ET.addTextChangedListener(new TextWatcher() {
       @Override
-      public void onClick(View v) {
-        if(certNumber_ET.getText().toString().equals(certCode)) {
-          Toast.makeText(CertMail.this, "인증 되었습니다.", Toast.LENGTH_SHORT).show();
-        } else {
-          Toast.makeText(CertMail.this, "입력이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if(certNumber_ET.getText().toString().isEmpty() == false) {
+          certBtn.setBackgroundColor(
+              getResources().getColor(R.color.enableButton));
+        }
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(certNumber_ET.getText().toString().isEmpty() == false) {
+          certBtn.setBackgroundColor(
+              getResources().getColor(R.color.enableButton));
+        }
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        if(certNumber_ET.getText().toString().isEmpty() == false) {
+          certBtn.setBackgroundColor(
+              getResources().getColor(R.color.enableButton));
         }
       }
     });
 
 
+    // 인증메일 보내기 버튼
+    certBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(certNumber_ET.getText().toString().equals(certCode)) {
+          AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+          builder.setMessage("인증되었습니다.")
+              .setNegativeButton("확인", null)
+              .create()
+              .show();
+          certNumber_ET.setEnabled(false);
+          isCert = true;
+
+        } else {
+          AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+          builder.setMessage("인증번호를 확인하세요.")
+              .setNegativeButton("다시 시도", null)
+              .create()
+              .show();
+          isCert = false;
+        }
+      }
+    });
+
+
+    // 가입완료 버튼
+    nextBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(isCert) {
+          Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+              try
+              {
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
+                Log.e(TAG, "success->" + success);
+
+                if(success) {
+                  Toast.makeText(CertMail.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                  Intent intent = new Intent(CertMail.this, LoginActivity.class);
+//                  intent.putExtra("userID",userIDEt.getText().toString());
+                  startActivity(intent);
+                }
+                else
+                {
+                  Log.d("가입실패","실패입니다." );
+                  AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+                  builder.setMessage("중복된 아이디 입니다.")
+                      .setNegativeButton("다시 시도", null)
+                      .create()
+                      .show();
+                }
+              }
+              catch (JSONException e)
+              {
+                Log.d("가입실패","중복된 아이디입니다." );
+
+                e.printStackTrace();
+              }
+            }
+          };
+          RegisterRequest registerRequest = new RegisterRequest(userID, userPW, responseListener);
+          RequestQueue queue = Volley.newRequestQueue(CertMail.this);
+          Log.d("가입시도","시도입니다." );
+          queue.add(registerRequest);
+          Log.d("가입시도","시도입니다.2" );
+        }
+      }
+    });
   }
 }

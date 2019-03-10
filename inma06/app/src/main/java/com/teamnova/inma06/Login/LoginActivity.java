@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.teamnova.inma06.HomeActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -236,29 +237,17 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: 싱글턴 패턴 공부해야함.
                 String userEmail = jsonResponse.getString("userID");
                 String userPassword = jsonResponse.getString("userPW");
-                String certCode = jsonResponse.getString("certCode");
 
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
-                  TODO:회원정보를 인텐트로 담아서 CertActivity( 메일인증 ) 로 보낸다.*/
+                  TODO: 비밀번호 암호화 처리 */
 
                 Log.d(TAG, "onResponse: 이메일 -> " + userEmail);
                 Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
 
-            /*    Intent intent = new Intent(LoginActivity.this, CertActivity.class);
+                /* ----------  로그인시 홈화면 액티비티로 -----------------*/
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("userID", userEmail);
-                intent.putExtra("userPW", userPassword);
-
-                Log.e(TAG, "onResponse:인텐트 실행" );
-                LoginActivity.this.startActivity(intent);
-                Log.e(TAG, "onResponse:인텐트 실행완료" );*/
-
-                /* ----------  로그인시 메인 액티비티로 -----------------*/
-
-                Intent intent = new Intent(LoginActivity.this, CertMail.class);
-                intent.putExtra("userID", userEmail);
-                intent.putExtra("userPW", userPassword);
-                intent.putExtra("certCode", certCode);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);

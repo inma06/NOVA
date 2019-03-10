@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teamnova.inma06.CertEmail.CertActivity">
+    tools:context="com.teamnova.inma06.Register.CertMail">
 
     <TextView
         android:id="@+id/userID_TV"
@@ -33,11 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:text="이메일을 인증해 주세요."
+        android:text="이메일을 인증하면 가입이 완료됩니다."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,9 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="인증문자(5자리)"
-        android:inputType="text"
-        android:maxLength="5"
+        android:hint="인증번호(4자리)"
+        android:inputType="number"
+        android:maxLength="4"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,12 +58,27 @@
 
     <Button
         android:id="@+id/certBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
         android:text="인증하기"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/certNumber_ET" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/enableButton"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="가입완료"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
