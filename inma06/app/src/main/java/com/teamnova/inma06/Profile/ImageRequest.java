@@ -1,4 +1,4 @@
-package com.teamnova.inma06.Upload;
+package com.teamnova.inma06.Profile;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
@@ -16,10 +16,10 @@ public class ImageRequest extends StringRequest {
   final static private String URL = "https://bongbong.ga/image_upload.php";
   private Map<String, String>  parameters;
 
-  public ImageRequest(String imageName, Bitmap image, Response.Listener<String> listener) {
+  public ImageRequest(String userID, Bitmap image, Response.Listener<String> listener) {
     super(Method.POST, URL, listener, null);
     parameters = new HashMap<>();
-    parameters.put("name", imageName);
+    parameters.put("userID", userID);
     parameters.put("image", imageToString(image));
   }
 
@@ -28,9 +28,11 @@ public class ImageRequest extends StringRequest {
     return parameters;
   }
 
+
+  //TODO:> 프로필 사진 퀄리티 5로 하향 조정함. 봐줄만함.
   private String imageToString(Bitmap bitmap) {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 5, byteArrayOutputStream);
     byte[] imgBytes = byteArrayOutputStream.toByteArray();
     return android.util.Base64.encodeToString(imgBytes, Base64.DEFAULT);
   }

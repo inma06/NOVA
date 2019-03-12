@@ -3,9 +3,13 @@
     package="com.teamnova.nova">
     <!-- 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 파일 접근 권한 -->
+
+    <!-- camera, gallery -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
 
 
     <application
@@ -15,8 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.teamnova.inma06.Upload.HomeActivity"></activity>
-        <!-- 메일 인증 액티비티 -->
+        <activity android:name="com.teamnova.inma06.Profile.ProfileModifyActivity"></activity>
+        <activity android:name="com.teamnova.inma06.Profile.HomeActivity" /> <!-- 메일 인증 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.CertMail"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 스플래쉬(로딩) 액티비티 -->
@@ -35,6 +39,21 @@
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <!-- 사진 촬영을 위한 provide -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.teamnova.inma06.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
     </application>
+
+
 
 </manifest>

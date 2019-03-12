@@ -1,6 +1,5 @@
-package com.teamnova.inma06.Upload;
+package com.teamnova.inma06.Profile;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +36,6 @@ public class HomeActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        Log.d("TEST", "로그인버튼 클릭 OK");
         final String imageName = "testImage";
         final Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
 
