@@ -28,6 +28,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.mail.MultipartDataSource;
+
 
 /* 회원가입 액티비티 입니다.
 *
@@ -235,6 +237,7 @@ public class RegisterActivity extends AppCompatActivity {
           };
           CheckRequest checkRequest = new CheckRequest(userID, responseListener);
           RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+;
           Log.d("가입시도","시도입니다." );
           queue.add(checkRequest);
           Log.d("가입시도","시도입니다.2" );
@@ -245,8 +248,6 @@ public class RegisterActivity extends AppCompatActivity {
               .create()
               .show();
         }
-
-
       }
     });
 

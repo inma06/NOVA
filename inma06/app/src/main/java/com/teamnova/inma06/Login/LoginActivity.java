@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.HomeActivity;
+import com.teamnova.inma06.Upload.HomeActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -27,8 +27,6 @@ import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.teamnova.inma06.Register.CertMail;
 
 /*
  * 로그인 시도 하면, LoginRequest 에서
@@ -218,7 +216,9 @@ public class LoginActivity extends AppCompatActivity {
           public void onResponse(String response) {
             try{
               JSONObject jsonResponse = new JSONObject(response);
+              Log.i(TAG, "onResponse: 되냐");
               boolean success = jsonResponse.getBoolean("success");
+              Log.i(TAG, "onResponse: 되냐2");
 
               if(success == false){
                 // 패스워드 불일치
@@ -229,6 +229,7 @@ public class LoginActivity extends AppCompatActivity {
                     .create()
                     .show();
               } else {
+                Log.i(TAG, "onResponse: 되냐3");
                 // 아이디 패스워드 일치 -> 아이디와 패스워드정보를 인텐트로 넘긴다.
                 Log.e(TAG, "onResponse:아이디 패스워드 일치" );
                 // 아이디와 패스워드가 일치할 때 userID 변수를 선언한다.
@@ -238,10 +239,8 @@ public class LoginActivity extends AppCompatActivity {
                 String userEmail = jsonResponse.getString("userID");
                 String userPassword = jsonResponse.getString("userPW");
 
-
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
                   TODO: 비밀번호 암호화 처리 */
-
                 Log.d(TAG, "onResponse: 이메일 -> " + userEmail);
                 Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
 

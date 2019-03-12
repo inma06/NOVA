@@ -6,6 +6,7 @@ android {
         applicationId "com.teamnova.inma06"
         minSdkVersion 19
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -26,10 +27,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.sun.mail:all:1.6.3'
     implementation files('src/main/res/activation.jar')
     implementation files('src/main/res/additionnal.jar')
     implementation files('src/main/res/mail.jar')
+    implementation 'com.github.erd:android-volley:1.0.0'
 }
