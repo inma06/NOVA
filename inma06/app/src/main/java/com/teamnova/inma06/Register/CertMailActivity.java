@@ -1,5 +1,6 @@
 package com.teamnova.inma06.Register;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,14 +22,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Login.LoginActivity;
+import com.teamnova.inma06.Profile.ProfileModifyActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CertMail extends AppCompatActivity {
+public class CertMailActivity extends AppCompatActivity {
 
-  private static String TAG = "CertMail.java";
+  private static String TAG = "CertMailActivity.java";
 
   private static Button btnSendEmail;
   private static String userID;
@@ -40,6 +42,8 @@ public class CertMail extends AppCompatActivity {
   private static Button certBtn;
   private static EditText certNumber_ET;
 
+  private static Intent intent;
+
   private static Button nextBtn;
 
 
@@ -50,10 +54,17 @@ public class CertMail extends AppCompatActivity {
   private static InputMethodManager imm;
   private static ConstraintLayout forgetLayout;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_cert);
+    setContentView(R.layout.activity_register_cert);
+
+    //인텐트로 넘어온 userID와 userPW를 변수에 담습니다.
+    intent = getIntent();
+    userID = intent.getStringExtra("userID");
+    userPW = intent.getStringExtra("userPW");
+    certCode = intent.getStringExtra("certCode");
 
     forgetLayout = findViewById(R.id.layout);
     imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -74,11 +85,7 @@ public class CertMail extends AppCompatActivity {
         getResources().getColor(R.color.disableButton));
 
 
-    //인텐트로 넘어온 userID와 userPW를 변수에 담습니다.
-    Intent intent = getIntent();
-    userID = intent.getStringExtra("userID");
-    userPW = intent.getStringExtra("userPW");
-    certCode = intent.getStringExtra("certCode");
+
 
     userID_TV = findViewById(R.id.userID_TV);
     userID_TV.setText(userID);
@@ -96,6 +103,7 @@ public class CertMail extends AppCompatActivity {
     btnSendEmail.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
         if(reSend){
           GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
           try {
@@ -105,12 +113,13 @@ public class CertMail extends AppCompatActivity {
                 "pakbongho@gmail.com",
                 userID);
             reSend = false;
-            Toast.makeText(CertMail.this, "인증 메일이 발송되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CertMailActivity.this, "인증 메일이 발송되었습니다.", Toast.LENGTH_SHORT).show();
           } catch (Exception e) {
             e.printStackTrace();
           }
+
         } else {
-          Toast.makeText(CertMail.this, "이미 발송 되었습니다.", Toast.LENGTH_SHORT).show();
+          Toast.makeText(CertMailActivity.this, "이미 발송 되었습니다.", Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -148,7 +157,7 @@ public class CertMail extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         if(certNumber_ET.getText().toString().equals(certCode)) {
-          AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+          AlertDialog.Builder builder = new AlertDialog.Builder(CertMailActivity.this);
           builder.setMessage("인증되었습니다.")
               .setNegativeButton("확인", null)
               .create()
@@ -157,7 +166,7 @@ public class CertMail extends AppCompatActivity {
           isCert = true;
 
         } else {
-          AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+          AlertDialog.Builder builder = new AlertDialog.Builder(CertMailActivity.this);
           builder.setMessage("인증번호를 확인하세요.")
               .setNegativeButton("다시 시도", null)
               .create()
@@ -183,15 +192,15 @@ public class CertMail extends AppCompatActivity {
                 Log.e(TAG, "success->" + success);
 
                 if(success) {
-                  Toast.makeText(CertMail.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                  Intent intent = new Intent(CertMail.this, LoginActivity.class);
+                  Toast.makeText(CertMailActivity.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                  Intent intent = new Intent(CertMailActivity.this, LoginActivity.class);
 //                  intent.putExtra("userID",userIDEt.getText().toString());
                   startActivity(intent);
                 }
                 else
                 {
                   Log.d("가입실패","실패입니다." );
-                  AlertDialog.Builder builder = new AlertDialog.Builder(CertMail.this);
+                  AlertDialog.Builder builder = new AlertDialog.Builder(CertMailActivity.this);
                   builder.setMessage("중복된 아이디 입니다.")
                       .setNegativeButton("다시 시도", null)
                       .create()
@@ -207,7 +216,7 @@ public class CertMail extends AppCompatActivity {
             }
           };
           RegisterRequest registerRequest = new RegisterRequest(userID, userPW, responseListener);
-          RequestQueue queue = Volley.newRequestQueue(CertMail.this);
+          RequestQueue queue = Volley.newRequestQueue(CertMailActivity.this);
           Log.d("가입시도","시도입니다." );
           queue.add(registerRequest);
           Log.d("가입시도","시도입니다.2" );

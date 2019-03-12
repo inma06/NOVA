@@ -28,8 +28,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.mail.MultipartDataSource;
-
 
 /* 회원가입 액티비티 입니다.
 *
@@ -187,12 +185,12 @@ public class RegisterActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.register_activity);
+    setContentView(R.layout.activity_register);
 
     emailMsgTv = (TextView) findViewById(R.id.isPassID_Tv);
     userIDEt = (EditText) findViewById(R.id.etRegisterID); //ID는 이메일
     userPWEt= (EditText) findViewById(R.id.etRegisterPW); // 패스워드
-    checkBtn = (Button) findViewById(R.id.checkBtn);
+    checkBtn = (Button) findViewById(R.id.idCheckBtn);
     backBtn = (TextView) findViewById(R.id.backBtn); // 뒤로가기(로그인화면) 버튼
     nextBtn = (Button) findViewById(R.id.registerBtn); // 회원가입 버튼
 
@@ -348,7 +346,7 @@ public class RegisterActivity extends AppCompatActivity {
         String certCode = numberGen(4,2);
 
         /* 입력한 아이디와 패스워드를 인텐트에 담아서 "인증하기 액티비티로" 보냅니다.*/
-        Intent intent = new Intent(RegisterActivity.this, CertMail.class);
+        Intent intent = new Intent(RegisterActivity.this, CertMailActivity.class);
         intent.putExtra("userID", userID);
         intent.putExtra("userPW", userPW);
         intent.putExtra("certCode", certCode);

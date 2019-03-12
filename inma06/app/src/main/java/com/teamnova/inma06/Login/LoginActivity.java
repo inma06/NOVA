@@ -19,7 +19,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.Profile.ProfileModifyActivity;
+import com.teamnova.inma06.Profile.HomeActivity;
+import com.teamnova.inma06.Profile.ProfilePageActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -124,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.login_main_activity);
+    setContentView(R.layout.activity_login);
 
     userIDEt = (EditText) findViewById(R.id.etRegisterID);
     userPWEt = (EditText) findViewById(R.id.etRegisterPW);
@@ -245,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
 
                 /* ----------  로그인시 홈화면 액티비티로 -----------------*/
-                Intent intent = new Intent(LoginActivity.this, ProfileModifyActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("userID", userEmail);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );

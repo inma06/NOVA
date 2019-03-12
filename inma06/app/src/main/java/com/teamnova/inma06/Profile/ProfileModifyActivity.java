@@ -53,12 +53,18 @@ public class ProfileModifyActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_get_image);
+    setContentView(R.layout.activity_profile_modify);
 
     tedPermission();
 
     profileIV = findViewById(R.id.profileIV);
 
+
+    /* 처음 보이는 프로필 사진은 마지막으로 수정한 사진이다.
+    TODO:ProfilePageActivity 에서 인텐트로 넘겨주는 값 이용하는것이 좋을듯*/
+    Glide.with(this)
+        .load("https://bongbong.ga/uploads/f3367172-44bb-11e9-b49a-0a2f019140a8.jpg")
+        .into(profileIV);
 
     findViewById(R.id.btnApply).setOnClickListener(new View.OnClickListener() {
       @Override
@@ -70,7 +76,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
         final ProgressDialog dialog= ProgressDialog.show(ProfileModifyActivity.this,
             "프로필 사진 등록","사진을 등록하고 있습니다...",true);
-
 
 
         //TODO: 로그인시 받아온 유저의 아이디값을(맴버변수) 참조하여 사용한다.
@@ -263,9 +268,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
     BitmapFactory.Options options = new BitmapFactory.Options();
     Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
     Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
-
-
-
 
     Glide.with(this)
         .load(originalBm)

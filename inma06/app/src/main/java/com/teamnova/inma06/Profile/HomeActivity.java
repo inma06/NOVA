@@ -1,72 +1,107 @@
 package com.teamnova.inma06.Profile;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+
 import com.teamnova.nova.R;
-import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
 
-
-  private static ImageView imageView;
-  private static Button button;
-
-
+  private Button profileBtn;
+  private Button friendBtn;
+  private Button checkBtn;
+  private Button newsBtn;
+  private Button streamingBtn;
+  private Button timerBtn;
+  private TextView userID_TV;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
+    Intent intent = getIntent();
+    String userID = intent.getStringExtra("userID");
 
-    imageView = findViewById(R.id.iv1);
-    button = findViewById(R.id.btn1);
+    profileBtn = (Button) findViewById(R.id.myProfileBtn);
+    friendBtn = (Button) findViewById(R.id.friendBtn);
+    checkBtn = (Button) findViewById(R.id.checkinBtn);
+    newsBtn = (Button) findViewById(R.id.newsBtn);
+    streamingBtn = (Button) findViewById(R.id.streamingBtn);
+    timerBtn = (Button) findViewById(R.id.timerBtn);
+    userID_TV = (TextView) findViewById(R.id.userID_TV);
 
-    button.setOnClickListener(new View.OnClickListener() {
+    userID_TV.setText(userID);
+
+    profileBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
-        final String imageName = "testImage";
-        final Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-
-        com.android.volley.Response.Listener<String> responseListener = new Response.Listener<String>() {
-          @Override
-          public void onResponse(String response) {
-            try{
-              JSONObject jsonResponse = new JSONObject(response);
-              boolean success = jsonResponse.getBoolean("success");
-
-              if(success == false){
-                // 실패
-                Toast.makeText(HomeActivity.this, response, Toast.LENGTH_SHORT).show();
-                System.out.println("실패했습니다.");
-              } else {
-                // 성공
-                Toast.makeText(HomeActivity.this, response, Toast.LENGTH_SHORT).show();
-                System.out.println("성공했습니다.");
-              }
-            } catch (Exception e){
-              Toast.makeText(HomeActivity.this, response, Toast.LENGTH_SHORT).show();
-              e.printStackTrace();
-            }
-            Log.e("response -> 리스폰 결과값 출력 ", response.toString());
-          }
-        };
-        ImageRequest ImageRequest = new ImageRequest(imageName, image, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
-        queue.add(ImageRequest);
+        /* 프로필 버튼 클릭
+         *
+         * Login -> Home -> ProfilePage
+         *
+         * */
+        Toast.makeText(HomeActivity.this, "프로필 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, ProfilePageActivity.class);
+        startActivity(intent);
       }
     });
+
+
+    friendBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 친구목록 버튼 클릭 */
+
+        Toast.makeText(HomeActivity.this, "친구목록 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+
+      }
+    });
+
+
+    checkBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 출석체크 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "출석체크 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+
+      }
+    });
+
+
+    newsBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 뉴스 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "뉴스 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+
+      }
+    });
+
+
+    streamingBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 스트리밍 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "스트리밍 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+      }
+    });
+
+
+    timerBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 타이머 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "타이머 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+      }
+    });
+
+
 
 
 

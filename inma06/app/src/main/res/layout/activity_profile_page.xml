@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.teamnova.inma06.Profile.ProfilePageActivity">
+
+    <ImageView
+        android:id="@+id/profileBackgroundIV"
+        android:layout_width="0dp"
+        android:layout_height="370dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/userProfileIV"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="268dp"
+        android:src="@drawable/image"
+        app:civ_border_color="#BCffffff"
+        app:civ_border_width="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileBackgroundIV" />
+
+    <TextView
+        android:id="@+id/userNickTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-light"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:scrollHorizontally="false"
+        android:text="닉네임자리입니다"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userProfileIV" />
+
+    <TextView
+        android:id="@+id/userMsgTV"
+        android:layout_width="205dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="64dp"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
+        android:maxLength="60"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:text="상태메시지는 몇글자 까지 가능 하게 해야 할까 그것이 알고 싶다 가나다라마바사 아자차카 타파하 척척 박사님"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/userProfileIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
