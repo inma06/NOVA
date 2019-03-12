@@ -29,10 +29,10 @@ public class ImageRequest extends StringRequest {
   }
 
 
-  //TODO:> 프로필 사진 퀄리티 5로 하향 조정함. 봐줄만함.
+  //TODO:> 프로필 사진 퀄리티 30로 하향 조정함. 봐줄만함.
   private String imageToString(Bitmap bitmap) {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 5, byteArrayOutputStream);
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
     byte[] imgBytes = byteArrayOutputStream.toByteArray();
     return android.util.Base64.encodeToString(imgBytes, Base64.DEFAULT);
   }
