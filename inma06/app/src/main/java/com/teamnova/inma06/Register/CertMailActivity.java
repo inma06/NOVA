@@ -104,6 +104,11 @@ public class CertMailActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
+        //TODO: 인증 메일 Volley 사용해서 php 에서 보내는 것으로 바꿀 것.
+        // 주의 ->시간남을 때 할 것
+        final ProgressDialog dialog= ProgressDialog.show(CertMailActivity.this,
+            "인증 메일 발송","메일을 발송하고 있습니다...",true);
+
         if(reSend){
           GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");
           try {
@@ -117,10 +122,10 @@ public class CertMailActivity extends AppCompatActivity {
           } catch (Exception e) {
             e.printStackTrace();
           }
-
         } else {
           Toast.makeText(CertMailActivity.this, "이미 발송 되었습니다.", Toast.LENGTH_SHORT).show();
         }
+        dialog.dismiss();
       }
     });
 
@@ -181,6 +186,9 @@ public class CertMailActivity extends AppCompatActivity {
     nextBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+        final ProgressDialog dialog= ProgressDialog.show(CertMailActivity.this,
+            "","회원 가입 진행중...",true);
         if(isCert) {
           Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -197,8 +205,7 @@ public class CertMailActivity extends AppCompatActivity {
 //                  intent.putExtra("userID",userIDEt.getText().toString());
                   startActivity(intent);
                 }
-                else
-                {
+                else {
                   Log.d("가입실패","실패입니다." );
                   AlertDialog.Builder builder = new AlertDialog.Builder(CertMailActivity.this);
                   builder.setMessage("중복된 아이디 입니다.")
@@ -213,6 +220,7 @@ public class CertMailActivity extends AppCompatActivity {
 
                 e.printStackTrace();
               }
+              dialog.dismiss();
             }
           };
           RegisterRequest registerRequest = new RegisterRequest(userID, userPW, responseListener);

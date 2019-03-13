@@ -1,5 +1,6 @@
 package com.teamnova.inma06.Register;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -56,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
   private boolean isLoginPW;
 
   //이메일 형식이 아니면 출력될 메시지
-  private TextView emailMsgTv;
+  private TextView isPassID_TV;
 
 
   /* 랜덤한 숫자 생성 */
@@ -106,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
     Log.d("버튼활성화유무", "isLoginID->" + isLoginID + " isLoginPW->" + isLoginPW);
     if (!matcher.matches()) {
       Log.d("TEST", "이메일이 맞지 않습니다.");
-      emailMsgTv.setVisibility(View.VISIBLE);
+      isPassID_TV.setVisibility(View.VISIBLE);
       isLoginID = false;
       nextBtn.setClickable(false);
       nextBtn.setEnabled(false);
@@ -115,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
       nextBtn.setBackgroundColor(
           getResources().getColor(R.color.disableButton));
     } else {
-      emailMsgTv.setVisibility(View.INVISIBLE);
+      isPassID_TV.setVisibility(View.INVISIBLE);
       Log.d("TEST", "올바른 이메일 입니다.");
       isLoginID = true;
     }
@@ -151,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
       //입력값이 없을때
       //"이메일 형식이 아닙니다" 안내메시지가 출력되지 않습니다.
       // -> INVISIBLE 패스워드 검사 부분 이기 때문.
-      emailMsgTv.setVisibility(View.INVISIBLE);
+      isPassID_TV.setVisibility(View.INVISIBLE);
       isLoginPW = false;
       nextBtn.setEnabled(false);
       nextBtn.setClickable(false);
@@ -160,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
           getResources().getColor(R.color.disableButton));
     } else {
       //입력값이 존재할때
-      emailMsgTv.setVisibility(View.INVISIBLE);
+      isPassID_TV.setVisibility(View.INVISIBLE);
       isLoginPW = true;
     }
 
@@ -170,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
       //입력값이 없을때
       //"이메일 형식이 아닙니다" 안내메시지가 보이지 않습니다.
       // -> 패스워드 검사부분 이기 때문.
-      emailMsgTv.setVisibility(View.INVISIBLE);
+      isPassID_TV.setVisibility(View.INVISIBLE);
       Log.d("TEST", "버튼활성화 OK");
       //버튼 클릭 활성화 -> 색상 변경
       nextBtn.setBackgroundColor(
@@ -187,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_register);
 
-    emailMsgTv = (TextView) findViewById(R.id.isPassID_Tv);
+    isPassID_TV = (TextView) findViewById(R.id.isPassID_TV);
     userIDEt = (EditText) findViewById(R.id.etRegisterID); //ID는 이메일
     userPWEt= (EditText) findViewById(R.id.etRegisterPW); // 패스워드
     checkBtn = (Button) findViewById(R.id.idCheckBtn);
@@ -198,9 +199,14 @@ public class RegisterActivity extends AppCompatActivity {
     checkBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if(isLoginID){ String userID = userIDEt.getText().toString(); //아이디
 
+        final ProgressDialog dialog= ProgressDialog.show(RegisterActivity.this,
+            "아이디 중복 검사","검사 중...",true);
+        if(isLoginID){
+
+          String userID = userIDEt.getText().toString(); //아이디
 //        DB에 중복된 아이디가 있는지 검사합니다.
+
           Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -212,8 +218,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(success) {
                   //사용할수 있는 아이디 입니다.
-                  emailMsgTv.setText("사용할 수 있는 이메일 입니다.");
-                  emailMsgTv.setVisibility(View.VISIBLE);
+                  AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                  builder.setMessage("사용 가능한 아이디 입니다.")
+                      .setNegativeButton("확인", null)
+                      .create()
+                      .show();
+                  isPassID_TV.setText("사용할 수 있는 이메일 입니다.");
+                  isPassID_TV.setVisibility(View.VISIBLE);
                   userIDEt.setEnabled(false);
                 }
                 else
@@ -231,6 +242,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d("가입실패","서버오류오류오류발생" );
                 e.printStackTrace();
               }
+              dialog.dismiss();
             }
           };
           CheckRequest checkRequest = new CheckRequest(userID, responseListener);

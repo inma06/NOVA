@@ -1,6 +1,7 @@
 package com.teamnova.inma06.Login;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -22,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Profile.HomeActivity;
+import com.teamnova.inma06.Profile.ProfileModifyActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -212,6 +214,10 @@ public class LoginActivity extends AppCompatActivity {
     loginBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+
+        final ProgressDialog dialog= ProgressDialog.show(LoginActivity.this,
+            "로그인","접속 중...",true);
         Log.d("TEST", "로그인버튼 클릭 OK");
         final String userID = userIDEt.getText().toString();
         final String userPW = userPWEt.getText().toString();
@@ -270,6 +276,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e){
               e.printStackTrace();
             }
+            dialog.dismiss();
             Log.e("response -> 리스폰 결과값 출력 ", response.toString());
           }
         };
