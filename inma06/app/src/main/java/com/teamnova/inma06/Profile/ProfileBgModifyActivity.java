@@ -9,12 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class ProfileModifyActivity extends AppCompatActivity {
+public class ProfileBgModifyActivity extends AppCompatActivity {
 
   private static final String TAG = "Bongho";
 
@@ -49,13 +49,14 @@ public class ProfileModifyActivity extends AppCompatActivity {
   private static final int PICK_FROM_CAMERA = 2;
 
   private File tempFile;
-
+  
+  
   @Override
-  protected void onResume() {
+  protected void onResume(){
     super.onResume();
 
-  }
 
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
     profileIV = findViewById(R.id.profileIV);
     Glide.with(this)
-        .load(HomeActivity.mProfileImageDir)
+        .load(HomeActivity.mProfileBgImageDir)
         .into(profileIV);
 
     findViewById(R.id.btnApply).setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class ProfileModifyActivity extends AppCompatActivity {
         // 쿼리 -> UPDATE USER SET profileImage = '$resultFileDir' WHERE userID = '$userID'; (profileImage 칼럼 수정)
 
 
-        final ProgressDialog dialog= ProgressDialog.show(ProfileModifyActivity.this,
+        final ProgressDialog dialog= ProgressDialog.show(ProfileBgModifyActivity.this,
             "프로필 사진 등록","사진을 등록하고 있습니다...",true);
 
 
@@ -86,26 +87,26 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
         final Bitmap image = ((BitmapDrawable) profileIV.getDrawable()).getBitmap();
 
-        com.android.volley.Response.Listener<String> responseListener = new Response.Listener<String>() {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
           @Override
           public void onResponse(String response) {
             try{
               JSONObject jsonResponse = new JSONObject(response);
               boolean success = jsonResponse.getBoolean("success");
-              String profileImageDir = jsonResponse.getString("profileImageDir");
+              String profileBgImageDir = jsonResponse.getString("profileBgImageDir");
 
               if(success == false){
                 // 실패
                 Log.e("response -> 리스폰 결과값 출력 ", response.toString());
                 System.out.println("실패했습니다.");
-                Toast.makeText(ProfileModifyActivity.this, "시스템 오류입니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileBgModifyActivity.this, "시스템 오류입니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
               } else {
                 // 성공시 이미지 경로를 변수에 저장합니다.
-                HomeActivity.mProfileImageDir = profileImageDir;
+                HomeActivity.mProfileBgImageDir = profileBgImageDir;
 
                 Log.e("response -> 리스폰 결과값 출력 ", response.toString());
 
-                Toast.makeText(ProfileModifyActivity.this, "프로필 사진이 적용되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileBgModifyActivity.this, "프로필 사진이 적용되었습니다.", Toast.LENGTH_SHORT).show();
                 System.out.println("성공했습니다.");
               }
             } catch (Exception e){
@@ -116,9 +117,9 @@ public class ProfileModifyActivity extends AppCompatActivity {
             Log.e("response -> 리스폰 결과값 출력 ", response.toString());
           }
         };
-        ImageRequest ImageRequest = new ImageRequest(userID, image, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(ProfileModifyActivity.this);
-        queue.add(ImageRequest);
+        BgImageRequest bgImageRequest = new BgImageRequest(userID, image, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ProfileBgModifyActivity.this);
+        queue.add(bgImageRequest);
       }
     });
 

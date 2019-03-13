@@ -1,8 +1,10 @@
 package com.teamnova.inma06.Login;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +22,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Profile.HomeActivity;
-import com.teamnova.inma06.Profile.ProfilePageActivity;
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 
@@ -77,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
   /* 아이디 유효성 검사 */
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   private void certEmailEditText() {
     //입력중일때 유효성 검사
     String mailFormat = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   private void certPasswordEditText() {
 
     /* 패스워드 유효성 검사 */
@@ -122,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -217,37 +221,46 @@ public class LoginActivity extends AppCompatActivity {
           public void onResponse(String response) {
             try{
               JSONObject jsonResponse = new JSONObject(response);
-              Log.i(TAG, "onResponse: 되냐");
+
               boolean success = jsonResponse.getBoolean("success");
-              Log.i(TAG, "onResponse: 되냐2");
 
               if(success == false){
                 // 패스워드 불일치
-                Log.e(TAG, "onResponse:패스워드 불일치1" );
+                Log.i(TAG, "onResponse: 패스워드 불일치");
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                 builder.setMessage("비밀번호를 확인하세요.")
                     .setNegativeButton("다시 시도", null)
                     .create()
                     .show();
               } else {
-                Log.i(TAG, "onResponse: 되냐3");
+                Log.i(TAG, "onResponse: 패스워드 일치");
                 // 아이디 패스워드 일치 -> 아이디와 패스워드정보를 인텐트로 넘긴다.
-                Log.e(TAG, "onResponse:아이디 패스워드 일치" );
                 // 아이디와 패스워드가 일치할 때 userID 변수를 선언한다.
                 // userID에 jsonResponse 메서드로 받아오면서 객체화 시킨다.
                 // 단한번만 사용되고 없어지는 객체! (인스턴스)
                 // TODO: 싱글턴 패턴 공부해야함.
                 String userEmail = jsonResponse.getString("userID");
                 String userPassword = jsonResponse.getString("userPW");
+                String profileImageDir = jsonResponse.getString("profileImageDir");
+                String profileBgImageDir = jsonResponse.getString("profileBgImageDir");
+                String statusMag = jsonResponse.getString("statusMsg");
+                String nickName = jsonResponse.getString("nickName");
+
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
                   TODO: 비밀번호 암호화 처리 */
                 Log.d(TAG, "onResponse: 이메일 -> " + userEmail);
                 Log.d(TAG, "onResponse: 비밀번호 -> " + userPassword);
+                Log.d(TAG, "onResponse: 프로필 이미지 경로 -> " + profileImageDir);
+                Log.d(TAG, "onResponse: 프로필 배경 이미지 경로 -> " + profileBgImageDir);
 
                 /* ----------  로그인시 홈화면 액티비티로 -----------------*/
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("userID", userEmail);
+                intent.putExtra("profileImageDir", profileImageDir);
+                intent.putExtra("profileBgImageDir", profileBgImageDir);
+                intent.putExtra("statusMsg", statusMag);
+                intent.putExtra("nickName", nickName);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);

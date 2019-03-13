@@ -47,7 +47,7 @@
             <!-- 홈(메인) 액티비티 -->
         </activity>
 
-        <activity android:name="com.teamnova.inma06.Profile.ProfilePageActivity">
+        <activity android:name="com.teamnova.inma06.Profile.ProfileMainActivity">
             <!-- 프로필 페이지 -->
         </activity>
 
@@ -55,8 +55,9 @@
             <!-- 프로필 수정 -->
         </activity>
 
-
-
+        <activity android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity">
+            <!-- 프로필 배경 수정 -->
+        </activity>
 
 
         <provider

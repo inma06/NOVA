@@ -12,6 +12,14 @@ import com.teamnova.nova.R;
 
 public class HomeActivity extends AppCompatActivity {
 
+  /* 로그인시 가져온 유저의 DB 정보를 맴버변수에 담아서 사용한다. */
+  public static String mProfileImageDir = "";
+  public static String mProfileBgImageDir = "";
+  public static String mUserID = "";
+  public static String mStatusMsg = "";
+  public static String mNickName = "";
+
+
   private Button profileBtn;
   private Button friendBtn;
   private Button checkBtn;
@@ -20,13 +28,19 @@ public class HomeActivity extends AppCompatActivity {
   private Button timerBtn;
   private TextView userID_TV;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
     Intent intent = getIntent();
-    String userID = intent.getStringExtra("userID");
+    mProfileImageDir = intent.getStringExtra("profileImageDir");
+    mProfileBgImageDir = intent.getStringExtra("profileBgImageDir");
+    mStatusMsg = intent.getStringExtra("statusMsg");
+    mNickName = intent.getStringExtra("nickName");
+    mUserID = intent.getStringExtra("userID");
+
 
     profileBtn = (Button) findViewById(R.id.myProfileBtn);
     friendBtn = (Button) findViewById(R.id.friendBtn);
@@ -36,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
     timerBtn = (Button) findViewById(R.id.timerBtn);
     userID_TV = (TextView) findViewById(R.id.userID_TV);
 
-    userID_TV.setText(userID);
+    userID_TV.setText(mUserID);
 
     profileBtn.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -47,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
          *
          * */
         Toast.makeText(HomeActivity.this, "프로필 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HomeActivity.this, ProfilePageActivity.class);
+        Intent intent = new Intent(HomeActivity.this, ProfileMainActivity.class);
         startActivity(intent);
       }
     });

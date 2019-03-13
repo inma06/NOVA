@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="disableButton">#d6d7d7</color>
+    <color name="disableButton">#868686</color>
     <color name="enableButton">#FF792B</color>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.teamnova.inma06.Profile.ProfilePageActivity">
+    tools:context="com.teamnova.inma06.Profile.ProfileMainActivity">
 
     <ImageView
         android:id="@+id/profileBackgroundIV"
@@ -23,7 +23,7 @@
         android:layout_height="150dp"
         android:layout_marginTop="268dp"
         android:src="@drawable/image"
-        app:civ_border_color="#BCffffff"
+        app:civ_border_color="#6F3A3A41"
         app:civ_border_width="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,43 +31,86 @@
 
     <TextView
         android:id="@+id/userNickTV"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-light"
-        android:maxLength="20"
+        android:maxLength="15"
         android:maxLines="1"
         android:scrollHorizontally="false"
         android:text="닉네임자리입니다"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userProfileIV" />
 
     <TextView
         android:id="@+id/userMsgTV"
-        android:layout_width="205dp"
-        android:layout_height="71dp"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:layout_weight="1"
         android:ellipsize="none"
         android:fontFamily="sans-serif-light"
         android:gravity="center_horizontal"
         android:maxLength="60"
-        android:maxLines="100"
+        android:maxLines="3"
         android:scrollHorizontally="false"
         android:singleLine="false"
         android:text="상태메시지는 몇글자 까지 가능 하게 해야 할까 그것이 알고 싶다 가나다라마바사 아자차카 타파하 척척 박사님"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/userProfileIV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/editStatMsgBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="64dp"
+        android:src="@drawable/pencil"
+        app:layout_constraintBottom_toTopOf="@+id/userProfileIV"
+        app:layout_constraintStart_toEndOf="@+id/userMsgTV" />
+
+    <ImageView
+        android:id="@+id/editNickBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/pencil"
+        app:layout_constraintStart_toEndOf="@+id/userNickTV"
+        app:layout_constraintTop_toBottomOf="@+id/userProfileIV" />
+
+    <ImageView
+        android:id="@+id/changeBgBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/changeProfileImageBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/picture"
+        app:layout_constraintBottom_toBottomOf="@+id/userProfileIV"
+        app:layout_constraintEnd_toEndOf="@+id/userProfileIV"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="@+id/userProfileIV"
+        app:layout_constraintTop_toTopOf="@+id/userProfileIV"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>
