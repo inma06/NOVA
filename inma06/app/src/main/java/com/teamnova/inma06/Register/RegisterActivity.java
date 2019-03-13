@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -51,6 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
   private TextView backBtn; //이미 가입하셨나요?
   private Button checkBtn;
   private Button nextBtn;
+
+  //중복되지 않은 아이디인가?
+  private boolean isPassID;
+
 
   //아이디 패스워드 유효성 검사를 위한 변수
   private boolean isLoginID;
@@ -109,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
       Log.d("TEST", "이메일이 맞지 않습니다.");
       isPassID_TV.setVisibility(View.VISIBLE);
       isLoginID = false;
-      nextBtn.setClickable(false);
-      nextBtn.setEnabled(false);
+     /* nextBtn.setClickable(false);
+      nextBtn.setEnabled(false);*/
 
       //버튼 클릭 비활성화 -> 색상 변경
       nextBtn.setBackgroundColor(
@@ -154,8 +159,8 @@ public class RegisterActivity extends AppCompatActivity {
       // -> INVISIBLE 패스워드 검사 부분 이기 때문.
       isPassID_TV.setVisibility(View.INVISIBLE);
       isLoginPW = false;
-      nextBtn.setEnabled(false);
-      nextBtn.setClickable(false);
+  /*    nextBtn.setEnabled(false);
+      nextBtn.setClickable(false);*/
       //버튼 클릭 비활성화 -> 색상 변경
       nextBtn.setBackgroundColor(
           getResources().getColor(R.color.disableButton));
@@ -166,8 +171,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     if (isLoginID && isLoginPW) {
-      nextBtn.setEnabled(true);
-      nextBtn.setClickable(true);
+/*      nextBtn.setEnabled(true);
+      nextBtn.setClickable(true);*/
       //입력값이 없을때
       //"이메일 형식이 아닙니다" 안내메시지가 보이지 않습니다.
       // -> 패스워드 검사부분 이기 때문.
@@ -180,13 +185,17 @@ public class RegisterActivity extends AppCompatActivity {
   }
 
 
-
-
+  @Override
+  protected void onResume(){
+    super.onResume();
+    isPassID = false;
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_register);
+    isPassID = false;
 
     isPassID_TV = (TextView) findViewById(R.id.isPassID_TV);
     userIDEt = (EditText) findViewById(R.id.etRegisterID); //ID는 이메일
@@ -225,7 +234,9 @@ public class RegisterActivity extends AppCompatActivity {
                       .show();
                   isPassID_TV.setText("사용할 수 있는 이메일 입니다.");
                   isPassID_TV.setVisibility(View.VISIBLE);
-                  userIDEt.setEnabled(false);
+                 /* userIDEt.setEnabled(false);*/
+                  isPassID = true;
+
                 }
                 else
                 {
@@ -235,12 +246,14 @@ public class RegisterActivity extends AppCompatActivity {
                       .setNegativeButton("다시 시도", null)
                       .create()
                       .show();
+                  isPassID = false;
                 }
               }
               catch (JSONException e)
               {
                 Log.d("가입실패","서버오류오류오류발생" );
                 e.printStackTrace();
+                isPassID = false;
               }
               dialog.dismiss();
             }
@@ -273,8 +286,8 @@ public class RegisterActivity extends AppCompatActivity {
     });
 
     //로그인 버튼 비활성화 ( 기본값 )
-    nextBtn.setEnabled(false);
-    nextBtn.setClickable(false);
+/*    nextBtn.setEnabled(false);
+    nextBtn.setClickable(false);*/
 
     isLoginID = false;
     isLoginPW = false;
@@ -352,60 +365,22 @@ public class RegisterActivity extends AppCompatActivity {
     nextBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        /* 회원가입을 합니다. */
-        String userID = userIDEt.getText().toString(); //아이디
-        String userPW = userPWEt.getText().toString(); //패스워드
-        String certCode = numberGen(4,2);
+        if(isPassID){
+          /* 회원가입을 합니다. */
+          String userID = userIDEt.getText().toString(); //아이디
+          String userPW = userPWEt.getText().toString(); //패스워드
+          String certCode = numberGen(4,2);
 
-        /* 입력한 아이디와 패스워드를 인텐트에 담아서 "인증하기 액티비티로" 보냅니다.*/
-        Intent intent = new Intent(RegisterActivity.this, CertMailActivity.class);
-        intent.putExtra("userID", userID);
-        intent.putExtra("userPW", userPW);
-        intent.putExtra("certCode", certCode);
-        startActivity(intent);
-        Log.e(TAG, "onClick: 회원가입 (다음) 버튼을 눌렀습니다.");
-
-       /* 회원가입을 하여 아이디와 패스워드를 DB에 저장합니다 ( 수정되기 이전 )
-
-       Response.Listener<String> responseListener = new Response.Listener<String>() {
-          @Override
-          public void onResponse(String response) {
-            try
-            {
-              JSONObject jsonResponse = new JSONObject(response);
-              boolean success = jsonResponse.getBoolean("success");
-              Log.e(TAG, "success->" + success);
-
-              if(success) {
-                Toast.makeText(RegisterActivity.this, "회원 등록에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.putExtra("userID",userIDEt.getText().toString());
-                RegisterActivity.this.startActivity(intent);
-              }
-              else
-              {
-                Log.d("가입실패","실패입니다." );
-                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                builder.setMessage("중복된 아이디 입니다.")
-                    .setNegativeButton("다시 시도", null)
-                    .create()
-                    .show();
-              }
-            }
-            catch (JSONException e)
-            {
-              Log.d("가입실패","중복된 아이디입니다." );
-
-              e.printStackTrace();
-            }
-          }
-        };
-        RegisterRequest registerRequest = new RegisterRequest(userID, userPW, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-        Log.d("가입시도","시도입니다." );
-        queue.add(registerRequest);
-        Log.d("가입시도","시도입니다.2" );*/
-
+          /* 입력한 아이디와 패스워드를 인텐트에 담아서 "인증하기 액티비티로" 보냅니다.*/
+          Intent intent = new Intent(RegisterActivity.this, CertMailActivity.class);
+          intent.putExtra("userID", userID);
+          intent.putExtra("userPW", userPW);
+          intent.putExtra("certCode", certCode);
+          startActivity(intent);
+          Log.e(TAG, "onClick: 회원가입 (다음) 버튼을 눌렀습니다.");
+        } else {
+          Toast.makeText(RegisterActivity.this, "중복 검사가 되지 않았습니다.", Toast.LENGTH_SHORT).show();
+        }
       }
     });
 

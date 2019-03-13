@@ -50,50 +50,49 @@
 
     <TextView
         android:id="@+id/userMsgTV"
-        android:layout_width="256dp"
+        android:layout_width="191dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="105dp"
         android:layout_weight="1"
         android:ellipsize="none"
         android:fontFamily="sans-serif-light"
         android:gravity="center_horizontal"
         android:maxLength="60"
-        android:maxLines="3"
+        android:maxLines="5"
         android:scrollHorizontally="false"
         android:singleLine="false"
-        android:text="상태메시지는 몇글자 까지 가능 하게 해야 할까 그것이 알고 싶다 가나다라마바사 아자차카 타파하 척척 박사님"
+        android:text="가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/userProfileIV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/editStatMsgBtn"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:src="@drawable/pencil"
-        app:layout_constraintBottom_toTopOf="@+id/userProfileIV"
-        app:layout_constraintStart_toEndOf="@+id/userMsgTV" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userMsgTV" />
 
     <ImageView
         android:id="@+id/editNickBtn"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/pencil"
         app:layout_constraintStart_toEndOf="@+id/userNickTV"
         app:layout_constraintTop_toBottomOf="@+id/userProfileIV" />
 
     <ImageView
         android:id="@+id/changeBgBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:src="@drawable/picture"
@@ -102,8 +101,8 @@
 
     <ImageView
         android:id="@+id/changeProfileImageBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/picture"
         app:layout_constraintBottom_toBottomOf="@+id/userProfileIV"
         app:layout_constraintEnd_toEndOf="@+id/userProfileIV"

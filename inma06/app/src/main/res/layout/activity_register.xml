@@ -30,9 +30,9 @@
         android:id="@+id/registerBtn"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background = "@color/disableButton"
+        android:background="@color/enableButton"
         android:text="다음"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,11 +40,11 @@
 
     <Button
         android:id="@+id/idCheckBtn"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/disableButton"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:background="@color/colorPrimary"
         android:text="이메일 중복체크"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,7 @@
         android:layout_marginEnd="16dp"
         android:text="이미 가입하셨나요?"
         android:textColor="#2b2b4e"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegisterPW" />
 

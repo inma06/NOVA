@@ -20,10 +20,12 @@
 
     <Button
         android:id="@+id/sendMail_Btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="121dp"
+        android:layout_height="35dp"
         android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
         android:text="인증 메일 보내기"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userID_TV" />
@@ -59,12 +61,14 @@
     <Button
         android:id="@+id/certBtn"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginTop="8dp"
-        android:text="인증하기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/certNumber_ET" />
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/enableButton"
+        android:text="인증 확인"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/certNumber_ET"
+        app:layout_constraintTop_toBottomOf="@+id/sendMail_Btn" />
 
     <Button
         android:id="@+id/nextBtn"

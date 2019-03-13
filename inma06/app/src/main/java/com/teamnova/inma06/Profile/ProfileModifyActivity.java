@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -49,6 +51,9 @@ public class ProfileModifyActivity extends AppCompatActivity {
   private static final int PICK_FROM_CAMERA = 2;
 
   private File tempFile;
+
+  //이미지 경로 변수에 담음
+  private static String imageFilePath;
 
   @Override
   protected void onResume() {
@@ -149,7 +154,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (resultCode != Activity.RESULT_OK) {
       Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
-
       if(tempFile != null) {
         if (tempFile.exists()) {
           if (tempFile.delete()) {
@@ -164,13 +168,13 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
     if (requestCode == PICK_FROM_ALBUM) {
 
+
       Uri photoUri = data.getData();
       Log.d(TAG, "PICK_FROM_ALBUM photoUri : " + photoUri);
 
       Cursor cursor = null;
 
       try {
-
         /*
          *  Uri 스키마를
          *  content:/// 에서 file:/// 로  변경한다.
@@ -202,6 +206,28 @@ public class ProfileModifyActivity extends AppCompatActivity {
       setImage();
 
     }
+  }
+
+
+  /* 이미지 각도대로 회전 시키기
+  *
+  * */
+
+  private int exifOrientationToDegrees(int exifOrientation) {
+    if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+      return 90;
+    } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+      return 180;
+    } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+      return 270;
+    }
+    return 0;
+  }
+
+  private Bitmap rotate(Bitmap bitmap, float degree) {
+    Matrix matrix = new Matrix();
+    matrix.postRotate(degree);
+    return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
   }
 
   /**
@@ -248,6 +274,7 @@ public class ProfileModifyActivity extends AppCompatActivity {
     }
   }
 
+
   /**
    *  폴더 및 파일 만들기
    */
@@ -265,6 +292,8 @@ public class ProfileModifyActivity extends AppCompatActivity {
     File image = File.createTempFile(imageFileName, ".jpg", storageDir);
     Log.d(TAG, "createImageFile : " + image.getAbsolutePath());
 
+    // 이미지 경로 변수에 담음
+    imageFilePath = image.getAbsolutePath();
     return image;
   }
 
@@ -275,10 +304,31 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
     BitmapFactory.Options options = new BitmapFactory.Options();
     Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+    //TODO: 사진 각도 회전 선택 가능 하게 하기
+//    rotate(originalBm, 0); 무조건 0도
+
+    ExifInterface exif = null;
+
+    try {
+      exif = new ExifInterface(imageFilePath);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    int exifOrientation;
+    int exifDegree;
+
+    if (exif != null) {
+      exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+      exifDegree = exifOrientationToDegrees(exifOrientation);
+    } else {
+      exifDegree = 0;
+    }
+
     Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
 
     Glide.with(this)
-        .load(originalBm)
+        .load(rotate(originalBm, exifDegree))
         .into(profileIV);
 
     /**

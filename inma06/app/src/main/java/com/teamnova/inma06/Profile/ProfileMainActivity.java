@@ -65,10 +65,10 @@ public class ProfileMainActivity extends AppCompatActivity {
         .load(HomeActivity.mProfileImageDir)
         .into(profileIV);
 
-    Picasso.get()
+
+    Glide.with(this)
         .load(HomeActivity.mProfileBgImageDir)
-        .fit()
-        .transform(new BlurTransformation(this, 2))
+        .centerCrop()
         .into(profileBackgroundIV);
 
     statusMsgTV.setText(HomeActivity.mStatusMsg);

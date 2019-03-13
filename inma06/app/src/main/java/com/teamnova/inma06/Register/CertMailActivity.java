@@ -119,11 +119,15 @@ public class CertMailActivity extends AppCompatActivity {
                 userID);
             reSend = false;
             Toast.makeText(CertMailActivity.this, "인증 메일이 발송되었습니다.", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
           } catch (Exception e) {
             e.printStackTrace();
+            dialog.dismiss();
           }
+          dialog.dismiss();
         } else {
           Toast.makeText(CertMailActivity.this, "이미 발송 되었습니다.", Toast.LENGTH_SHORT).show();
+          dialog.dismiss();
         }
         dialog.dismiss();
       }
@@ -157,7 +161,7 @@ public class CertMailActivity extends AppCompatActivity {
     });
 
 
-    // 인증메일 보내기 버튼
+    // 인증 확인 버튼
     certBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -186,10 +190,11 @@ public class CertMailActivity extends AppCompatActivity {
     nextBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
-        final ProgressDialog dialog= ProgressDialog.show(CertMailActivity.this,
-            "","회원 가입 진행중...",true);
         if(isCert) {
+
+          final ProgressDialog dialog= ProgressDialog.show(CertMailActivity.this,
+              "","회원 가입 진행중...",true);
+
           Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -204,6 +209,7 @@ public class CertMailActivity extends AppCompatActivity {
                   Intent intent = new Intent(CertMailActivity.this, LoginActivity.class);
 //                  intent.putExtra("userID",userIDEt.getText().toString());
                   startActivity(intent);
+                  dialog.dismiss();
                 }
                 else {
                   Log.d("가입실패","실패입니다." );
@@ -212,12 +218,13 @@ public class CertMailActivity extends AppCompatActivity {
                       .setNegativeButton("다시 시도", null)
                       .create()
                       .show();
+                  dialog.dismiss();
                 }
               }
               catch (JSONException e)
               {
                 Log.d("가입실패","중복된 아이디입니다." );
-
+                dialog.dismiss();
                 e.printStackTrace();
               }
               dialog.dismiss();
@@ -228,6 +235,8 @@ public class CertMailActivity extends AppCompatActivity {
           Log.d("가입시도","시도입니다." );
           queue.add(registerRequest);
           Log.d("가입시도","시도입니다.2" );
+        } else {
+          Toast.makeText(CertMailActivity.this, "인증 확인 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
         }
       }
     });
