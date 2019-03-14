@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/moon_keeper0" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper1" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper2" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper3" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper4" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper5" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper6" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper7" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper8" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper9" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper10" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper11" android:duration="30"/>
+    <item android:drawable="@drawable/moon_keeper12" android:duration="30"/>
+</animation-list>

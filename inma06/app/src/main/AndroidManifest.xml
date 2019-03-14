@@ -14,64 +14,65 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
+        <activity android:name="com.teamnova.inma06.MainActivity"></activity>
+        <activity android:name="com.teamnova.inma06.Utils.ProgressDialog" />
         <activity
             android:name="com.teamnova.inma06.Loading.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
             <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.teamnova.inma06.Register.RegisterActivity"
             android:windowSoftInputMode="adjustResize">
+
             <!-- 회원가입 액티비티 -->
         </activity>
-
         <activity
             android:name="com.teamnova.inma06.Register.CertMailActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+
             <!-- 메일 인증 액티비티 -->
         </activity>
-
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+
             <!-- 로그인 액티비티 -->
         </activity>
-
         <activity android:name="com.teamnova.inma06.Profile.HomeActivity">
+
             <!-- 홈(메인) 액티비티 -->
         </activity>
-
         <activity android:name="com.teamnova.inma06.Profile.ProfileMainActivity">
+
             <!-- 프로필 페이지 -->
         </activity>
-
         <activity android:name="com.teamnova.inma06.Profile.ProfileModifyActivity">
+
             <!-- 프로필 수정 -->
         </activity>
-
         <activity android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity">
+
             <!-- 프로필 배경 수정 -->
         </activity>
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.teamnova.inma06.provider"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <!-- 사진 촬영을 위한 provide -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-
     </application>
 
 </manifest>

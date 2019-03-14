@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -38,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 
 public class ProfileModifyActivity extends AppCompatActivity {
 
@@ -52,8 +52,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
   private File tempFile;
 
-  //이미지 경로 변수에 담음
-  private static String imageFilePath;
 
   @Override
   protected void onResume() {
@@ -68,6 +66,8 @@ public class ProfileModifyActivity extends AppCompatActivity {
     setContentView(R.layout.activity_profile_modify);
 
     tedPermission();
+
+
 
     profileIV = findViewById(R.id.profileIV);
     Glide.with(this)
@@ -84,6 +84,7 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
         final ProgressDialog dialog= ProgressDialog.show(ProfileModifyActivity.this,
             "프로필 사진 등록","사진을 등록하고 있습니다...",true);
+
 
 
         //TODO: 로그인시 받아온 유저의 아이디값을(맴버변수) 참조하여 사용한다.
@@ -209,27 +210,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
   }
 
 
-  /* 이미지 각도대로 회전 시키기
-  *
-  * */
-
-  private int exifOrientationToDegrees(int exifOrientation) {
-    if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-      return 90;
-    } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-      return 180;
-    } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-      return 270;
-    }
-    return 0;
-  }
-
-  private Bitmap rotate(Bitmap bitmap, float degree) {
-    Matrix matrix = new Matrix();
-    matrix.postRotate(degree);
-    return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-  }
-
   /**
    *  앨범에서 이미지 가져오기
    */
@@ -292,8 +272,6 @@ public class ProfileModifyActivity extends AppCompatActivity {
     File image = File.createTempFile(imageFileName, ".jpg", storageDir);
     Log.d(TAG, "createImageFile : " + image.getAbsolutePath());
 
-    // 이미지 경로 변수에 담음
-    imageFilePath = image.getAbsolutePath();
     return image;
   }
 
@@ -304,31 +282,10 @@ public class ProfileModifyActivity extends AppCompatActivity {
 
     BitmapFactory.Options options = new BitmapFactory.Options();
     Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
-    //TODO: 사진 각도 회전 선택 가능 하게 하기
-//    rotate(originalBm, 0); 무조건 0도
-
-    ExifInterface exif = null;
-
-    try {
-      exif = new ExifInterface(imageFilePath);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    int exifOrientation;
-    int exifDegree;
-
-    if (exif != null) {
-      exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-      exifDegree = exifOrientationToDegrees(exifOrientation);
-    } else {
-      exifDegree = 0;
-    }
-
     Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
 
     Glide.with(this)
-        .load(rotate(originalBm, exifDegree))
+        .load(originalBm)
         .into(profileIV);
 
     /**

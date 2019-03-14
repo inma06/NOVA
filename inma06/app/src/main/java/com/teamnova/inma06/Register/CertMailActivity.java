@@ -22,11 +22,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.teamnova.inma06.Login.LoginActivity;
-import com.teamnova.inma06.Profile.ProfileModifyActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 public class CertMailActivity extends AppCompatActivity {
 
@@ -106,8 +106,12 @@ public class CertMailActivity extends AppCompatActivity {
 
         //TODO: 인증 메일 Volley 사용해서 php 에서 보내는 것으로 바꿀 것.
         // 주의 ->시간남을 때 할 것
+
+
         final ProgressDialog dialog= ProgressDialog.show(CertMailActivity.this,
             "인증 메일 발송","메일을 발송하고 있습니다...",true);
+
+
 
         if(reSend){
           GMailSender sender = new GMailSender("pakbongho@gmail.com", "elqkfel0608<?>");

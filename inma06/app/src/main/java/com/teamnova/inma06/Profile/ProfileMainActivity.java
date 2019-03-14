@@ -4,6 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
+import android.media.JetPlayer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +29,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.squareup.picasso.Picasso;
-import com.teamnova.inma06.Utils.BlurTransformation;
 import com.teamnova.nova.R;
 
 import org.json.JSONObject;
+
+import java.security.MessageDigest;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 
 public class ProfileMainActivity extends AppCompatActivity {
@@ -43,12 +54,15 @@ public class ProfileMainActivity extends AppCompatActivity {
   public static ImageView mProfileBackgroundIV;
 */
 
+
+  public static Context mContext;
+
+
   private ImageView profileIV;
   private TextView nickNameTV;
   private TextView statusMsgTV;
   private ImageView profileBackgroundIV;
 
-  public static Context mContext;
 
   private ImageView statMsgBtn;
   private ImageView nickBtn;
@@ -58,6 +72,8 @@ public class ProfileMainActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+
+    mContext = this.getBaseContext();
     // 화면에 보여주기 전에 준비를 끝냄
     // 임시로 저장된 화면의 상태를 불러온다
 
@@ -68,7 +84,7 @@ public class ProfileMainActivity extends AppCompatActivity {
 
     Glide.with(this)
         .load(HomeActivity.mProfileBgImageDir)
-        .centerCrop()
+        .apply(bitmapTransform(new BlurTransformation(10,2)))
         .into(profileBackgroundIV);
 
     statusMsgTV.setText(HomeActivity.mStatusMsg);
