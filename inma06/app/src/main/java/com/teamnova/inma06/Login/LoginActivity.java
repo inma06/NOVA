@@ -22,8 +22,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.teamnova.inma06.Profile.HomeActivity;
-import com.teamnova.inma06.Profile.ProfileModifyActivity;
+import Main.HomeActivity;
+
 import com.teamnova.inma06.Register.RegisterActivity;
 import com.teamnova.nova.R;
 

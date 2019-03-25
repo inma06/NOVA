@@ -14,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.teamnova.inma06.MainActivity"></activity>
-        <activity android:name="com.teamnova.inma06.Utils.ProgressDialog" />
+        <activity android:name="com.teamnova.inma06.Checkin.QRCodeScanActivity"></activity>
+        <activity android:name="com.teamnova.inma06.Checkin.CheckInHomeActivity">
+
+            <!-- 좌석 예약 홈 ( 메인 ) -->
+        </activity>
         <activity
             android:name="com.teamnova.inma06.Loading.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -45,7 +48,7 @@
 
             <!-- 로그인 액티비티 -->
         </activity>
-        <activity android:name="com.teamnova.inma06.Profile.HomeActivity">
+        <activity android:name="Main.HomeActivity">
 
             <!-- 홈(메인) 액티비티 -->
         </activity>

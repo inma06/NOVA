@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
+import Main.HomeActivity;
 
 
 public class ProfileModifyActivity extends AppCompatActivity {

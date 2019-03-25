@@ -1,4 +1,4 @@
-package com.teamnova.inma06.Profile;
+package Main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.teamnova.inma06.Checkin.CheckInHomeActivity;
+import com.teamnova.inma06.Checkin.QRCodeScanActivity;
+import com.teamnova.inma06.Profile.ProfileMainActivity;
 import com.teamnova.nova.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
   private Button newsBtn;
   private Button streamingBtn;
   private Button timerBtn;
+  private Button qrcodeBtn;
   private TextView userID_TV;
 
 
@@ -42,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
     mUserID = intent.getStringExtra("userID");
 
 
+
+    qrcodeBtn = (Button) findViewById(R.id.qrCodeScanBtn);
     profileBtn = (Button) findViewById(R.id.myProfileBtn);
     friendBtn = (Button) findViewById(R.id.friendBtn);
     checkBtn = (Button) findViewById(R.id.checkinBtn);
@@ -49,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     streamingBtn = (Button) findViewById(R.id.streamingBtn);
     timerBtn = (Button) findViewById(R.id.timerBtn);
     userID_TV = (TextView) findViewById(R.id.userID_TV);
+
 
     userID_TV.setText(mUserID);
 
@@ -81,8 +88,10 @@ public class HomeActivity extends AppCompatActivity {
     checkBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        /* 출석체크 버튼 클릭 */
-        Toast.makeText(HomeActivity.this, "출석체크 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        /* 좌석예약 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "좌석예약 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, CheckInHomeActivity.class);
+        startActivity(intent);
 
       }
     });
@@ -115,6 +124,16 @@ public class HomeActivity extends AppCompatActivity {
       }
     });
 
+
+    qrcodeBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* QR 코드 스캔 버튼*/
+        Toast.makeText(HomeActivity.this, "QR 코드 스캔 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, QRCodeScanActivity.class);
+        startActivity(intent);
+      }
+    });
 
 
 
