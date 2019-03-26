@@ -1,6 +1,7 @@
 package com.teamnova.inma06.Checkin;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +65,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
     statusTV = (TextView) findViewById(R.id.textViewStatus);
     resultTV = (TextView) findViewById(R.id.textViewResult);
     userIDTV = (TextView) findViewById(R.id.userIDTV);
+
 
     //내 아이디 텍스트뷰에 로그인한 userID 입력
     userIDTV.setText(mUserID.toString());
@@ -149,11 +151,92 @@ public class QRCodeScanActivity extends AppCompatActivity {
         try {
           //data를 json으로 변환
           JSONObject obj = new JSONObject(result.getContents());
-          sheetNumTV.setText(obj.getString("sheetNumber"));
-          statusTV.setText(obj.getString("sheetStatus"));
+          Log.d("TEST", "체크인 버튼 클릭 OK");
+          final String sheetNumber = obj.getString("sheetNumber");
+
+          Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+              try{
+                JSONObject jsonResponse = new JSONObject(response);
+
+                boolean success = jsonResponse.getBoolean("success");
+
+                if(success == false){
+                  // 좌석 확인 실패시 ( 다른 사용자가 이미 사용 중 일 경우 등... )
+                  Log.i(TAG, "onResponse: 체크인 실패");
+                  AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeScanActivity.this);
+                  builder.setMessage("해당 좌석은 사용중 입니다.")
+                      .setNegativeButton("다시 시도", null)
+                      .create()
+                      .show();
+                } else {
+                  // 좌석 확인 성공시
+                  Toast.makeText(QRCodeScanActivity.this, "체크인 성공! API동작 확인!", Toast.LENGTH_SHORT).show();
+                  resultTV.setText(response.toString());
+                  AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeScanActivity.this);
+                  builder.setMessage(sheetNumber+"번 좌석")
+                      .setPositiveButton("사용 시작", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                          // 좌석 사용을 시작
+                          // sheetCheckIn.php API 에 요청합니다.
+                          final ProgressDialog progressDialog = ProgressDialog.show(QRCodeScanActivity.this,
+                              "체크인","체크인 하는 중...",true);
+                          Log.d("TEST", "체크인 버튼 클릭 OK");
+                          final String userID = userIDTV.getText().toString();
+
+                          Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                              try{
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if(success == false){
+                                  Log.i(TAG, "onResponse: 체크인 실패");
+                                  AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeScanActivity.this);
+                                  builder.setMessage("체크인에 실패하였습니다.")
+                                      .setNegativeButton("다시 시도", null)
+                                      .create()
+                                      .show();
+                                } else {
+                                  // 체크인 성공시
+                                  Toast.makeText(QRCodeScanActivity.this, "체크인 성공! API동작 확인!", Toast.LENGTH_SHORT).show();
+                                  statusTV.setText( sheetNumber + "번 좌석 사용을 시작하였습니다.");
+                                }
+                              } catch (Exception e){
+                                e.printStackTrace();
+                              }
+                              progressDialog.dismiss();
+                              Log.e("response -> 리스폰 결과값 출력 ", response.toString());
+                            }
+                          };
+                          CheckInRequest checkInRequest = new CheckInRequest(mUserID, sheetNumber, responseListener);
+                          RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
+                          queue.add(checkInRequest);
+
+
+                        }
+                      })
+                      .setNegativeButton("취소", null)
+                      .create()
+                      .show();
+
+
+                }
+              } catch (Exception e){
+                e.printStackTrace();
+              }
+              Log.e("response -> 리스폰 결과값 출력 ", response.toString());
+            }
+          };
+          StatusLookupRequest statusLookupRequest = new StatusLookupRequest(sheetNumber, responseListener);
+          RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
+          queue.add(statusLookupRequest);
+
         } catch (JSONException e) {
           e.printStackTrace();
-          //Toast.makeText(MainActivity.this, result.getContents(), Toast.LENGTH_LONG).show();
           resultTV.setText(result.getContents());
         }
       }

@@ -14,64 +14,77 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.teamnova.inma06.Checkin.QRCodeScanActivity"></activity>
-        <activity android:name="com.teamnova.inma06.Checkin.CheckInHomeActivity">
 
-            <!-- 좌석 예약 홈 ( 메인 ) -->
+        <!-- QR코드 스캔 액티비티 -->
+        <activity android:name="com.teamnova.inma06.Checkin.QRCodeScanActivity"
+            android:screenOrientation="portrait">
         </activity>
+
+        <!-- 좌석 예약 홈 ( 메인 ) -->
+        <activity android:name="com.teamnova.inma06.Checkin.SheetHomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Loading.LoadingActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-
-            <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 회원가입 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.RegisterActivity"
-            android:windowSoftInputMode="adjustResize">
-
-            <!-- 회원가입 액티비티 -->
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
         </activity>
+
+        <!-- 메일 인증 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.CertMailActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-
-            <!-- 메일 인증 액티비티 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait">
         </activity>
+
+        <!-- 로그인 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-
-            <!-- 로그인 액티비티 -->
-        </activity>
-        <activity android:name="Main.HomeActivity">
-
-            <!-- 홈(메인) 액티비티 -->
-        </activity>
-        <activity android:name="com.teamnova.inma06.Profile.ProfileMainActivity">
-
-            <!-- 프로필 페이지 -->
-        </activity>
-        <activity android:name="com.teamnova.inma06.Profile.ProfileModifyActivity">
-
-            <!-- 프로필 수정 -->
-        </activity>
-        <activity android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity">
-
-            <!-- 프로필 배경 수정 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait">
         </activity>
 
+        <!-- 홈(메인) 액티비티 -->
+        <activity android:name="Main.HomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 프로필 페이지 -->
+        <activity android:name="com.teamnova.inma06.Profile.ProfileMainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 프로필 수정 -->
+        <activity android:name="com.teamnova.inma06.Profile.ProfileModifyActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <!-- 프로필 배경 수정 -->
+        <activity android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <!-- 사진 촬영을 위한 provide -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.teamnova.inma06.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-
-            <!-- 사진 촬영을 위한 provide -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />

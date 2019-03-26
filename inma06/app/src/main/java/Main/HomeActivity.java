@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.teamnova.inma06.Checkin.CheckInHomeActivity;
+import com.teamnova.inma06.Checkin.SheetHomeActivity;
 import com.teamnova.inma06.Checkin.QRCodeScanActivity;
 import com.teamnova.inma06.Profile.ProfileMainActivity;
 import com.teamnova.nova.R;
@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
       public void onClick(View v) {
         /* 좌석예약 버튼 클릭 */
         Toast.makeText(HomeActivity.this, "좌석예약 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HomeActivity.this, CheckInHomeActivity.class);
+        Intent intent = new Intent(HomeActivity.this, SheetHomeActivity.class);
         startActivity(intent);
 
       }
