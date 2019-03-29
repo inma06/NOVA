@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.teamnova.inma06.Seat.QRCodeScanActivity;
 import com.teamnova.inma06.Profile.ProfileMainActivity;
+import com.teamnova.inma06.Seat.SeatHomeActivity;
 import com.teamnova.nova.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -90,9 +91,8 @@ public class HomeActivity extends AppCompatActivity {
       public void onClick(View v) {
         /* 좌석예약 버튼 클릭 */
         Toast.makeText(HomeActivity.this, "좌석예약 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(HomeActivity.this, SeatHomeActivity.class);
-//        Intent intent = new Intent(HomeActivity.this, RecyclerTest.class);
-//        startActivity(intent);
+        Intent intent = new Intent(HomeActivity.this, SeatHomeActivity.class);
+        startActivity(intent);
 
       }
     });
