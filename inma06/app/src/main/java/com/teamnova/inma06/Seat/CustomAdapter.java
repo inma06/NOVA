@@ -1,6 +1,7 @@
 package com.teamnova.inma06.Seat;
 
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -62,18 +63,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     if(mList.get(position).getSeatStatusIv() == 1) {
       // 1 -> 사용 가능 (빈자리)
       viewholder.seatStatusIv.setImageResource(R.drawable.empty);
-      viewholder.seatStatusTv.setText("사용 가능");
+//      viewholder.seatStatusTv.setText("사용 가능");
     } else if(mList.get(position).getSeatStatusIv() == 2) {
       // 2 -> 사용 중
       viewholder.seatStatusIv.setImageResource(R.drawable.use);
-      viewholder.seatStatusTv.setText("사용 중");
+//      viewholder.seatStatusTv.setText("사용 중");
     } else if(mList.get(position).getSeatStatusIv() == 3) {
       // 3 -> 수리중 (기타 사용불가능)
       viewholder.seatStatusIv.setImageResource(R.drawable.repair);
-      viewholder.seatStatusTv.setText("수리 중");
-    } else {
-      viewholder.seatStatusIv.setImageResource(R.drawable.icon);
-      viewholder.seatStatusTv.setText("error:501");
+//      viewholder.seatStatusTv.setText("수리 중");
+    } else if(mList.get(position).getSeatStatusIv() == 4) {
+      viewholder.seatStatusIv.setImageResource(R.drawable.rest);
+//      viewholder.seatStatusTv.setText("휴식중");
     }
   }
 

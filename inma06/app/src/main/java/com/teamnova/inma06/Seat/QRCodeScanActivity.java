@@ -184,7 +184,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
                           final ProgressDialog progressDialog = ProgressDialog.show(QRCodeScanActivity.this,
                               "체크인","체크인 하는 중...",true);
                           Log.d("TEST", "체크인 버튼 클릭 OK");
-                          final String userID = userIDTV.getText().toString();
 
                           Response.Listener<String> responseListener = new Response.Listener<String>() {
                             @Override
@@ -220,6 +219,43 @@ public class QRCodeScanActivity extends AppCompatActivity {
                         }
                       })
                       .setNegativeButton("취소", null)
+                      .setNeutralButton("휴식(beta)", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                          final ProgressDialog progressDialog = ProgressDialog.show(QRCodeScanActivity.this,
+                              "휴식","휴식 시작...",true);
+
+                          Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                              try{
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if(success == false){
+                                  Log.i(TAG, "onResponse: 체크인 실패");
+                                  AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeScanActivity.this);
+                                  builder.setMessage("체크인에 실패하였습니다.")
+                                      .setNegativeButton("다시 시도", null)
+                                      .create()
+                                      .show();
+                                } else {
+                                  // 체크인 성공시
+                                  Toast.makeText(QRCodeScanActivity.this, "휴식 성공! API동작 확인!", Toast.LENGTH_SHORT).show();
+                                  statusTV.setText( seatNumber + "번 좌석에서 휴식을 시작하였습니다.");
+                                }
+                              } catch (Exception e){
+                                e.printStackTrace();
+                              }
+                              progressDialog.dismiss();
+                              Log.e("response -> 리스폰 결과값 출력 ", response.toString());
+                            }
+                          };
+                          SeatRestRequest seatRestRequest = new SeatRestRequest(mUserID, seatNumber, responseListener);
+                          RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
+                          queue.add(seatRestRequest);
+                        }
+                      })
                       .create()
                       .show();
 

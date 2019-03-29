@@ -1,5 +1,6 @@
 package com.teamnova.inma06.Seat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -23,6 +24,13 @@ public class SeatHomeActivity extends AppCompatActivity {
   private int count = -1;
 
 
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -45,22 +53,27 @@ public class SeatHomeActivity extends AppCompatActivity {
         mLinearLayoutManager.getOrientation());
     mRecyclerView.addItemDecoration(dividerItemDecoration);
 
+    Intent intent = getIntent();
+    String[] seatNumber = new String[55];
+    String[] seatStatus = new String[55];
+    for(int i = 0; i < 50; i++){
+      seatNumber[i] = intent.getStringExtra("seatNumber"+ Integer.toString(i));
+      seatStatus[i] = intent.getStringExtra("seatStatus"+ Integer.toString(i));
+      count++;
+      // Dictionary 생성자를 사용하여 ArrayList에 삽입할 데이터를 만듭니다.
+      Dictionary dict = new Dictionary(seatNumber[i] + "번",Integer.parseInt(seatStatus[i]),"");
+      mArrayList.add(dict); // RecyclerView의 마지막 줄에 삽입
+    }
+    mAdapter.notifyDataSetChanged(); //변경된 데이터를 화면에 반영
+
     Button buttonInsert = (Button)findViewById(R.id.button_main_insert);
     buttonInsert.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
-        count++;
-
-        // Dictionary 생성자를 사용하여 ArrayList에 삽입할 데이터를 만듭니다.
-        Dictionary dict = new Dictionary("1번",1,"사용 가능");
-
-        //mArrayList.add(0, dict); //RecyclerView의 첫 줄에 삽입
-        mArrayList.add(dict); // RecyclerView의 마지막 줄에 삽입
-
-        mAdapter.notifyDataSetChanged(); //변경된 데이터를 화면에 반영
       }
     });
 
   }
+
 }
