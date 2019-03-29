@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.teamnova.inma06.Checkin.QRCodeScanActivity">
+    tools:context="com.teamnova.inma06.Seat.QRCodeScanActivity">
 
     <LinearLayout
         android:layout_width="371dp"
@@ -63,7 +63,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textViewSheetNum"
+            android:id="@+id/textViewSeatNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""

@@ -1,4 +1,4 @@
-package com.teamnova.inma06.Checkin;
+package com.teamnova.inma06.Seat;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -6,7 +6,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StatusLookupRequest extends StringRequest {
+public class CheckInRequest extends StringRequest {
 /*
 
 
@@ -21,7 +21,7 @@ public class StatusLookupRequest extends StringRequest {
 * */
 
 
-  final static private String URL = "https://bongbong.ga/sheetLookup.php";
+  final static private String URL = "https://bongbong.ga/seatCheckIn.php";
   private Map<String, String>  parameters;
 
 
@@ -31,10 +31,11 @@ public class StatusLookupRequest extends StringRequest {
      NickName, PhoneNum, Grade,
      Listener)
    */
-  public StatusLookupRequest(String  sheetNumber, Response.Listener<String> listener) {
+  public CheckInRequest(String userID, String seatNumber, Response.Listener<String> listener) {
     super(Method.POST, URL, listener, null);
     parameters = new HashMap<>();
-    parameters.put("sheetNumber", sheetNumber);
+    parameters.put("userID", userID);
+    parameters.put("seatNumber", seatNumber);
   }
 
   @Override

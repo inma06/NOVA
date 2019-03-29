@@ -16,12 +16,12 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <!-- QR코드 스캔 액티비티 -->
-        <activity android:name="com.teamnova.inma06.Checkin.QRCodeScanActivity"
+        <activity android:name="com.teamnova.inma06.Seat.QRCodeScanActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 좌석 예약 홈 ( 메인 ) -->
-        <activity android:name="com.teamnova.inma06.Checkin.SheetHomeActivity"
+        <activity android:name="com.teamnova.inma06.Seat.SeatHomeActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -77,7 +77,6 @@
         <activity android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity"
             android:screenOrientation="portrait">
         </activity>
-
 
         <!-- 사진 촬영을 위한 provide -->
         <provider

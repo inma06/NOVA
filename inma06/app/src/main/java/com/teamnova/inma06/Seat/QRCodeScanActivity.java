@@ -1,4 +1,4 @@
-package com.teamnova.inma06.Checkin;
+package com.teamnova.inma06.Seat;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -47,7 +47,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
 
   //view Objects
   private Button scanBtn, checkinBtn;
-  private TextView sheetNumTV, statusTV, userIDTV, resultTV;
+  private TextView seatNumTV, statusTV, userIDTV, resultTV;
 
   //qr code scanner object
   private IntentIntegrator qrScan;
@@ -61,7 +61,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
     //View Objects
     checkinBtn = (Button) findViewById(R.id.checkinBtn);
     scanBtn = (Button) findViewById(R.id.buttonScan);
-    sheetNumTV = (TextView) findViewById(R.id.textViewSheetNum);
+    seatNumTV = (TextView) findViewById(R.id.textViewSeatNum);
     statusTV = (TextView) findViewById(R.id.textViewStatus);
     resultTV = (TextView) findViewById(R.id.textViewResult);
     userIDTV = (TextView) findViewById(R.id.userIDTV);
@@ -95,7 +95,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
             "체크인","체크인 하는 중...",true);
         Log.d("TEST", "체크인 버튼 클릭 OK");
         final String userID = userIDTV.getText().toString();
-        final String sheetNumber = sheetNumTV.getText().toString();
+        final String seatNumber = seatNumTV.getText().toString();
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
           @Override
@@ -127,7 +127,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
             Log.e("response -> 리스폰 결과값 출력 ", response.toString());
           }
         };
-        CheckInRequest checkInRequest = new CheckInRequest(userID, sheetNumber, responseListener);
+        CheckInRequest checkInRequest = new CheckInRequest(userID, seatNumber, responseListener);
         RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
         queue.add(checkInRequest);
 
@@ -152,7 +152,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
           //data를 json으로 변환
           JSONObject obj = new JSONObject(result.getContents());
           Log.d("TEST", "체크인 버튼 클릭 OK");
-          final String sheetNumber = obj.getString("sheetNumber");
+          final String seatNumber = obj.getString("seatNumber");
 
           Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -175,7 +175,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
                   Toast.makeText(QRCodeScanActivity.this, "체크인 성공! API동작 확인!", Toast.LENGTH_SHORT).show();
                   resultTV.setText(response.toString());
                   AlertDialog.Builder builder = new AlertDialog.Builder(QRCodeScanActivity.this);
-                  builder.setMessage(sheetNumber+"번 좌석")
+                  builder.setMessage(seatNumber+"번 좌석")
                       .setPositiveButton("사용 시작", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -203,7 +203,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
                                 } else {
                                   // 체크인 성공시
                                   Toast.makeText(QRCodeScanActivity.this, "체크인 성공! API동작 확인!", Toast.LENGTH_SHORT).show();
-                                  statusTV.setText( sheetNumber + "번 좌석 사용을 시작하였습니다.");
+                                  statusTV.setText( seatNumber + "번 좌석 사용을 시작하였습니다.");
                                 }
                               } catch (Exception e){
                                 e.printStackTrace();
@@ -212,7 +212,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
                               Log.e("response -> 리스폰 결과값 출력 ", response.toString());
                             }
                           };
-                          CheckInRequest checkInRequest = new CheckInRequest(mUserID, sheetNumber, responseListener);
+                          CheckInRequest checkInRequest = new CheckInRequest(mUserID, seatNumber, responseListener);
                           RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
                           queue.add(checkInRequest);
 
@@ -231,9 +231,9 @@ public class QRCodeScanActivity extends AppCompatActivity {
               Log.e("response -> 리스폰 결과값 출력 ", response.toString());
             }
           };
-          StatusLookupRequest statusLookupRequest = new StatusLookupRequest(sheetNumber, responseListener);
+          SeatLookupRequest seatLookupRequest = new SeatLookupRequest(seatNumber, responseListener);
           RequestQueue queue = Volley.newRequestQueue(QRCodeScanActivity.this);
-          queue.add(statusLookupRequest);
+          queue.add(seatLookupRequest);
 
         } catch (JSONException e) {
           e.printStackTrace();
