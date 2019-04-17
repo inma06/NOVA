@@ -48,37 +48,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userProfileIV" />
 
-    <TextView
-        android:id="@+id/userMsgTV"
-        android:layout_width="191dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:layout_weight="1"
-        android:ellipsize="none"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center_horizontal"
-        android:maxLength="60"
-        android:maxLines="5"
-        android:scrollHorizontally="false"
-        android:singleLine="false"
-        android:text="가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/editStatMsgBtn"
-        android:layout_width="39dp"
-        android:layout_height="40dp"
-        android:src="@drawable/pencil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMsgTV" />
+        <TextView
+            android:id="@+id/userMsgTV"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="105dp"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:maxLength="60"
+            android:maxLines="5"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:text="가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/editStatMsgBtn"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pencil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userMsgTV" />
+
+
 
     <ImageView
         android:id="@+id/editNickBtn"
