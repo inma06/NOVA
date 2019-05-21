@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -7,35 +8,29 @@
     <TextView
         android:id="@+id/time_out"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="616dp"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:textSize="40sp"
-        android:background="#cccccc"
-        android:textColor="#777777"
-        android:text="00:00:00" />
+        android:text="00:00:00"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="기록"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:background="#333333"
-        android:textColor="#ffffff"
-        />
-
-    <TextView
-        android:id="@+id/record"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:textSize="20sp"
-        android:padding="10dp"
-        />
+        android:text="이어서 측정 하시려면 15초 이내에 \n다시 핸드폰을 뒤집어 놓으세요."
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >
+
         <Button
             android:id="@+id/btn_start"
             android:layout_width="0px"
@@ -43,29 +38,32 @@
             android:layout_weight="1"
             android:onClick="myOnClick"
             android:text="시작"
-            />
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/btn_rec"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:enabled="false"
             android:onClick="myOnClick"
             android:text="기록"
-            android:enabled="false"
 
-            />
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/accZ_Tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="accZ : 0" />
+        android:text="accZ : 0"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/prox_Tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="prox : 0" />
+        android:text="prox : 0"
+        android:visibility="gone" />
 
 </LinearLayout>

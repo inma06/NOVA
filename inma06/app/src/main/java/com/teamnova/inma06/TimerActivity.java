@@ -19,7 +19,6 @@ import com.teamnova.nova.R;
 
 public class TimerActivity extends Activity implements SensorEventListener {
   TextView myOutput;
-  TextView myRec;
   Button myBtnStart;
   Button myBtnRec;
 
@@ -51,7 +50,6 @@ public class TimerActivity extends Activity implements SensorEventListener {
     setContentView(R.layout.activity_timer);
 
     myOutput = (TextView) findViewById(R.id.time_out);
-    myRec = (TextView) findViewById(R.id.record);
     myBtnStart = (Button) findViewById(R.id.btn_start);
     myBtnRec = (Button) findViewById(R.id.btn_rec);
     accZ_Tv = (TextView) findViewById(R.id.accZ_Tv);
@@ -186,7 +184,7 @@ public class TimerActivity extends Activity implements SensorEventListener {
 
         }
         break;
-      case R.id.btn_rec:
+  /*    case R.id.btn_rec:
         switch(cur_Status){
           case Run:
 
@@ -212,10 +210,12 @@ public class TimerActivity extends Activity implements SensorEventListener {
 
 
         }
-        break;
+        break;*/
 
     }
   }
+
+  // 코드 참조 : https://m.blog.naver.com/javaking75/140177957873
 
   Handler myTimer = new Handler(){
     public void handleMessage(Message msg){
@@ -229,7 +229,9 @@ public class TimerActivity extends Activity implements SensorEventListener {
   String getTimeOut(){
     long now = SystemClock.elapsedRealtime(); //애플리케이션이 실행되고나서 실제로 경과된 시간(??)^^;
     long outTime = now - myBaseTime;
-    String easy_outTime = String.format("%02d:%02d:%02d", outTime/1000 / 60, (outTime/1000)%60,(outTime%1000)/10);
+
+//    String easy_outTime = String.format("%02d:%02d:%02d", outTime/1000 / 60, (outTime/1000)%60, (outTime%1000)/10); //m, s, ms
+    String easy_outTime = String.format("%02d:%02d:%02d", outTime/1000 / 60 / 60, outTime/1000 / 60, (outTime/1000)%60); //h, m, s
     return easy_outTime;
 
   }
