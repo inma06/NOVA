@@ -21,6 +21,8 @@ import com.teamnova.inma06.Seat.QRCodeScanActivity;
 import com.teamnova.inma06.Profile.ProfileMainActivity;
 import com.teamnova.inma06.Seat.SeatHomeActivity;
 import com.teamnova.inma06.Seat.SeatLookupRequest;
+import com.teamnova.inma06.Test01Activity;
+import com.teamnova.inma06.TimerActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONObject;
@@ -43,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
   private Button newsBtn;
   private Button streamingBtn;
   private Button timerBtn;
+  private Button test01Btn;
   private Button qrcodeBtn;
   private TextView userID_TV;
 
@@ -62,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
     qrcodeBtn = (Button) findViewById(R.id.qrCodeScanBtn);
     profileBtn = (Button) findViewById(R.id.myProfileBtn);
+    test01Btn = (Button) findViewById(R.id.test01Btn);
     friendBtn = (Button) findViewById(R.id.friendBtn);
     checkBtn = (Button) findViewById(R.id.checkinBtn);
     newsBtn = (Button) findViewById(R.id.newsBtn);
@@ -198,6 +202,20 @@ public class HomeActivity extends AppCompatActivity {
       public void onClick(View v) {
         /* 타이머 버튼 클릭 */
         Toast.makeText(HomeActivity.this, "타이머 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, TimerActivity.class);
+        startActivity(intent);
+      }
+    });
+
+
+    //TODO: 기능 테스트 가속도센서
+    test01Btn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 기능 테스트 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "기능테스트 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, Test01Activity.class);
+        startActivity(intent);
       }
     });
 

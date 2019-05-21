@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamnova.nova">
-
     <!-- 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- camera, gallery -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -15,19 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-
-        <!-- QR코드 스캔 액티비티 -->
+        <activity android:name="com.teamnova.inma06.TimerActivity"></activity>
+        <activity android:name="com.teamnova.inma06.Test01Activity" /> <!-- QR코드 스캔 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Seat.QRCodeScanActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 좌석 예약 홈 ( 메인 ) -->
+            android:screenOrientation="portrait" /> <!-- 좌석 예약 홈 ( 메인 ) -->
         <activity
             android:name="com.teamnova.inma06.Seat.SeatHomeActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
+            android:screenOrientation="portrait" /> <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Loading.LoadingActivity"
             android:screenOrientation="portrait"
@@ -37,47 +31,31 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 회원가입 액티비티 -->
+        </activity> <!-- 회원가입 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.RegisterActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
-
-        <!-- 메일 인증 액티비티 -->
+            android:windowSoftInputMode="adjustResize" /> <!-- 메일 인증 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Register.CertMailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
-
-        <!-- 로그인 액티비티 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 로그인 액티비티 -->
         <activity
             android:name="com.teamnova.inma06.Login.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
-
-        <!-- 홈(메인) 액티비티 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 홈(메인) 액티비티 -->
         <activity
             android:name="Main.HomeActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 프로필 페이지 -->
+            android:screenOrientation="portrait" /> <!-- 프로필 페이지 -->
         <activity
             android:name="com.teamnova.inma06.Profile.ProfileMainActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 프로필 수정 -->
+            android:screenOrientation="portrait" /> <!-- 프로필 수정 -->
         <activity
             android:name="com.teamnova.inma06.Profile.ProfileModifyActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 프로필 배경 수정 -->
+            android:screenOrientation="portrait" /> <!-- 프로필 배경 수정 -->
         <activity
             android:name="com.teamnova.inma06.Profile.ProfileBgModifyActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- 사진 촬영을 위한 provide -->
+            android:screenOrientation="portrait" /> <!-- 사진 촬영을 위한 provide -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.teamnova.inma06.provider"
