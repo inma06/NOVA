@@ -11,6 +11,8 @@ import android.os.SystemClock;
 import android.app.Activity;
 import android.provider.Telephony;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,44 +104,52 @@ public class TimerActivity extends Activity implements SensorEventListener {
       else isProx = false;
     }
     //TODO: 코드 정리 필요, 로직 정리 필요.
-    // 타이머 시작 조건 ( isAcc = -8.0이하 true , isProx = 1.0 이하 true )
+
+ /*    타이머 시작 조건 ( isAcc = -8.0이하 true , isProx = 1.0 이하 true )*/
+
     if(isAcc && isProx && cur_Status == Init) {
       // 핸드폰을 책상에 뒤집어 놓았을 때 -> 타이머 시작
       myBaseTime = SystemClock.elapsedRealtime();
       System.out.println(myBaseTime);
       //myTimer이라는 핸들러를 빈 메세지를 보내서 호출
+
+      screenBright(0); // 화면 밝기 최저 ( 어둡게 )
+
       myTimer.sendEmptyMessage(0);
-//      myBtnStart.setText("멈춤"); //버튼의 문자"시작"을 "멈춤"으로 변경
-//      myBtnRec.setEnabled(true); //기록버튼 활성
       cur_Status = Run; //현재상태를 런상태로 변경
       Toast.makeText(this, "핸드폰을 뒤집어 놓았다!", Toast.LENGTH_SHORT).show();
     }
-    // 타이머 다시 시작 조건 (*핸드폰을 집었다가 다시 뒤집어 놓았을 때)
-    // ( isAcc = -8.0 이상 false , isProx = 1.0 이상 false )
-    // 가속도 센서 z 값 기준으로 뒤집음을 감지, 근접센서에 물체감지 안되었을때
+
+  /*   타이머 다시 시작 조건 (*핸드폰을 집었다가 다시 뒤집어 놓았을 때)
+     ( isAcc = -8.0 이상 false , isProx = 1.0 이상 false )
+     가속도 센서 z 값 기준으로 뒤집음을 감지, 근접센서에 물체감지 안되었을때*/
+
     if(isAcc == true && isProx == true && cur_Status == Pause) {
       //일시정지
       long now = SystemClock.elapsedRealtime();
       myTimer.sendEmptyMessage(0);
       myBaseTime += (now- myPauseTime);
-//      myBtnStart.setText("멈춤");
-//      myBtnRec.setText("기록");
+
+      screenBright(0); // 화면 밝기 최저 ( 어둡게 )
+
       cur_Status = Run;
     }
 
-    /*
-    * 타이머 일시 정지 조건
-    *
-    * 타이머가 실행중일때 핸드폰을 집었을 때
-    * 근접센서에 물체가 감지되지 않고 && 가속도센서 z 값이 8.00 이상일때
-    *
-    * */
+
+
+     /*타이머 일시 정지 조건
+
+     타이머가 실행중일때 핸드폰을 집었을 때
+     근접센서에 물체가 감지되지 않고 && 가속도센서 z 값이 8.00 이상일때
+    */
+
     if(isAcc == false && isProx == false && cur_Status == Run) {
       // 핸드폰을 책상에서 들었을 때 -> 타이머 일시정지
       myTimer.removeMessages(0); //핸들러 메세지 제거
       myPauseTime = SystemClock.elapsedRealtime();
-//      myBtnStart.setText("시작");
-//      myBtnRec.setText("리셋");
+
+      screenBright(1); // 화면 밝기 최저 ( 어둡게 )
+
       cur_Status = Pause;
     }
   }
@@ -236,5 +246,12 @@ public class TimerActivity extends Activity implements SensorEventListener {
 
   }
 
+  // 화면 밝기 조정
 
+  public void screenBright(float value){
+    Window mywindow = getWindow();
+    WindowManager.LayoutParams lp = mywindow.getAttributes();
+    lp.screenBrightness = value;
+    mywindow.setAttributes(lp);
+  }
 }
