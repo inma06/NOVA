@@ -17,12 +17,14 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.teamnova.inma06.Seat.QRCodeScanActivity;
-import com.teamnova.inma06.Profile.ProfileMainActivity;
-import com.teamnova.inma06.Seat.SeatHomeActivity;
-import com.teamnova.inma06.Seat.SeatLookupRequest;
-import com.teamnova.inma06.Test01Activity;
-import com.teamnova.inma06.TimerActivity;
+
+import ChatClient.ChatViewActivity;
+import Seat.QRCodeScanActivity;
+import Profile.ProfileMainActivity;
+import Seat.SeatHomeActivity;
+import Seat.SeatLookupRequest;
+import Timer.Test01Activity;
+import Timer.TimerActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONObject;
@@ -94,9 +96,10 @@ public class HomeActivity extends AppCompatActivity {
     friendBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        /* 친구목록 버튼 클릭 */
+        /* 친구목록 채팅 버튼 클릭 */
 
-
+        Intent intent = new Intent(HomeActivity.this, ChatViewActivity.class);
+        startActivity(intent);
         Toast.makeText(HomeActivity.this, "친구목록 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
 
       }

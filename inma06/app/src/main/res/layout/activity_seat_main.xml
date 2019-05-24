@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teamnova.inma06.Seat.SeatHomeActivity">
+    tools:context="Seat.SeatHomeActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_main_list"
+        android:id="@+id/seat_main_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbarFadeDuration="0"
@@ -29,6 +29,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview_main_list"
+        app:layout_constraintTop_toBottomOf="@+id/seat_main_list"
         app:layout_constraintVertical_weight="1" />
 </android.support.constraint.ConstraintLayout>
