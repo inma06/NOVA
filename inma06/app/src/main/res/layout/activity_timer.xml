@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/time_out"
-        android:layout_width="fill_parent"
-        android:layout_height="537dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="00:00:00"
@@ -24,7 +24,15 @@
         android:text="이어서 측정 하시려면 15초 이내에 \n다시 핸드폰을 뒤집어 놓으세요."
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/timerSop_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="타이머 종료"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="fill_parent"

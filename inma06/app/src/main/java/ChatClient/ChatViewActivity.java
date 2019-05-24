@@ -1,7 +1,8 @@
 package ChatClient;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,17 @@ import android.widget.Toast;
 
 import com.teamnova.nova.R;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class ChatViewActivity extends AppCompatActivity {
 
+  public static String CHAT_SERVER_IP = "13.124.10.133";
+  public static int CHAT_SERVER_PORT = 9999;
   private static String TAG = "ChatViewActivity";
 
   private ArrayList<Dictionary> mArrayList;
@@ -25,6 +33,26 @@ public class ChatViewActivity extends AppCompatActivity {
   private LinearLayoutManager mLinearLayoutManager;
   private Button sendMsgBtn;
   private EditText inputMsgEt;
+
+  Socket socket = null;
+  DataInputStream inputStream = null;
+  DataOutputStream outputStream = null;
+
+
+
+  Handler chatSocket = new Handler(){
+    public void handleMessage(Message msg){
+      /* 소켓 통신 부분 */
+
+      try {
+        socket = new Socket(CHAT_SERVER_IP,CHAT_SERVER_PORT);
+        inputStream = new DataInputStream(socket.getInputStream());
+        outputStream = new DataOutputStream(socket.getOutputStream());
+      } catch (IOException e) {
+
+      }
+    }
+  };
 
   @Override
   protected void onResume() {
@@ -61,6 +89,13 @@ public class ChatViewActivity extends AppCompatActivity {
     sendMsgBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+        chatSocket.sendEmptyMessage(0);
+
+        //사용자가 채팅 내용을 입력 및 서버로 전송하기 위한 쓰레드 생성 및 시작
+        Thread thread = new Thread(new Send(outputStream, inputMsgEt.getText().toString()));
+        thread.start();
+
         Toast.makeText(ChatViewActivity.this, inputMsgEt.getText().toString() + " 를 전송 한다.", Toast.LENGTH_SHORT).show();
       }
     });

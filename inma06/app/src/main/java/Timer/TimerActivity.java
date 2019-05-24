@@ -23,6 +23,7 @@ public class TimerActivity extends Activity implements SensorEventListener {
   TextView myOutput;
   Button myBtnStart;
   Button myBtnRec;
+  Button stopBtn;
 
   final static int Init =0;
   final static int Run =1;
@@ -57,11 +58,20 @@ public class TimerActivity extends Activity implements SensorEventListener {
     accZ_Tv = (TextView) findViewById(R.id.accZ_Tv);
     prox_Tv = (TextView) findViewById(R.id.prox_Tv);
 
+
+    stopBtn = (Button) findViewById(R.id.timerSop_Btn);
     sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
     accelerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
 
+
+    stopBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Toast.makeText(TimerActivity.this, "종료버튼 클릭", Toast.LENGTH_SHORT).show();
+      }
+    });
 
 
   }
