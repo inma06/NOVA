@@ -3,6 +3,11 @@
     package="com.teamnova.nova">
     <!-- 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- camera, gallery -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -50,6 +55,10 @@
         <activity
             android:name="Profile.ProfileMainActivity"
             android:screenOrientation="portrait" /> <!-- 프로필 수정 -->
+
+        <activity
+            android:name="ChatClient.MainActivity"
+            android:screenOrientation="portrait" /> <!-- 채팅 테스트 -->
         <activity
             android:name="Profile.ProfileFgModifyActivity"
             android:screenOrientation="portrait" /> <!-- 프로필 배경 수정 -->
