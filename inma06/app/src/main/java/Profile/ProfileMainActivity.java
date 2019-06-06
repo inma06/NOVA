@@ -45,10 +45,10 @@ public class ProfileMainActivity extends AppCompatActivity {
   public static Context mContext;
 
 
-  private ImageView profileIV;
+  private ImageView profileFgIv;
   private TextView nickNameTV;
   private TextView statusMsgTV;
-  private ImageView profileBackgroundIV;
+  private ImageView profileBgIv;
 
 
   private ImageView statMsgBtn;
@@ -66,13 +66,13 @@ public class ProfileMainActivity extends AppCompatActivity {
 
     Glide.with(this)
         .load(HomeActivity.mProfileImageDir)
-        .into(profileIV);
+        .into(profileFgIv);
 
 
     Glide.with(this)
         .load(HomeActivity.mProfileBgImageDir)
         .apply(bitmapTransform(new BlurTransformation(10,2)))
-        .into(profileBackgroundIV);
+        .into(profileBgIv);
 
     statusMsgTV.setText(HomeActivity.mStatusMsg);
     nickNameTV.setText(HomeActivity.mNickName);
@@ -84,9 +84,9 @@ public class ProfileMainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_profile_main);
 
-    profileBackgroundIV = (ImageView) findViewById(R.id.profileBackgroundIV);
+    profileBgIv = (ImageView) findViewById(R.id.profileBackgroundIV);
 
-    profileIV = (ImageView) findViewById(R.id.userProfileIV);
+    profileFgIv = (ImageView) findViewById(R.id.userProfileIV);
     nickNameTV = (TextView) findViewById(R.id.userNickTV);
     statusMsgTV = (TextView) findViewById(R.id.userMsgTV);
 
@@ -101,38 +101,54 @@ public class ProfileMainActivity extends AppCompatActivity {
 
 
 
+
+    //TODO: 버튼과 이미지뷰 하나로 병합 ( merge )
+    //프로필 (Fg -> 전면 프로필) ( 옆에 조그만 버튼 )
     changeProfileImageBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(ProfileMainActivity.this, ProfileModifyActivity.class);
+        Intent intent = new Intent(ProfileMainActivity.this, ProfileFgModifyActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+
+
+
       }
     });
 
-    profileIV.setOnClickListener(new View.OnClickListener() {
+    //프로필 (Fg -> 전면 프로필) 이미지뷰 클릭리스너
+    profileFgIv.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(ProfileMainActivity.this, ProfileModifyActivity.class);
+        Intent intent = new Intent(ProfileMainActivity.this, ProfileFgModifyActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
       }
     });
 
+
+    //프로필 배경 (Bg -> 배경 프로필) 버튼 클릭리스너
     changeBgBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileBgModifyActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
       }
     });
 
-    profileBackgroundIV.setOnClickListener(new View.OnClickListener() {
+    //프로필 배경 (Bg -> 배경 프로필) 이미지뷰 클릭리스너
+    profileBgIv.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileBgModifyActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
       }
     });
 
+
+    // 닉네임 수정 클릭 리스너 ( 다이얼로그 창을 띄우고 수정한다 )
     nickBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -151,6 +167,9 @@ public class ProfileMainActivity extends AppCompatActivity {
         et.setFilters(FilterArray);
 
         ad.setView(et);
+
+
+        // TODO : issue -> 적용버튼 눌렀을때 메인프로필 ProfileMain 에 적용 안되는 부분 수정해야함. ( 뒤로갔다가 와야 적용됨 ( 생명주기 부분 확인해야함 ) ) ( 2019 - 6 - 6 )
 
         // 적용 버튼 설정
         ad.setPositiveButton("적용", new DialogInterface.OnClickListener() {
@@ -234,6 +253,7 @@ public class ProfileMainActivity extends AppCompatActivity {
 
 
 
+    // 상태메시지 ( statMsgBtn ) 버튼 클릭 리스너
     statMsgBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

@@ -237,6 +237,7 @@ public class TimerActivity extends Activity implements SensorEventListener {
 
   // 코드 참조 : https://m.blog.naver.com/javaking75/140177957873
 
+  //TODO 시간날때 코드 수정
   Handler myTimer = new Handler(){
     public void handleMessage(Message msg){
       myOutput.setText(getTimeOut());

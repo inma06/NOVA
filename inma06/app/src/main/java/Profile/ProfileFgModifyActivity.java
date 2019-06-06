@@ -38,8 +38,9 @@ import java.util.Date;
 
 import Main.HomeActivity;
 
-
-public class ProfileModifyActivity extends AppCompatActivity {
+//TODO : 배경 이미지 적용시 이전 액티비티(ProfileFgModifyActivity)로 이동하게 수정요망.
+// 뒤로가기 눌러야 하는 불편함 개선요망.
+public class ProfileFgModifyActivity extends AppCompatActivity {
 
   private static final String TAG = "Bongho";
 
@@ -63,7 +64,7 @@ public class ProfileModifyActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_profile_modify);
+    setContentView(R.layout.activity_profile_fg_modify);
 
     tedPermission();
 
@@ -82,16 +83,17 @@ public class ProfileModifyActivity extends AppCompatActivity {
         // 쿼리 -> UPDATE USER SET profileImage = '$resultFileDir' WHERE userID = '$userID'; (profileImage 칼럼 수정)
 
 
-        final ProgressDialog dialog= ProgressDialog.show(ProfileModifyActivity.this,
+        final ProgressDialog dialog= ProgressDialog.show(ProfileFgModifyActivity.this,
             "프로필 사진 등록","사진을 등록하고 있습니다...",true);
 
 
 
         //TODO: 로그인시 받아온 유저의 아이디값을(맴버변수) 참조하여 사용한다.
-        final String userID = HomeActivity.mUserID; //TODO: 수정해야함 -> 수정완료.
 
-        final Bitmap image = ((BitmapDrawable) profileIV.getDrawable()).getBitmap();
 
+        String userID = HomeActivity.mUserID; //TODO: 수정해야함 -> 수정완료.
+
+        Bitmap image = ((BitmapDrawable) profileIV.getDrawable()).getBitmap();
         com.android.volley.Response.Listener<String> responseListener = new Response.Listener<String>() {
           @Override
           public void onResponse(String response) {
@@ -104,14 +106,15 @@ public class ProfileModifyActivity extends AppCompatActivity {
                 // 실패
                 Log.e("response -> 리스폰 결과값 출력 ", response.toString());
                 System.out.println("실패했습니다.");
-                Toast.makeText(ProfileModifyActivity.this, "시스템 오류입니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileFgModifyActivity.this, "시스템 오류입니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
               } else {
                 // 성공시 이미지 경로를 변수에 저장합니다.
+                HomeActivity.mProfileImageDir = ""; // 변수 초기화
                 HomeActivity.mProfileImageDir = profileImageDir;
 
                 Log.e("response -> 리스폰 결과값 출력 ", response.toString());
 
-                Toast.makeText(ProfileModifyActivity.this, "프로필 사진이 적용되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileFgModifyActivity.this, "프로필 사진이 적용되었습니다.", Toast.LENGTH_SHORT).show();
                 System.out.println("성공했습니다.");
               }
             } catch (Exception e){
@@ -123,8 +126,15 @@ public class ProfileModifyActivity extends AppCompatActivity {
           }
         };
         ImageRequest ImageRequest = new ImageRequest(userID, image, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(ProfileModifyActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ProfileFgModifyActivity.this);
         queue.add(ImageRequest);
+
+
+        //TODO : 클라이언트에서 인텐트로 넘겨야함. ( 서버로 이미지 보내는 통신은 resume 또는 stop..? 이용 )
+
+        // 적용누르면 "프로필 메인 ( ProfileMainActivity )"으로 이동
+        Intent intent = new Intent(ProfileFgModifyActivity.this, ProfileMainActivity.class);
+        startActivity(intent);
       }
     });
 

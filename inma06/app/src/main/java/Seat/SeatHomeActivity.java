@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class SeatHomeActivity extends AppCompatActivity {
 
-  private static String TAG = "recyclerview_example";
+  private static String TAG = "SeatHomeActivity";
 
   private ArrayList<Dictionary> mArrayList;
   private CustomAdapter mAdapter;
@@ -70,10 +70,7 @@ public class SeatHomeActivity extends AppCompatActivity {
     buttonInsert.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
       }
     });
-
   }
-
 }

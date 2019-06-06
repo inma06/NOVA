@@ -37,8 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Main.HomeActivity;
-
-
+//TODO : 배경 이미지 적용시 이전 액티비티(ProfileFgModifyActivity)로 이동하게 수정요망.
+// 뒤로가기 눌러야 하는 불편함 개선요망.
 public class ProfileBgModifyActivity extends AppCompatActivity {
 
   private static final String TAG = "Bongho";
@@ -63,7 +63,7 @@ public class ProfileBgModifyActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_profile_modify);
+    setContentView(R.layout.activity_profile_fg_modify);
 
     tedPermission();
 
@@ -113,15 +113,22 @@ public class ProfileBgModifyActivity extends AppCompatActivity {
               }
             } catch (Exception e){
               e.printStackTrace();
-              Log.e("response -> 리스폰 결과값 출력 ", response.toString());
+              Log.e("response -> 리스폰 결과값 출력1", response.toString());
             }
             dialog.dismiss();
-            Log.e("response -> 리스폰 결과값 출력 ", response.toString());
+            Log.e("response -> 리스폰 결과값 출력2", response.toString());
           }
         };
         BgImageRequest bgImageRequest = new BgImageRequest(userID, image, responseListener);
         RequestQueue queue = Volley.newRequestQueue(ProfileBgModifyActivity.this);
         queue.add(bgImageRequest);
+
+        //TODO : 클라이언트에서 인텐트로 넘겨야함. ( 서버로 이미지 보내는 통신은 resume 또는 stop..? 이용 )
+
+
+        // 적용누르면 "프로필 메인 ( ProfileMainActivity )"으로 이동
+        Intent intent = new Intent(ProfileBgModifyActivity.this, ProfileMainActivity.class);
+        startActivity(intent);
       }
     });
 

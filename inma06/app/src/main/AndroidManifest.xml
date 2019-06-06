@@ -14,8 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="ChatClient.ChatTest"></activity>
-        <activity android:name="ChatClient.ChatViewActivity" />
         <activity android:name="Timer.TimerActivity" />
         <activity android:name="Timer.Test01Activity" /> <!-- QR코드 스캔 액티비티 -->
         <activity
@@ -53,7 +51,7 @@
             android:name="Profile.ProfileMainActivity"
             android:screenOrientation="portrait" /> <!-- 프로필 수정 -->
         <activity
-            android:name="Profile.ProfileModifyActivity"
+            android:name="Profile.ProfileFgModifyActivity"
             android:screenOrientation="portrait" /> <!-- 프로필 배경 수정 -->
         <activity
             android:name="Profile.ProfileBgModifyActivity"
