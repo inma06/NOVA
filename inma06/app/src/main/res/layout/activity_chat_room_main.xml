@@ -63,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:ems="10"
-            android:hint="메세지를작성해주세요" />
+            android:hint="메세지를작성해주세요"
+            android:imeOptions="actionSend" />
 
         <Button
             android:id="@+id/Button_send"
