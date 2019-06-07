@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/enableButton"
-            android:text="QR코드 스캔"
+            android:text="QR코드 스캔(좌석 체크인)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/enableButton"
-            android:text="좌석 예약 및 체크인"
+            android:text="좌석현황도"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/friendBtn" />
@@ -73,6 +73,7 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/enableButton"
             android:text="기능테스트 가속도센서"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +87,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/enableButton"
-            android:text="타이머"
+            android:text="타이머(공부 집중 모드)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +100,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
-            android:text="친구 목록(채팅기능)"
+            android:text="채팅방 입장(업무용 메신저 기능)"
+            android:backgroundTint="@color/enableButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myProfileBtn" />
@@ -128,6 +130,33 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newsBtn" />
+
+        <Button
+            android:id="@+id/iotBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:text="IoT (사물인터넷_스마트 가습기)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newsBtn" />
+
+        <Button
+            android:id="@+id/dustCheckBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:text="미세먼지 체크하기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newsBtn" />
+
 
     </LinearLayout>
 

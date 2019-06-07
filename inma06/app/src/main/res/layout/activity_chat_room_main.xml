@@ -18,6 +18,13 @@
             android:textColor="#2979FF"
             android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/versionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ver.1906080300"
+            android:textAlignment="textEnd" />
+
         <EditText
             android:id="@+id/ip_EditText"
             android:layout_width="match_parent"
@@ -33,6 +40,12 @@
             android:hint="PORT주소를입력하세요"
             android:visibility="gone"
             tools:visibility="gone" />
+
+        <Button
+            android:id="@+id/Button_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="채팅방 나가기" />
     </LinearLayout>
 
     <RelativeLayout
@@ -56,8 +69,9 @@
         android:orientation="horizontal" >
 
         <ScrollView
+            android:id="@+id/showScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/showText_TextView"
