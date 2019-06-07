@@ -251,6 +251,7 @@ public class LoginActivity extends AppCompatActivity {
                 String profileBgImageDir = jsonResponse.getString("profileBgImageDir");
                 String statusMag = jsonResponse.getString("statusMsg");
                 String nickName = jsonResponse.getString("nickName");
+                String userNo = jsonResponse.getString("userNo"); // 유저 고유 번호
 
 
                 /*로그인을 하면 Login.php -> Json 을 반환한다.
@@ -267,6 +268,7 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra("profileBgImageDir", profileBgImageDir);
                 intent.putExtra("statusMsg", statusMag);
                 intent.putExtra("nickName", nickName);
+                intent.putExtra("userNo", userNo);
 
                 Log.e(TAG, "onResponse:인텐트 실행" );
                 LoginActivity.this.startActivity(intent);

@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
   public static String mUserID = "";
   public static String mStatusMsg = "";
   public static String mNickName = "";
+  public static String mUserNo = "";
 
 
   private Button profileBtn;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     mStatusMsg = intent.getStringExtra("statusMsg");
     mNickName = intent.getStringExtra("nickName");
     mUserID = intent.getStringExtra("userID");
+    mUserNo = intent.getStringExtra("userNo");
 
 
     qrcodeBtn = (Button) findViewById(R.id.qrCodeScanBtn);
