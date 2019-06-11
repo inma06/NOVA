@@ -2,6 +2,7 @@ package ChatClient;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class ChatRoomMainActivity extends Activity {
 
   private static final String port = "9999";
   private static final String ipText = "13.124.10.133"; // (AWS 채팅전용 서버 java Server ) *IP지정으로 사용시에 쓸 코드
+
 //  String streammsg = ""; // streammsg ???
   TextView showText;
   ScrollView scrollView;
@@ -65,57 +67,53 @@ public class ChatRoomMainActivity extends Activity {
   EditText editText_massage;
   Handler msghandler;
 
-  SocketClient client;
+  SocketClient client = new SocketClient(ipText, port);
   ReceiveThread receive;
   SendThread send;
   Socket socket;
 
+  private DataInputStream dis = null;
+  private DataOutputStream dos = null;
+
   PipedInputStream sendstream = null;
   PipedOutputStream receivestream = null;
 
-  LinkedList<SocketClient> threadList;
+  LinkedList<SocketClient> threadList; // 클라이언트를 리스트에 담는다.
 
 
 
-/*  // 소켓 설정
-  public void setSocket() {
-    try {
-      client = new SocketClient(ipText,
-          Integer.toString(port)); // 접속할 소켓 서버의 주소를 입력합니다. (ip, port)
-      threadList.add(client); // 'LinkedList'에 'SocketClient'를 추가합니다.
-      client.start(); // 'SocketClient'를 시작합니다.
-    } catch (Exception e) {
-      e.printStackTrace();
-      // 소켓연결 실패시
-      Log.e(TAG, "setSocket: FAIL!!!!!!!!!! 소켓연결 실패!!");
+  private long pressedTime;
+  // 뒤로가기 버튼 눌렀을 때
 
+  @Override
+  public void onBackPressed() {
+//    super.onBackPressed();
+    if ( pressedTime == 0 ) {
+      Toast.makeText(this, "한번 더 누르면 채팅방에서 나갑니다. \n이전 대화는 로컬 저장소에 저장됩니다.", Toast.LENGTH_SHORT).show();
+      pressedTime = System.currentTimeMillis();
     }
 
+    else {
+      int seconds = (int) (System.currentTimeMillis() - pressedTime);
 
-  }*/
-/*
+      if ( seconds > 2000 ) {
+        pressedTime = 0;
+      }
+      else {
+        finish();
+        /* 대화를 저장하는 로직 -> SPF 이용 하기
+         *
+          * 대화를 리스트에 담고 쉐어드 프리퍼런스에 키값으로 저장한다.
+          *
+          *
+          *
+          * */
 
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    // onPause -> "Other Activity" up on "This Activity" ( 현재액티비티에서 다른 액티비티로 전환될 때 )
-    Log.e(TAG, "onPause: OK" );
-    //TODO : 소켓 연결 disconnect 해야함.
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    // Resume OK
-    Log.e(TAG, "onResume: OK");
-
-//    setSocket(); // 소켓 연결
-
-    Log.e(TAG, "소켓연결 OK" );
+      }
+    }
 
   }
-*/
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -136,14 +134,10 @@ public class ChatRoomMainActivity extends Activity {
 //    ip_EditText.setText(ipText);
 //    port_EditText.setText("9999");
 
-    /*
-    *
-    * 소켓 연결부분
-    *
-    * */
+
 
     //Client 연결부
-    client = new SocketClient(ipText, port);
+//    client = new SocketClient(ipText, port);
     threadList.add(client);
     client.start();
 
@@ -151,7 +145,6 @@ public class ChatRoomMainActivity extends Activity {
     toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
     toast.show();
 //    Toast.makeText(ChatRoomMainActivity.this, "채팅방에 입장하였습니다.", Toast.LENGTH_SHORT).show();
-
 
 
 
@@ -176,28 +169,31 @@ public class ChatRoomMainActivity extends Activity {
     };
 
 
-
-/*    // 연결버튼 클릭 이벤트
-    connectBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View arg0) {
-        //Client 연결부
-        client = new SocketClient(ip_EditText.getText().toString(),
-            port_EditText.getText().toString());
-        threadList.add(client);
-        client.start();
-        Toast.makeText(ChatRoomMainActivity.this, "채팅방에 입장하였습니다.", Toast.LENGTH_SHORT).show();
-      }
-    });*/
-
-
     Button_exit.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        //Client 연결 해제
-        onDestroy();
+        // 방 나가기 버튼클릭 ( 소켓 연결 해제 )
+
+        try {
+          threadList.remove(client);
+
+          socket.close();
+          receivestream.close();
+          sendstream.close();
+//          dis.close();
+//          dos.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+          Log.e(TAG, "onClick: 방나가기 실패!!!!!!!!!!!!!!!!");
+        }
 
         Toast.makeText(ChatRoomMainActivity.this, "채팅방에서 퇴장했습니다. (미구현)", Toast.LENGTH_SHORT).show();
+        finish();
+//        Intent intent = new Intent(ChatRoomMainActivity.this, HomeActivity.class);
+        //TODO: 액티비티를 종료시키고 기존 액티비티를 새로 생성된 액티비티로 교체하는 플래그 ** 공부요망.
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+
       }
     });
 
@@ -219,6 +215,9 @@ public class ChatRoomMainActivity extends Activity {
     });
   }
 
+
+
+  // 아웃풋 스트림 ( 메시지 Send 보내기 부분. )
   class SocketClient extends Thread {
     boolean threadAlive;
     String ip;
@@ -229,7 +228,6 @@ public class ChatRoomMainActivity extends Activity {
     OutputStream outputStream = null;
     BufferedReader br = null;
 
-    private DataOutputStream output = null;
 
     public SocketClient(String ip, String port) {
       threadAlive = true;
@@ -247,8 +245,10 @@ public class ChatRoomMainActivity extends Activity {
         Log.e("소켓연결부분", "run: 111111111111111");
         socket = new Socket(ip, 9999);
         Log.e("소켓연결부분", "run: 22222222222222222");
+
+
         //inputStream = socket.getInputStream();
-        output = new DataOutputStream(socket.getOutputStream());
+        dos = new DataOutputStream(socket.getOutputStream());
         Log.e("소켓연결부분", "run: 333333333333333333");
         receive = new ReceiveThread(socket);
         Log.e("소켓연결부분", "run: 444444444444444444");
@@ -267,7 +267,7 @@ public class ChatRoomMainActivity extends Activity {
         userUUID = HomeActivity.mNickName;
 
         //userUUID 전송
-        output.writeUTF(userUUID);
+        dos.writeUTF(userUUID);
         Log.e("맥주소 전송 완료", "9999999999999999999999");
 
       } catch (IOException e) {
@@ -277,23 +277,24 @@ public class ChatRoomMainActivity extends Activity {
     }
   }
 
+
+  // 리시브 쓰레드 ( 메시지 수신부 )
   class ReceiveThread extends Thread {
     private Socket socket = null;
-    DataInputStream input;
 
     public ReceiveThread(Socket socket) {
       this.socket = socket;
       try{
-        input = new DataInputStream(socket.getInputStream());
+        dis = new DataInputStream(socket.getInputStream());
       }catch(Exception e){
       }
     }
     // 메세지 수신후 Handler로 전달
     public void run() {
       try {
-        while (input != null) {
+        while (dis != null) {
 
-          String msg = input.readUTF();
+          String msg = dis.readUTF();
           if (msg != null) {
             Log.d(ACTIVITY_SERVICE, "test");
 
@@ -350,7 +351,7 @@ public class ChatRoomMainActivity extends Activity {
         if (output != null) {
           Log.e(TAG, "mac ---------->" + userNickName.toString());
           Log.e(TAG, "111111111111111111111111111111111111112222222222222222333333333333333");
-//          output.writeUTF(userNickName + "  :  " + sendmsg);
+//          dos.writeUTF(userNickName + "  :  " + sendmsg);
           output.writeUTF(sendmsg);
 
           if (sendmsg != null) {

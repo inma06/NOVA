@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamnova.nova">
     <!-- 인터넷 연결 권한 -->
@@ -13,7 +12,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -21,15 +19,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="ChatClient.ChatRoomListActivity"></activity>
+        <activity android:name="ChatTest1.ChatTestActivity"></activity>
+
+
         <activity android:name="Timer.TimerActivity" />
-        <activity android:name="Timer.Test01Activity" /> <!-- QR코드 스캔 액티비티 -->
+
+
+        <activity android:name="Timer.Test01Activity" />
+
+
         <activity
             android:name="Seat.QRCodeScanActivity"
-            android:screenOrientation="portrait" /> <!-- 좌석 예약 홈 ( 메인 ) -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="Seat.SeatHomeActivity"
-            android:screenOrientation="portrait" /> <!-- 앱시작시 스플래쉬(로딩) 액티비티 -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="Loading.LoadingActivity"
             android:screenOrientation="portrait"
@@ -39,34 +47,52 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 회원가입 액티비티 -->
+        </activity>
+
+
         <activity
             android:name="Register.RegisterActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" /> <!-- 메일 인증 액티비티 -->
+            android:windowSoftInputMode="adjustResize" />
+
+
         <activity
             android:name="Register.CertMailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 로그인 액티비티 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+
         <activity
             android:name="Login.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- 홈(메인) 액티비티 -->
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+
         <activity
             android:name="Main.HomeActivity"
-            android:screenOrientation="portrait" /> <!-- 프로필 페이지 -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="Profile.ProfileMainActivity"
-            android:screenOrientation="portrait" /> <!-- 프로필 수정 -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="ChatClient.ChatRoomMainActivity"
-            android:screenOrientation="portrait" /> <!-- 채팅 테스트 -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="Profile.ProfileFgModifyActivity"
-            android:screenOrientation="portrait" /> <!-- 프로필 배경 수정 -->
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name="Profile.ProfileBgModifyActivity"
-            android:screenOrientation="portrait" /> <!-- 사진 촬영을 위한 provide -->
+            android:screenOrientation="portrait" />
+
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.teamnova.inma06.provider"
