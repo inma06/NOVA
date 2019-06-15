@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import ChatClient.ChatRoomMainActivity;
+import ChatClient.RoomListActivity;
 import Seat.QRCodeScanActivity;
 import Profile.ProfileMainActivity;
 import Seat.SeatHomeActivity;
@@ -98,11 +99,11 @@ public class HomeActivity extends AppCompatActivity {
     friendBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        /* 친구목록 채팅 버튼 클릭 */
+        /* 채팅 버튼 클릭 */
 
-        Intent intent = new Intent(HomeActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(HomeActivity.this, RoomListActivity.class);
         startActivity(intent);
-        Toast.makeText(HomeActivity.this, "친구목록 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this, "채팅방 목록으로!", Toast.LENGTH_SHORT).show();
 
       }
     });

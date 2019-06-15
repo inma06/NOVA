@@ -1,36 +1,27 @@
 package ChatClient;
 
-
 import android.app.Activity;
-import android.content.Intent;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.teamnova.nova.R;
-
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.net.Socket;
 import java.util.LinkedList;
 
 import Main.HomeActivity;
-
 
 /*
 * TODO : 채팅방 수정할 사항
@@ -42,32 +33,33 @@ import Main.HomeActivity;
 *
 *
 * */
-
-
-
-
-
-
-
 public class ChatRoomMainActivity extends Activity {
 
   private static String TAG = "ChatRoomMainActivity";
+  public static int port = 9999;
 
-  private static final String port = "9999";
-  private static final String ipText = "13.124.10.133"; // (AWS 채팅전용 서버 java Server ) *IP지정으로 사용시에 쓸 코드
+  public static String ipText = "13.124.10.133"; // (AWS 채팅전용 서버 java Server ) *IP지정으로 사용시에 쓸 코드
+//  public static final String ipText = "192.168.0.26"; // (7사무실 KT_GiGA_2G_Wave2_4108 IP) *IP지정으로 사용시에 쓸 코드
+  public static String userNo = HomeActivity.mNickName; // 보내는 유저의 고유번호
+  public static String roomNo = RoomListActivity.mRoomNo; // 방의 고유번호
+  public static String targetUserNo = ""; // 받는 유저 번호 (특정 유저에게 보낼때)
 
 //  String streammsg = ""; // streammsg ???
   TextView showText;
   ScrollView scrollView;
+
+
+
+
 //  Button connectBtn;
   Button Button_send; // 채팅 보내기 버튼
   Button Button_exit; // 채팅방 나가기 버튼
 //  EditText ip_EditText;
 //  EditText port_EditText;
   EditText editText_massage;
-  Handler msghandler;
+  Handler msgHandler;
 
-  SocketClient client = new SocketClient(ipText, port);
+  SocketClient client = new SocketClient(roomNo, userNo);
   ReceiveThread receive;
   SendThread send;
   Socket socket;
@@ -79,6 +71,7 @@ public class ChatRoomMainActivity extends Activity {
   PipedOutputStream receivestream = null;
 
   LinkedList<SocketClient> threadList; // 클라이언트를 리스트에 담는다.
+  ChatRoomMainActivity context;
 
 
 
@@ -108,7 +101,6 @@ public class ChatRoomMainActivity extends Activity {
           *
           *
           * */
-
       }
     }
 
@@ -120,50 +112,29 @@ public class ChatRoomMainActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_chat_room_main);
 
-//    ip_EditText = (EditText) findViewById(R.id.ip_EditText);
-//    port_EditText = (EditText) findViewById(R.id.port_EditText);
-//    connectBtn = (Button) findViewById(R.id.connect_Button);
     showText = (TextView) findViewById(R.id.showText_TextView);
     scrollView = (ScrollView) findViewById(R.id.showScrollView);
-
     editText_massage = (EditText) findViewById(R.id.editText_massage);
     Button_send = (Button) findViewById(R.id.Button_send);
     Button_exit = (Button) findViewById(R.id.Button_exit);
     threadList = new LinkedList<ChatRoomMainActivity.SocketClient>();
 
-//    ip_EditText.setText(ipText);
-//    port_EditText.setText("9999");
-
-
 
     //Client 연결부
-//    client = new SocketClient(ipText, port);
     threadList.add(client);
     client.start();
 
-    Toast toast = Toast.makeText(getApplicationContext(), "채팅방에 입장하였습니다.", Toast.LENGTH_LONG);
-    toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
-    toast.show();
-//    Toast.makeText(ChatRoomMainActivity.this, "채팅방에 입장하였습니다.", Toast.LENGTH_SHORT).show();
-
-
-
-    // ReceiveThread를통해서 받은 메세지를 Handler로 MainThread에서 처리(외부Thread에서는 UI변경이불가)
-    msghandler = new Handler() {
+    // ( 메시지가 오면 처리하는 핸들러 )
+    msgHandler = new Handler() {
       @Override
-      public void handleMessage(Message hdmsg) {
-        if (hdmsg.what == 1111) { // 여러 핸들러들을 구분하기 위한 고유번호
-          
-          showText.append(hdmsg.obj.toString() + "\n");
+      public void handleMessage(Message msg) {
+        if (msg.what == 1111) { // 여러 핸들러들을 구분하기 위한 고유번호
+          // 메시지가 왔다면
+          Log.e("받은 메시지", msg.obj.toString());
+          showText.append(msg.obj.toString() + "\n");
           scrollView.fullScroll(View.FOCUS_DOWN);
-
-          // showText -> 어떤 사용자가 접속했는지
-          // ... 사용자 접속을 알립니다.
-          Log.e(TAG, "handleMessage: " +  hdmsg.obj + "| append OK");
-          System.out.println("=======================");
-          System.out.println("handleMessage hashCode ---> " + hdmsg.obj.hashCode());
-          System.out.println("handleMessage object ---> " + hdmsg.obj);
-          System.out.println("=======================");
+          // 수신 1
+//          messageContent = new chattingMessageContent(1, msgFilter[0], targetNickName, msgFilter[1], msgFilter[2]);
         }
       }
     };
@@ -201,15 +172,19 @@ public class ChatRoomMainActivity extends Activity {
     //전송 버튼 클릭 이벤트
     Button_send.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View arg0) {
+      public void onClick(View v) {
 
+        String message = editText_massage.getText().toString();
         //SendThread 시작
-        if (editText_massage.getText().toString() != null) {
-          send = new SendThread(socket);
+        if (message == null || TextUtils.isEmpty(message) || message.equals("")) {
+          Toast.makeText(ChatRoomMainActivity.this, "메시지를 입력해주세요", Toast.LENGTH_SHORT).show();
+        } else {
+          send = new SendThread(socket, message);
           send.start();
-
-          //시작후 edittext 초기화
           editText_massage.setText("");
+          showText.append("나 : " + message + "\n");
+          scrollView.fullScroll(View.FOCUS_DOWN);
+
         }
       }
     });
@@ -219,56 +194,31 @@ public class ChatRoomMainActivity extends Activity {
 
   // 아웃풋 스트림 ( 메시지 Send 보내기 부분. )
   class SocketClient extends Thread {
-    boolean threadAlive;
-    String ip;
-    String port;
-    String userUUID;
+    DataInputStream in = null;
+    DataOutputStream out = null;
+    String roomNo;
+    String userNo;
 
-    //InputStream inputStream = null;
-    OutputStream outputStream = null;
-    BufferedReader br = null;
-
-
-    public SocketClient(String ip, String port) {
-      threadAlive = true;
-      this.ip = ip;
-      this.port = port;
+    public SocketClient(String roomNo, String userNo) {
+      this.roomNo = roomNo;
+      this.userNo = userNo;
     }
 
     @Override
     public void run() {
 
       try {
-        // 연결후 바로 ReceiveThread 시작
-//        socket = new Socket(ip, Integer.parseInt(port));
+        // 채팅 서버에 접속 ( 연결 ) ( 서버쪽 ip와 포트 )
+        socket = new Socket(ipText, port);
+        // 메시지를 서버에 전달 할 수 있는 통로
+        out = new DataOutputStream(socket.getOutputStream());
+        in = new DataInputStream(socket.getInputStream());
 
-        Log.e("소켓연결부분", "run: 111111111111111");
-        socket = new Socket(ip, 9999);
-        Log.e("소켓연결부분", "run: 22222222222222222");
+        // 서버에 초기 데이터 전송 ( 방번호와 유저번호가 담겨서 간다 ) - 식별자
+        out.writeUTF(roomNo+"&"+userNo);
 
-
-        //inputStream = socket.getInputStream();
-        dos = new DataOutputStream(socket.getOutputStream());
-        Log.e("소켓연결부분", "run: 333333333333333333");
         receive = new ReceiveThread(socket);
-        Log.e("소켓연결부분", "run: 444444444444444444");
         receive.start();
-        Log.e("소켓연결부분", "run: 555555555555555555");
-
-        //wifi -> mac주소를 받아오기위해 설정  ( TODO: *팀노바 사무실 wifi 접근 권한으로 못받아 올 수 있음 )
-        /*WifiManager mng = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        WifiInfo info = mng.getConnectionInfo();
-        userUUID = info.getMacAddress();*/
-
-
-        //TODO: 사용자의 고유번호를 전송해야함. 지금은 닉네임으로 해서 겹칠 우려가 있음. 이것을 나중에 처리해주자 2019-06-07
-//        userUUID = HomeActivity.mUserID;
-//        userUUID = HomeActivity.mUserNo;
-        userUUID = HomeActivity.mNickName;
-
-        //userUUID 전송
-        dos.writeUTF(userUUID);
-        Log.e("맥주소 전송 완료", "9999999999999999999999");
 
       } catch (IOException e) {
         e.printStackTrace();
@@ -280,30 +230,48 @@ public class ChatRoomMainActivity extends Activity {
 
   // 리시브 쓰레드 ( 메시지 수신부 )
   class ReceiveThread extends Thread {
-    private Socket socket = null;
+    Socket socket = null;
+    DataInputStream input = null;
 
     public ReceiveThread(Socket socket) {
       this.socket = socket;
+
       try{
-        dis = new DataInputStream(socket.getInputStream());
+        // 채팅서버로부터 메시지 받기 위한 스트림 생성.
+        input = new DataInputStream(socket.getInputStream());
       }catch(Exception e){
       }
     }
     // 메세지 수신후 Handler로 전달
     public void run() {
       try {
-        while (dis != null) {
+        while (input != null) {
+          // 채팅 서버로 부터 받은 메시지
+          String msg = input.readUTF();
+          // & 구분자를 기준으로 잘라주어야함.
+          // 방번호, 보낸사람, 받는사람, 메시지, 타임
+          String[] filter;
+          filter = msg.split("&");
+          try {
+            System.out.println("filter[0] -> " + filter[0]); // 보낸사람 userNo
+            System.out.println("filter[1] -> " + filter[1]); // 메시지 내용
+            System.out.println("filter[2] -> " + filter[2]); // 보낸 시각 ( 오전 01:18 )
+          }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+          }
 
-          String msg = dis.readUTF();
+//          String showMsg = filter[1].toString() + ": " + filter[3] + "보낸시각" + filter[4];
+
           if (msg != null) {
-            Log.d(ACTIVITY_SERVICE, "test");
-
-            Message hdmsg = msghandler.obtainMessage(); // hdmsg -> 핸들러 메시지
+            // 핸들러에게 전달할 메시지 객체
+            Message hdmsg = msgHandler.obtainMessage(); // hdmsg -> 핸들러 메시지
+            // 핸들러에게 전달할 메시지의 식별자
             hdmsg.what = 1111; // 메시지큐를 구분하는 값(사용자 정의 값)
-            hdmsg.obj = msg;
-            Log.e(TAG, "run: =============안되냐 되냐");
-            msghandler.sendMessage(hdmsg);
-            Log.d(ACTIVITY_SERVICE,hdmsg.obj.toString());
+            // 메시지의 본문
+            hdmsg.obj = filter[0].concat(": "+filter[1]).concat("  |"+filter[2]);
+            // 핸들러에게 메시지 전달 ( 화면 처리 )
+            msgHandler.sendMessage(hdmsg);
           }
         }
       } catch (IOException e) {
@@ -312,49 +280,33 @@ public class ChatRoomMainActivity extends Activity {
     }
   }
 
+  // 서버로 발신하는 쓰레드
   class SendThread extends Thread {
-    private Socket socket;
-    String sendmsg = editText_massage.getText().toString();
+    Socket socket;
+    String sendMsg;
     DataOutputStream output;
 
-    public SendThread(Socket socket) {
+    public SendThread(Socket socket, String sendMsg) {
       this.socket = socket;
+      this.sendMsg = sendMsg;
       try {
+        //채팅 서버로 메시지를 보내기 위한 스트림 생성 ---------------------------------> 여기부터 다시
         output = new DataOutputStream(socket.getOutputStream());
       } catch (Exception e) {
       }
     }
 
-
-
-
-
-
-
-    // 채팅창 부분 ( 본문 )
+    // 서버로 메시지 전송 ( 서버의 temp 로 전달된다. )
     public void run() {
-
       try {
+        if ( output != null ) {
+          if (sendMsg != null) {
 
-        // 메세지 전송부 (누군지 식별하기위한 방법으로 mac를 사용)
-        Log.d(ACTIVITY_SERVICE, "1111");
-        String userNickName = null;
-        WifiManager mng = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        WifiInfo info = mng.getConnectionInfo();
-//        userUUID = info.getMacAddress();
-        //TODO: 사무실 wifi 맥주소 못가져옴
-
-        //TODO : 채팅메시지 입력시 누가 입력했는지 나타내는 부분 -------->   "봉호짱"( 이부분 ) : 안녕바보야!!
-        userNickName = HomeActivity.mNickName.toString();
-//        userUUID = HomeActivity.mUserID.toString();
-
-        if (output != null) {
-          Log.e(TAG, "mac ---------->" + userNickName.toString());
-          Log.e(TAG, "111111111111111111111111111111111111112222222222222222333333333333333");
-//          dos.writeUTF(userNickName + "  :  " + sendmsg);
-          output.writeUTF(sendmsg);
-
-          if (sendmsg != null) {
+            // 서버로 메시지 전송하는 부분
+            // TODO: Json 으로 변환하여 보내기
+            // mRoomNo( 방번호 ) , userNo( 유저 번호 ), targetUserNo ( 상대방 번호 ), sendMsg (보내는 메시지)
+            // 구분자 "&"
+            output.writeUTF(roomNo+"&"+userNo+"&"+targetUserNo+"&"+ sendMsg);
           }
         }
       } catch (IOException e) {

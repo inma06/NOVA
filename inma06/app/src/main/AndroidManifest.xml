@@ -19,25 +19,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="ChatTest1.ChatTestActivity"></activity>
-
-
+        <activity android:name="ChatClient.RoomListActivity"></activity>
+        <activity android:name="ChatTest1.ChatTestActivity" />
         <activity android:name="Timer.TimerActivity" />
-
-
         <activity android:name="Timer.Test01Activity" />
-
-
         <activity
             android:name="Seat.QRCodeScanActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="Seat.SeatHomeActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="Loading.LoadingActivity"
             android:screenOrientation="portrait"
@@ -48,50 +39,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name="Register.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
-
         <activity
             android:name="Register.CertMailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
-
         <activity
             android:name="Login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
-
         <activity
             android:name="Main.HomeActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="Profile.ProfileMainActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="ChatClient.ChatRoomMainActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="Profile.ProfileFgModifyActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name="Profile.ProfileBgModifyActivity"
             android:screenOrientation="portrait" />
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
