@@ -26,6 +26,8 @@ import Seat.SeatHomeActivity;
 import Seat.SeatLookupRequest;
 import Timer.Test01Activity;
 import Timer.TimerActivity;
+
+import com.teamnova.inma06.MainActivity;
 import com.teamnova.nova.R;
 
 import org.json.JSONObject;
@@ -215,12 +217,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
     //TODO: 기능 테스트 가속도센서
+    test01Btn.setText("채팅방 테스트");
     test01Btn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         /* 기능 테스트 버튼 클릭 */
-        Toast.makeText(HomeActivity.this, "기능테스트 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HomeActivity.this, Test01Activity.class);
+        Toast.makeText(HomeActivity.this, "채팅방 테스트 버튼을 클릭했다!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
         startActivity(intent);
       }
     });

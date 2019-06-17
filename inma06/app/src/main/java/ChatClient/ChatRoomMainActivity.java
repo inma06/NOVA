@@ -48,9 +48,6 @@ public class ChatRoomMainActivity extends Activity {
   TextView showText;
   ScrollView scrollView;
 
-
-
-
 //  Button connectBtn;
   Button Button_send; // 채팅 보내기 버튼
   Button Button_exit; // 채팅방 나가기 버튼
@@ -123,7 +120,6 @@ public class ChatRoomMainActivity extends Activity {
     //Client 연결부
     threadList.add(client);
     client.start();
-
     // ( 메시지가 오면 처리하는 핸들러 )
     msgHandler = new Handler() {
       @Override
@@ -175,7 +171,6 @@ public class ChatRoomMainActivity extends Activity {
       public void onClick(View v) {
 
         String message = editText_massage.getText().toString();
-        //SendThread 시작
         if (message == null || TextUtils.isEmpty(message) || message.equals("")) {
           Toast.makeText(ChatRoomMainActivity.this, "메시지를 입력해주세요", Toast.LENGTH_SHORT).show();
         } else {

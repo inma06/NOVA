@@ -42,6 +42,12 @@ public class ProfileMainActivity extends AppCompatActivity {
 */
 
 
+  //TODO: 프로필 사진 적용 바로 안되고 액티비티 나갔다 와야 수정 되는 부분 수정해야함.
+  public static ImageView mProfileIV;
+  public static TextView mNickNameTV;
+  public static TextView mMessageTV;
+  public static ImageView mProfileBackgroundIV;
+
   public static Context mContext;
 
 
@@ -84,6 +90,16 @@ public class ProfileMainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_profile_main);
 
+    Glide.with(this)
+        .load(HomeActivity.mProfileImageDir)
+        .into(profileFgIv);
+
+
+    Glide.with(this)
+        .load(HomeActivity.mProfileBgImageDir)
+        .apply(bitmapTransform(new BlurTransformation(10,2)))
+        .into(profileBgIv);
+
     profileBgIv = (ImageView) findViewById(R.id.profileBackgroundIV);
 
     profileFgIv = (ImageView) findViewById(R.id.userProfileIV);
@@ -108,9 +124,9 @@ public class ProfileMainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileFgModifyActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
+        finish();
 
 
       }
@@ -121,8 +137,9 @@ public class ProfileMainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileFgModifyActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
       }
     });
 
@@ -132,8 +149,9 @@ public class ProfileMainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileBgModifyActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
       }
     });
 
@@ -142,8 +160,9 @@ public class ProfileMainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(ProfileMainActivity.this, ProfileBgModifyActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
       }
     });
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="3dp"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end">
+
+        <me.himanshusoni.chatmessageview.ChatMessageView
+            android:id="@+id/chatMessageView"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|right|bottom"
+            android:layout_marginRight="1dp"
+            app:cmv_arrowGravity="start"
+            app:cmv_arrowMargin="3dp"
+            app:cmv_arrowPosition="right"
+            app:cmv_backgroundColor="#FFD740"
+            app:cmv_backgroundColorPressed="#FFD740"
+            app:cmv_contentPadding="0dp"
+            app:cmv_cornerRadius="3dp"
+            app:cmv_showArrow="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#aaffffff"
+                    android:contentDescription="@string/app_name"
+                    android:maxWidth="230dp"
+                    android:paddingEnd="15dp"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:maxWidth="240dp"
+                    android:text="message" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="8dp"
+                    android:paddingEnd="15dp"
+                    android:text="05:30 오전"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </me.himanshusoni.chatmessageview.ChatMessageView>
+
+        <TextView
+            android:id="@+id/tv_readCnt"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|end"
+            android:gravity="bottom|right|end"
+            android:paddingRight="8dp"
+            android:text="3"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
