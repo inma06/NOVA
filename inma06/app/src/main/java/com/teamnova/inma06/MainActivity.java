@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
   /* TEST CODE start */
   public static int PORT = 9999;
-  public static String IP_TEXT = "192.168.0.26";
-//  public static String IP_TEXT = "13.124.10.133";
+//  public static String IP_TEXT = "192.168.0.26"; // Test Server ( local )
+  public static String IP_TEXT = "13.124.10.133"; // Real Server
   public static String USER_ID = HomeActivity.mNickName;
   public static String ROOM_ID = "10";
   public static String TARGET_ID = "";
