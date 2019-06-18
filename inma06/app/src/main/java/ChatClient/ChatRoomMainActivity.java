@@ -12,13 +12,24 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.teamnova.nova.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.net.Socket;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Main.HomeActivity;
@@ -243,14 +254,17 @@ public class ChatRoomMainActivity extends Activity {
         while (input != null) {
           // 채팅 서버로 부터 받은 메시지
           String msg = input.readUTF();
-          // & 구분자를 기준으로 잘라주어야함.
-          // 방번호, 보낸사람, 받는사람, 메시지, 타임
-          String[] filter;
-          filter = msg.split("&");
+
+          // JSON String 으로 받은 메시지를 알맞게 Parsing 한다.
+
           try {
-            System.out.println("filter[0] -> " + filter[0]); // 보낸사람 userNo
-            System.out.println("filter[1] -> " + filter[1]); // 메시지 내용
-            System.out.println("filter[2] -> " + filter[2]); // 보낸 시각 ( 오전 01:18 )
+
+            } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+
+          try {
           }catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
@@ -264,7 +278,8 @@ public class ChatRoomMainActivity extends Activity {
             // 핸들러에게 전달할 메시지의 식별자
             hdmsg.what = 1111; // 메시지큐를 구분하는 값(사용자 정의 값)
             // 메시지의 본문
-            hdmsg.obj = filter[0].concat(": "+filter[1]).concat("  |"+filter[2]);
+//            hdmsg.obj = filter[0].concat(": "+filter[1]).concat("  |"+filter[2
+            hdmsg.obj = msg;
             // 핸들러에게 메시지 전달 ( 화면 처리 )
             msgHandler.sendMessage(hdmsg);
           }
@@ -301,6 +316,8 @@ public class ChatRoomMainActivity extends Activity {
             // TODO: Json 으로 변환하여 보내기
             // mRoomNo( 방번호 ) , userNo( 유저 번호 ), targetUserNo ( 상대방 번호 ), sendMsg (보내는 메시지)
             // 구분자 "&"
+
+
             output.writeUTF(roomNo+"&"+userNo+"&"+targetUserNo+"&"+ sendMsg);
           }
         }
