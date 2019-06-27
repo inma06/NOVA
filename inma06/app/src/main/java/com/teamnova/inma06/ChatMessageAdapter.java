@@ -1,7 +1,6 @@
 package com.teamnova.inma06;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.teamnova.nova.R;
 
 import java.text.SimpleDateFormat;
@@ -18,11 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import Main.HomeActivity;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import me.himanshusoni.chatmessageview.ChatMessageView;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
  * Created by himanshusoni on 06/09/15.

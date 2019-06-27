@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamnova.nova">
-
-
-
-     <!--인터넷 연결 권한-->
+    <!-- 인터넷 연결 권한 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- camera, gallery -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -22,18 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="ChatClient.RoomListActivity"></activity>
-        <activity android:name="ChatTest1.ChatTestActivity" />
-        <activity android:name="Timer.TimerActivity" />
-        <activity android:name="Timer.Test01Activity" />
+        <activity android:name="friendList.FriendListMainActivity"></activity>
+        <activity android:name="chatClient.RoomListActivity" />
+        <activity android:name="chatTest1.ChatTestActivity" />
+        <activity android:name="timer.TimerActivity" />
+        <activity android:name="timer.Test01Activity" />
         <activity
-            android:name="Seat.QRCodeScanActivity"
+            android:name="seat.QRCodeScanActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Seat.SeatHomeActivity"
+            android:name="seat.SeatHomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Loading.LoadingActivity"
+            android:name="loading.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -43,34 +38,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="Register.RegisterActivity"
+            android:name="register.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Register.CertMailActivity"
+            android:name="register.CertMailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="Login.LoginActivity"
+            android:name="login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="Main.HomeActivity"
+            android:name="main.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.teamnova.inma06.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Profile.ProfileMainActivity"
+            android:name="profile.ProfileMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ChatClient.ChatRoomMainActivity"
+            android:name="chatClient.ChatRoomMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Profile.ProfileFgModifyActivity"
+            android:name="profile.ProfileFgModifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Profile.ProfileBgModifyActivity"
+            android:name="profile.ProfileBgModifyActivity"
             android:screenOrientation="portrait" />
 
         <provider

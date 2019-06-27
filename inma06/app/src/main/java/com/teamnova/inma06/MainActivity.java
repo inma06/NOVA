@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.teamnova.nova.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,11 +24,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import Main.HomeActivity;
+import main.HomeActivity;
 
 public class MainActivity extends AppCompatActivity {
 

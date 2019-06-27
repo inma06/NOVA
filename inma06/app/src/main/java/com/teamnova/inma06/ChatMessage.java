@@ -1,11 +1,5 @@
 package com.teamnova.inma06;
 
-/**
- * Created by himanshusoni on 06/09/15.
- * List 에 담을 ChatMessage 객체를 만듭니다.
- *
- * Modify by Atanasio Park on 06/18/19.
- */
 public class ChatMessage {
     private boolean isImage, isMine;
     private String contentMessage;
