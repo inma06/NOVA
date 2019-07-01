@@ -1,4 +1,4 @@
-package com.teamnova.inma06;
+package chat.chatRoom;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +29,7 @@ import java.util.LinkedList;
 
 import main.HomeActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class ChatRoomMainActivity extends AppCompatActivity {
 
   private RecyclerView mRecyclerView;
   private ImageView mButtonSend;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_chat_room);
 
     mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     mButtonSend = (ImageView) findViewById(R.id.btn_send);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     mAdapter = new ChatMessageAdapter(this, new ArrayList<ChatMessage>());
     mRecyclerView.setAdapter(mAdapter);
 
-    threadList = new LinkedList<MainActivity.SocketClient>();
+    threadList = new LinkedList<ChatRoomMainActivity.SocketClient>();
 
     // 소켓 연결
     threadList.add(client);
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(MainActivity.this, "이미지전송 버튼, 앨범으로 이동합니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChatRoomMainActivity.this, "이미지전송 버튼, 앨범으로 이동합니다.", Toast.LENGTH_SHORT).show();
       }
     });
   }

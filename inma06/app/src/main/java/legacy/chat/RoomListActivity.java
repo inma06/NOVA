@@ -1,8 +1,8 @@
-package chatClient;
+package legacy.chat;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +29,7 @@ public class RoomListActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_room_list);
+    setContentView(R.layout.legacy_activity_room_list);
 
     addBtn = (Button) findViewById(R.id.addRoomBtn);
     room1 = (Button) findViewById(R.id.room1);
@@ -60,7 +60,7 @@ public class RoomListActivity extends AppCompatActivity {
         toast.show();
 
         mRoomNo = "1";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
       }
     });
@@ -75,7 +75,7 @@ public class RoomListActivity extends AppCompatActivity {
 
 
         mRoomNo = "2";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
 
       }
@@ -91,7 +91,7 @@ public class RoomListActivity extends AppCompatActivity {
 
         mRoomNo = "3";
 
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
 
       }
@@ -106,7 +106,7 @@ public class RoomListActivity extends AppCompatActivity {
         toast.show();
 
         mRoomNo = "4";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
 
       }
@@ -122,7 +122,7 @@ public class RoomListActivity extends AppCompatActivity {
 
 
         mRoomNo = "5";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
       }
     });
@@ -137,7 +137,7 @@ public class RoomListActivity extends AppCompatActivity {
 
 
         mRoomNo = "6";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
       }
     });
@@ -152,7 +152,7 @@ public class RoomListActivity extends AppCompatActivity {
 
 
         mRoomNo = "7";
-        Intent intent = new Intent(RoomListActivity.this, ChatRoomMainActivity.class);
+        Intent intent = new Intent(RoomListActivity.this, TestChatActivity.class);
         startActivity(intent);
 
       }

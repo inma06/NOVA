@@ -1,4 +1,4 @@
-package com.teamnova.inma06;
+package chat.chatRoom;
 
 public class ChatMessage {
     private boolean isImage, isMine;

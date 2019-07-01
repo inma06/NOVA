@@ -1,4 +1,4 @@
-package friendList;
+package chat.friendList;
 
 public class MainData {
 

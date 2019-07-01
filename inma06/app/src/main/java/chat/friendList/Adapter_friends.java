@@ -1,4 +1,4 @@
-package friendList;
+package chat.friendList;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +13,11 @@ import com.teamnova.nova.R;
 
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHolder> {
+public class Adapter_friends extends RecyclerView.Adapter<Adapter_friends.CustomViewHolder> {
 
   private ArrayList<MainData> arrayList;
 
-  public MainAdapter(ArrayList<MainData> arrayList) {
+  public Adapter_friends(ArrayList<MainData> arrayList) {
     this.arrayList = arrayList;
   }
 
@@ -26,14 +26,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
   public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list2, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friends_list, parent, false);
     CustomViewHolder holder = new CustomViewHolder(view);
 
     return holder;
   }
 
   @Override
-  public void onBindViewHolder(@NonNull final MainAdapter.CustomViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull final Adapter_friends.CustomViewHolder holder, int position) {
 
     holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
     holder.tv_name.setText(arrayList.get(position).getTv_name());
@@ -86,7 +86,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
 
     public CustomViewHolder(@NonNull View itemView) {
       super(itemView);
-      this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile1);
+      this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
       this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
       this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
     }

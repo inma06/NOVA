@@ -1,4 +1,4 @@
-package com.teamnova.inma06;
+package chat.chatRoom;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

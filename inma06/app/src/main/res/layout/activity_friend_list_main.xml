@@ -5,25 +5,126 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="friendList.FriendListMainActivity">
+    tools:context="chat.friendList.FriendListMainActivity">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:text="친구"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTintMode="screen"
+            android:text="⊙ 친구추가"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <SearchView
+        android:id="@+id/friend_sv"
+        android:layout_width="match_parent"
+        android:queryHint="친구 검색"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@null"
+        />
+
+
+
+    <!--  즐겨찾기  -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="즐겨찾기"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10dp"
+        />
+
+    <!-- 구분선 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#555555">
+    </View>
+    <!-- 구분선 끝 -->
+
     <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/rv"
+        android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
-        android:scrollbars="vertical"
-        android:layout_weight="1">
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_weight="8"
+    <!-- 구분선 -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="친구 추가"/>
+        android:layout_height="1dp"
+        android:background="#555555">
+    </View>
+    <!-- 구분선 끝 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="친구목록"/>
+        <TextView
+            android:id="@+id/tv_friendCtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="283"
+            android:layout_marginLeft="20dp"
+            />
+
+
+    </LinearLayout>
+    <!--  친구목록  -->
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/rvFriends"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_weight="1"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+
 
 </LinearLayout>

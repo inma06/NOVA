@@ -1,4 +1,4 @@
-package chatClient;
+package legacy.chat;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -35,9 +35,9 @@ import main.HomeActivity;
 *
 *
 * */
-public class ChatRoomMainActivity extends Activity {
+public class TestChatActivity extends Activity {
 
-  private static String TAG = "ChatRoomMainActivity";
+  private static String TAG = "TestChatActivity";
   public static int port = 9999;
 
   public static String ipText = "13.124.10.133"; // (AWS 채팅전용 서버 java Server ) *IP지정으로 사용시에 쓸 코드
@@ -70,7 +70,7 @@ public class ChatRoomMainActivity extends Activity {
   PipedOutputStream receivestream = null;
 
   LinkedList<SocketClient> threadList; // 클라이언트를 리스트에 담는다.
-  ChatRoomMainActivity context;
+  TestChatActivity context;
 
 
 
@@ -109,14 +109,14 @@ public class ChatRoomMainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_chat_room_main);
+    setContentView(R.layout.legacy_activity_chat_room);
 
     showText = (TextView) findViewById(R.id.showText_TextView);
     scrollView = (ScrollView) findViewById(R.id.showScrollView);
     editText_massage = (EditText) findViewById(R.id.editText_massage);
     Button_send = (Button) findViewById(R.id.Button_send);
     Button_exit = (Button) findViewById(R.id.Button_exit);
-    threadList = new LinkedList<ChatRoomMainActivity.SocketClient>();
+    threadList = new LinkedList<TestChatActivity.SocketClient>();
 
 
     //Client 연결부
@@ -156,9 +156,9 @@ public class ChatRoomMainActivity extends Activity {
           Log.e(TAG, "onClick: 방나가기 실패!!!!!!!!!!!!!!!!");
         }
 
-        Toast.makeText(ChatRoomMainActivity.this, "채팅방에서 퇴장했습니다. (미구현)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(TestChatActivity.this, "채팅방에서 퇴장했습니다. (미구현)", Toast.LENGTH_SHORT).show();
         finish();
-//        Intent intent = new Intent(ChatRoomMainActivity.this, HomeActivity.class);
+//        Intent intent = new Intent(TestChatActivity.this, HomeActivity.class);
         //TODO: 액티비티를 종료시키고 기존 액티비티를 새로 생성된 액티비티로 교체하는 플래그 ** 공부요망.
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        startActivity(intent);
@@ -174,7 +174,7 @@ public class ChatRoomMainActivity extends Activity {
 
         String message = editText_massage.getText().toString();
         if (message == null || TextUtils.isEmpty(message) || message.equals("")) {
-          Toast.makeText(ChatRoomMainActivity.this, "메시지를 입력해주세요", Toast.LENGTH_SHORT).show();
+          Toast.makeText(TestChatActivity.this, "메시지를 입력해주세요", Toast.LENGTH_SHORT).show();
         } else {
           send = new SendThread(socket, message);
           send.start();

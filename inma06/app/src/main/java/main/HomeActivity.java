@@ -18,8 +18,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import chatClient.RoomListActivity;
-import friendList.FriendListMainActivity;
+import chat.chatRoom.ChatRoomMainActivity;
+import chat.friendList.FriendListMainActivity;
 import seat.QRCodeScanActivity;
 import profile.ProfileMainActivity;
 import seat.SeatHomeActivity;
@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
   private Button test01Btn;
   private Button qrcodeBtn;
   private TextView userID_TV;
+  private Button chatRoomJoinBtn;
 
 
   @Override
@@ -77,9 +78,14 @@ public class HomeActivity extends AppCompatActivity {
     streamingBtn = (Button) findViewById(R.id.streamingBtn);
     timerBtn = (Button) findViewById(R.id.timerBtn);
     userID_TV = (TextView) findViewById(R.id.userID_TV);
+    chatRoomJoinBtn = (Button) findViewById(R.id.chatRoomJoinBtn);
+
 
 
     userID_TV.setText(mUserID);
+
+
+
 
     profileBtn.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -101,12 +107,25 @@ public class HomeActivity extends AppCompatActivity {
       public void onClick(View v) {
         /* 채팅 버튼 클릭 */
 
-        Intent intent = new Intent(HomeActivity.this, RoomListActivity.class);
+        Intent intent = new Intent(HomeActivity.this, ChatRoomMainActivity.class);
         startActivity(intent);
         Toast.makeText(HomeActivity.this, "채팅방 목록으로!", Toast.LENGTH_SHORT).show();
 
       }
     });
+
+    friendBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 채팅 버튼 클릭 */
+
+        Intent intent = new Intent(HomeActivity.this, ChatRoomMainActivity.class);
+        startActivity(intent);
+        Toast.makeText(HomeActivity.this, "채팅방 목록으로!", Toast.LENGTH_SHORT).show();
+
+      }
+    });
+
 
 
     checkBtn.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +233,7 @@ public class HomeActivity extends AppCompatActivity {
     });
 
 
-    //TODO: 기능 테스트 가속도센서
+
     test01Btn.setText("친구목록 테스트");
     test01Btn.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -225,6 +244,18 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
+
+
+    chatRoomJoinBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        /* 기능 테스트 버튼 클릭 */
+        Toast.makeText(HomeActivity.this, "채팅방에 조인", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, ChatRoomMainActivity.class);
+        startActivity(intent);
+      }
+    });
+
 
 
     qrcodeBtn.setOnClickListener(new View.OnClickListener() {
