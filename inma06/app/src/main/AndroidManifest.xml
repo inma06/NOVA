@@ -20,8 +20,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name="chat.friendList.FriendListMainActivity"/>
         <activity android:name="chat.roomList.RoomListMainActivity"/>
-        <activity android:name="com.teamnova.inma06.legacy.RoomListActivity" />
-        <activity android:name="chatTest1.ChatTestActivity" />
+        <activity android:name="legacy.chat.RoomListActivity" />
         <activity android:name="timer.TimerActivity" />
         <activity android:name="timer.Test01Activity" />
         <activity
@@ -62,7 +61,7 @@
             android:name="profile.ProfileMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.teamnova.inma06.legacy.TestChatActivity"
+            android:name="legacy.chat.TestChatActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="profile.ProfileFgModifyActivity"
