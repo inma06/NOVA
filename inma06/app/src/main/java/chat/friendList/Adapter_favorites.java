@@ -26,7 +26,7 @@ public class Adapter_favorites extends RecyclerView.Adapter<Adapter_favorites.Cu
   public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friends_list, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_list, parent, false);
     CustomViewHolder holder = new CustomViewHolder(view);
 
     return holder;
@@ -86,9 +86,9 @@ public class Adapter_favorites extends RecyclerView.Adapter<Adapter_favorites.Cu
 
     public CustomViewHolder(@NonNull View itemView) {
       super(itemView);
-      this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
-      this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-      this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
+      this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile_favorites);
+      this.tv_name = (TextView) itemView.findViewById(R.id.tv_name_favorites);
+      this.tv_content = (TextView) itemView.findViewById(R.id.tv_content_favorites);
     }
   }
 }

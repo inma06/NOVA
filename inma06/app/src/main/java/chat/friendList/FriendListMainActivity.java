@@ -45,6 +45,7 @@ public class FriendListMainActivity extends AppCompatActivity {
   private RecyclerView rvFavorites;
 
   private LinearLayoutManager linearLayoutManager;
+  private LinearLayoutManager linearLayoutManager2;
 
 
 
@@ -55,6 +56,7 @@ public class FriendListMainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_friend_list_main);
 
     linearLayoutManager = new LinearLayoutManager(this);
+    linearLayoutManager2 = new LinearLayoutManager(this);
 
     // 친구목록 리사이클러뷰
     rvFriends = (RecyclerView) findViewById(R.id.rv_friends);
@@ -64,7 +66,7 @@ public class FriendListMainActivity extends AppCompatActivity {
     rvFriends.setAdapter(adapter_friends);
     // 즐겨찾기 리사이클러뷰
     rvFavorites = (RecyclerView) findViewById(R.id.rv_favorites);
-    rvFavorites.setLayoutManager(linearLayoutManager);
+    rvFavorites.setLayoutManager(linearLayoutManager2);
     arrayList_Favorites = new ArrayList<>();
     adapter_favorites = new Adapter_favorites(arrayList_Favorites);
     rvFavorites.setAdapter(adapter_favorites);
@@ -89,9 +91,9 @@ public class FriendListMainActivity extends AppCompatActivity {
     btn_addFavorites.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "즐겨찾기 추가");
-        arrayList_friends.add(friendsData);
-        adapter_friends.notifyDataSetChanged();
+        FavoritesData favoritesData = new FavoritesData(R.mipmap.ic_launcher, "아타나시오", "즐겨찾기 추가");
+        arrayList_Favorites.add(favoritesData);
+        adapter_favorites.notifyDataSetChanged();
       }
     });
 
