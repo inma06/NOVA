@@ -78,7 +78,7 @@ public class FriendListMainActivity extends AppCompatActivity {
     btn_addFriends.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "리사이클러뷰!@@#");
+        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "친구목록 추가");
         arrayList_friends.add(friendsData);
         adapter_friends.notifyDataSetChanged();
       }
@@ -89,7 +89,7 @@ public class FriendListMainActivity extends AppCompatActivity {
     btn_addFavorites.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "리사이클러뷰!@@#");
+        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "즐겨찾기 추가");
         arrayList_friends.add(friendsData);
         adapter_friends.notifyDataSetChanged();
       }
