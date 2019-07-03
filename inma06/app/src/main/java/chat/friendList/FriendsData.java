@@ -1,13 +1,13 @@
 package chat.friendList;
 
-public class MainData {
+public class FriendsData {
 
   private int iv_profile;
   private String tv_name;
   private String tv_content;
 
 
-  public MainData(int iv_profile, String tv_name, String tv_content) {
+  public FriendsData(int iv_profile, String tv_name, String tv_content) {
     this.iv_profile = iv_profile;
     this.tv_name = tv_name;
     this.tv_content = tv_content;

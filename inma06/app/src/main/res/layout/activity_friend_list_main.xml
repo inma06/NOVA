@@ -24,12 +24,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_addFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:backgroundTintMode="screen"
             android:text="⊙ 친구추가"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_addFavorites"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btn_addFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTintMode="screen"
+            android:text="⊙ 즐겨찾기"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +52,7 @@
 
 
     <SearchView
-        android:id="@+id/friend_sv"
+        android:id="@+id/sv_friends"
         android:layout_width="match_parent"
         android:queryHint="친구 검색"
         android:layout_height="wrap_content"
@@ -69,7 +81,7 @@
 
     <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/rvFavorites"
+        android:id="@+id/rv_favorites"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_weight="1"
@@ -114,7 +126,7 @@
     <!--  친구목록  -->
     <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/rvFriends"
+        android:id="@+id/rv_friends"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_weight="1"

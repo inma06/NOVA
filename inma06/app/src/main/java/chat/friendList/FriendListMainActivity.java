@@ -1,7 +1,7 @@
 package chat.friendList;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -35,8 +35,12 @@ public class FriendListMainActivity extends AppCompatActivity {
 
 
 
-  private ArrayList<MainData> arrayList_friends;
-  private Adapter_friends adapter_friends_friends;
+  private ArrayList<FriendsData> arrayList_friends;
+  private Adapter_friends adapter_friends;
+
+  private ArrayList<FavoritesData> arrayList_Favorites;
+  private Adapter_favorites adapter_favorites;
+
   private RecyclerView rvFriends;
   private RecyclerView rvFavorites;
 
@@ -50,28 +54,44 @@ public class FriendListMainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_friend_list_main);
 
+    linearLayoutManager = new LinearLayoutManager(this);
 
     // 친구목록 리사이클러뷰
-    rvFriends = (RecyclerView) findViewById(R.id.rvFriends);
-    linearLayoutManager = new LinearLayoutManager(this);
+    rvFriends = (RecyclerView) findViewById(R.id.rv_friends);
     rvFriends.setLayoutManager(linearLayoutManager);
     arrayList_friends = new ArrayList<>();
-    adapter_friends_friends = new Adapter_friends(arrayList_friends);
-    rvFriends.setAdapter(adapter_friends_friends);
+    adapter_friends = new Adapter_friends(arrayList_friends);
+    rvFriends.setAdapter(adapter_friends);
+    // 즐겨찾기 리사이클러뷰
+    rvFavorites = (RecyclerView) findViewById(R.id.rv_favorites);
+    rvFavorites.setLayoutManager(linearLayoutManager);
+    arrayList_Favorites = new ArrayList<>();
+    adapter_favorites = new Adapter_favorites(arrayList_Favorites);
+    rvFavorites.setAdapter(adapter_favorites);
 
     //친구 검색 ( SearchView )
-    SearchView sv_friendSearch = (SearchView) findViewById(R.id.friend_sv);
+    SearchView sv_friendSearch = (SearchView) findViewById(R.id.sv_friends);
     sv_friendSearch.setQueryHint("이름 검색");
 
-
     //친구 추가 버튼
-    Button btn_add = (Button) findViewById(R.id.btn_add);
-    btn_add.setOnClickListener(new View.OnClickListener() {
+    Button btn_addFriends = (Button) findViewById(R.id.btn_addFriends);
+    btn_addFriends.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        MainData mainData = new MainData(R.mipmap.ic_launcher, "아타나시오", "리사이클러뷰!@@#");
-        arrayList_friends.add(mainData);
-        adapter_friends_friends.notifyDataSetChanged();
+        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "리사이클러뷰!@@#");
+        arrayList_friends.add(friendsData);
+        adapter_friends.notifyDataSetChanged();
+      }
+    });
+
+    //즐겨찾기 추가 버튼
+    Button btn_addFavorites = (Button) findViewById(R.id.btn_addFavorites);
+    btn_addFavorites.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        FriendsData friendsData = new FriendsData(R.mipmap.ic_launcher, "아타나시오", "리사이클러뷰!@@#");
+        arrayList_friends.add(friendsData);
+        adapter_friends.notifyDataSetChanged();
       }
     });
 

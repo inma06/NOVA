@@ -13,11 +13,11 @@ import com.teamnova.nova.R;
 
 import java.util.ArrayList;
 
-public class Adapter_friends extends RecyclerView.Adapter<Adapter_friends.CustomViewHolder> {
+public class Adapter_favorites extends RecyclerView.Adapter<Adapter_favorites.CustomViewHolder> {
 
-  private ArrayList<FriendsData> arrayList;
+  private ArrayList<FavoritesData> arrayList;
 
-  public Adapter_friends(ArrayList<FriendsData> arrayList) {
+  public Adapter_favorites(ArrayList<FavoritesData> arrayList) {
     this.arrayList = arrayList;
   }
 
@@ -33,7 +33,7 @@ public class Adapter_friends extends RecyclerView.Adapter<Adapter_friends.Custom
   }
 
   @Override
-  public void onBindViewHolder(@NonNull final Adapter_friends.CustomViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull final Adapter_favorites.CustomViewHolder holder, int position) {
 
     holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
     holder.tv_name.setText(arrayList.get(position).getTv_name());
